@@ -2,7 +2,6 @@ import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../base/color_data.dart';
 import '../../../auth/auth.dart';
 import '../../../base/resizer/fetch_pixels.dart';
@@ -39,7 +38,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget buildButtonLogout(BuildContext context) {
-    return getButton(context, blueColor, 'Logout', Colors.white, () {
+    return getButton(context, blueColor, 'Logout'.tr, Colors.white, () {
       Authentication.signOut();
       Navigator.pushNamed(context, '/');
     }, 18,
@@ -84,7 +83,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Working Calender', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Working Calender'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.workingCalender), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -97,7 +96,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Set Work days', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Set Work days'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.setWorkDays), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -110,7 +109,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Privacy Policy', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Privacy Policy'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.privacy), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -123,7 +122,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Terms of Use', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Terms of Use'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.terms), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -136,7 +135,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Support', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Support'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.support), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -149,7 +148,7 @@ class _TabProfileState extends State<TabProfile> {
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Report', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'Report'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.report), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),

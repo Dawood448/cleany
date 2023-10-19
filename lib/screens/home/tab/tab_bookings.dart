@@ -226,7 +226,7 @@ class _TabBookingsState extends State<TabBookings> {
             height: FetchPixels.getPixelHeight(124),
             width: FetchPixels.getPixelHeight(84.77)),
         getVerSpace(FetchPixels.getPixelHeight(30)),
-        getCustomFont('No Bookings Yet!', 20, Colors.black, 1,
+        getCustomFont('No Bookings Yet!'.tr, 20, Colors.black, 1,
             fontWeight: FontWeight.w900, textAlign: TextAlign.center)
       ],
     );
@@ -395,9 +395,9 @@ class _TabBookingsState extends State<TabBookings> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: details.schedule?.shiftStatus == 'pending'
+                            color: details.schedule?.shiftStatus == 'pending'.tr
                                 ? error
-                                : details.schedule?.shiftStatus == 'completed'
+                                : details.schedule?.shiftStatus == 'completed'.tr
                                     ? completed
                                     : success,
                           ),
@@ -498,9 +498,9 @@ class _TabBookingsState extends State<TabBookings> {
                               const SizedBox(
                                 width: 20,
                               ),
-                              const Text(
-                                'DASHBOARD',
-                                style: TextStyle(
+                               Text(
+                                'DASHBOARD'.tr,
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20),
@@ -550,9 +550,9 @@ class _TabBookingsState extends State<TabBookings> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Today\'s Appointments',
-                                  style: TextStyle(
+                                 Text(
+                                  'Today\'s Appointments' .tr,
+                                  style:const TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -670,9 +670,9 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    : const Center(
+                                    :  Center(
                                         child: Text(
-                                          'No appointments today',
+                                          'No appointments today'.tr,
                                           style: TextStyle(
                                             fontSize: 17,
                                           ),
@@ -681,9 +681,9 @@ class _TabBookingsState extends State<TabBookings> {
                                 const SizedBox(
                                   height: 30.0,
                                 ),
-                                const Text(
-                                  'Pending Appointments',
-                                  style: TextStyle(
+                                 Text(
+                                  'Pending Appointments'.tr,
+                                  style: const TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -813,7 +813,7 @@ class _TabBookingsState extends State<TabBookings> {
                                                                       .additionalInfo
                                                                       .toString() ==
                                                                   ''
-                                                              ? 'No additional information provided'
+                                                              ? 'No additional information provided'.tr
                                                               : pendingBookings[
                                                                       index]
                                                                   .data![index]
@@ -831,9 +831,9 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    : const Center(
+                                    :  Center(
                                         child: Text(
-                                          'No appointments today',
+                                          'No appointments today'.tr,
                                           style: TextStyle(
                                             fontSize: 17,
                                           ),
@@ -842,8 +842,8 @@ class _TabBookingsState extends State<TabBookings> {
                                 const SizedBox(
                                   height: 30.0,
                                 ),
-                                const Text(
-                                  'Completed Appointments',
+                                 Text(
+                                  'Completed Appointments'.tr,
                                   style: TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
@@ -949,7 +949,7 @@ class _TabBookingsState extends State<TabBookings> {
                                                                       .additionalInfo
                                                                       .toString() ==
                                                                   ''
-                                                              ? 'No additional information provided'
+                                                              ? 'No additional information provided'.tr
                                                               : completedBookings[
                                                                       index]
                                                                   .data![index]
@@ -967,9 +967,9 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    : const Center(
+                                    :  Center(
                                         child: Text(
-                                          'No appointments today',
+                                          'No appointments today'.tr,
                                           style: TextStyle(
                                             fontSize: 17,
                                           ),
