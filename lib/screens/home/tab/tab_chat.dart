@@ -3,6 +3,7 @@ import 'package:cleany/providers/chatting_list_provider.dart';
 import 'package:cleany/screens/notification/notification_screen.dart';
 import 'package:cleany/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -29,7 +30,7 @@ class _TabChatState extends State<TabChat> {
           getVerSpace(FetchPixels.getPixelHeight(20)),
           Align(
             alignment: Alignment.topCenter,
-            child: getCustomFont('Chats', 24, Colors.black, 1, fontWeight: FontWeight.w900),
+            child: getCustomFont('Chats'.tr, 24, Colors.black, 1, fontWeight: FontWeight.w900),
           ),
           getVerSpace(FetchPixels.getPixelHeight(30)),
           buildExpanded()

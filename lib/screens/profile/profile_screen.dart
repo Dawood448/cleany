@@ -4,6 +4,7 @@ import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/color_data.dart';
@@ -53,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget buildHeader(BuildContext context) {
     return gettoolbarMenu(context, 'back.svg', () {
       Constant.backToPrev(context);
-    }, istext: true, title: 'My Profile', weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
+    }, istext: true, title: 'My Profile'.tr, weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
   }
 
   Expanded buildExpandList(BuildContext context, Widget defVerSpaceSet, Widget defDividerSet) {

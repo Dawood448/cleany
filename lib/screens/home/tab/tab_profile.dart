@@ -1,5 +1,6 @@
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../base/color_data.dart';
@@ -70,7 +71,7 @@ class _TabProfileState extends State<TabProfile> {
             ),
           ),
           getVerSpace(FetchPixels.getPixelHeight(44)),
-          getButtonWithIcon(context, Colors.white, 'My Profile', Colors.black,
+          getButtonWithIcon(context, Colors.white, 'My Profile'.tr, Colors.black,
               () => Navigator.pushNamed(context, AppRoutes.profile), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
@@ -169,7 +170,7 @@ class _TabProfileState extends State<TabProfile> {
   Align buildHeader() {
     return Align(
       alignment: Alignment.topCenter,
-      child: getCustomFont('Profile', 24, Colors.black, 1, fontWeight: FontWeight.w900),
+      child: getCustomFont('Profile'.tr, 24, Colors.black, 1, fontWeight: FontWeight.w900),
     );
   }
 }

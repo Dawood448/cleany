@@ -1,6 +1,7 @@
 import 'package:cleany/apis/request_apis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 import '../../../../base/color_data.dart';
 import '../../../base/data/data_file.dart';
@@ -54,7 +55,7 @@ class _TabReviewState extends State<TabReview> {
         getVerSpace(FetchPixels.getPixelHeight(20)),
         Align(
           alignment: Alignment.topCenter,
-          child: getCustomFont('Reviews', 24, Colors.black, 1,
+          child: getCustomFont('Reviews'.tr, 24, Colors.black, 1,
               fontWeight: FontWeight.w900),
         ),
         getVerSpace(FetchPixels.getPixelHeight(30)),
@@ -329,7 +330,7 @@ class _TabReviewState extends State<TabReview> {
             width: FetchPixels.getPixelHeight(124)),
         getVerSpace(FetchPixels.getPixelHeight(31.1)),
         getCustomFont(
-          'No Reviews Yet!',
+          'No Reviews Yet!'.tr,
           20,
           Colors.black,
           1,

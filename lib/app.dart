@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 
 import 'apis/request_apis.dart';
+import 'language/languages.dart';
 import 'providers/booking_list_provider.dart';
 import 'providers/chatting_details_provider.dart';
 import 'providers/chatting_list_provider.dart';
@@ -103,6 +104,8 @@ class _AppState extends State<App> {
     // Timer.periodic(Duration(seconds: 30), (Timer t) => getLocation());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      translations: LocaleString(),
+      locale: const Locale('es', 'SP'),
       home: _hasInternetConnection
           ? MultiProvider(
               providers: [

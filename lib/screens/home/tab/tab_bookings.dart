@@ -10,12 +10,14 @@ import 'package:cleany/variables/app_routes.dart';
 import 'package:cleany/variables/global_variables.dart';
 import 'package:cleany/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../base/color_data.dart';
 import '../../../base/resizer/fetch_pixels.dart';
 import '../../../base/widget_utils.dart';
 import '../../../providers/cleaner_details_provider.dart';
+import '../../../widgets/language_dailoge.dart';
 import '../../booking/booking_details_screen.dart';
 import 'tab_chat.dart';
 
@@ -118,7 +120,7 @@ class _TabBookingsState extends State<TabBookings> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(
                 horizontal: FetchPixels.getDefaultHorSpace(context)),
-            child: getCustomFont('Bookings', 18, Colors.black, 1,
+            child: getCustomFont('Bookings'.tr, 18, Colors.black, 1,
                 fontWeight: FontWeight.w900),
           ),
           getVerSpace(FetchPixels.getPixelHeight(25)),
@@ -188,6 +190,15 @@ class _TabBookingsState extends State<TabBookings> {
               fontWeight: FontWeight.w400,
             ),
           ),
+          IconButton(
+              onPressed: () {
+                buildLanguageDialog(context);
+              },
+              icon: const Icon(
+                Icons.language,
+                size: 25,
+                color: Colors.black,
+              )),
           InkWell(
             customBorder: const CircleBorder(),
             onTap: () {
@@ -380,7 +391,7 @@ class _TabBookingsState extends State<TabBookings> {
                                   : success.withOpacity(0.2),
                         ),
                         child: Text(
-                          details.schedule?.shiftStatus?.capitalize ?? '',
+                          GetStringUtils(details.schedule?.shiftStatus)?.capitalize ?? '',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,

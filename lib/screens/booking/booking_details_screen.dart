@@ -5,6 +5,7 @@ import 'package:cleany/constants/stat_variables.dart';
 import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/variables/global_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
@@ -113,7 +114,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             () {
               Constant.backToPrev(context);
             },
-            title: 'Booking ID ${widget.booking!.data![widget.index].id}',
+            title: 'Booking ID'.tr + '${widget.booking!.data![widget.index].id}',
             weight: FontWeight.w900,
             istext: true,
             textColor: Colors.black,
@@ -139,7 +140,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           children: [
             getHorSpace(FetchPixels.getPixelWidth(24)),
             getCustomFont(
-                'Booked on ${_dateFormat.format(widget.booking!.data![widget.index].bod!.frequency!.startDate!)}',
+                'Booked on'.tr +' ${_dateFormat.format(widget.booking!.data![widget.index].bod!.frequency!.startDate!)}',
                 12,
                 textColor,
                 1,
@@ -230,14 +231,14 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           _infoItem(
               'location.svg',
               'City',
-              widget.booking!.data![widget.index].bod!.bodServiceLocation!.city
+              GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.city)
                       ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'location.svg',
               'State',
-              widget.booking!.data![widget.index].bod!.bodServiceLocation!.state
+              GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.state)
                       ?.capitalize ??
                   'N/A'),
           //
@@ -296,19 +297,19 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getVerSpace(FetchPixels.getPixelHeight(14)),
           _detailsItem(
               'Slug',
-              widget.booking!.data![widget.index].service?.slug
+              GetStringUtils(widget.booking!.data![widget.index].service?.slug)
                       ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
               'Title',
-              widget.booking!.data![widget.index].service?.title?.capitalize ??
+              GetStringUtils(widget.booking!.data![widget.index].service?.title)?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
               'Status',
-              widget.booking!.data![widget.index].service
-                      ?.status?.capitalize ??
+              GetStringUtils(widget.booking!.data![widget.index].service
+                      ?.status)?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           // _detailsItem(
@@ -323,9 +324,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
               'Three Days Reminder',
-              widget.booking!.data![widget.index].threeDayReminder
-                  .toString()
-                  .capitalize),
+              GetStringUtils(widget.booking!.data![widget.index].threeDayReminder
+                  .toString())
+                  .capitalize!),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
             'Appointment Date & Time',
@@ -373,8 +374,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   fontWeight: FontWeight.w900),
               Expanded(
                 child: getCustomFont(
-                    widget.booking!.data![widget.index].service
-                            ?.title?.capitalize ??
+                    GetStringUtils(widget.booking!.data![widget.index].service
+                            ?.title)?.capitalize ??
                         'N/A',
                     16,
                     Colors.black,
