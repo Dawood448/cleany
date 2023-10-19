@@ -1,0 +1,91 @@
+name: cleany
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependency_overrides:
+  firebase_messaging_platform_interface: ^4.2.16
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # widgets
+  curved_navigation_bar: ^1.0.3
+  table_calendar: ^3.0.9
+  google_maps_flutter: ^2.2.5
+  flutter_polyline_points: ^1.0.0
+  fluttertoast: ^8.2.1
+  syncfusion_flutter_gauges:
+  flutter_rating_bar: ^4.0.1
+  intl: ^0.18.0
+  web_socket_channel: ^2.4.0
+  
+
+  # core
+  http:
+  get: ^4.6.5
+  provider: ^6.0.5
+
+  # helpers
+  json_annotation:
+  flutter_secure_storage:
+  cached_network_image:
+  connectivity:
+  maps_launcher:
+  url_launcher:
+  map_launcher:
+  geolocator:
+  geocoding: ^2.1.1
+  date_format: ^2.0.7
+  search_map_place_updated:
+  internet_connection_checker:
+  cupertino_icons: ^1.0.5
+  shared_preferences: ^2.0.18
+  flutter_svg: ^2.0.4
+  timeago: ^3.4.0
+  lottie: ^2.6.0
+
+  # firebase
+  firebase_core: ^2.8.0
+  firebase_analytics: ^10.1.6
+  firebase_messaging: ^14.3.0
+  flutter_local_notifications: ^13.0.0
+  firebase_messaging_platform_interface: ^4.2.16
+  cloud_firestore:
+  flutter_launcher_icons: ^0.12.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.3.3
+  flutter_lints: ^2.0.1
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_logo.png"
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Black.ttf
+        - asset: fonts/Lato-Bold.ttf
+          weight: 800
+        - asset: fonts/Lato-Light.ttf
+          weight: 200
+        - asset: fonts/Lato-Regular.ttf
+          weight: 400
+        - asset: fonts/Lato-Semibold.ttf
+          weight: 600

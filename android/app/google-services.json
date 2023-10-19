@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "1031249990929",
+    "project_id": "cleany-4f6c0",
+    "storage_bucket": "cleany-4f6c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031249990929:android:1cf17eeffc1553774da8b0",
+        "android_client_info": {
+          "package_name": "com.cleany.cleaner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeU8hEUUq2VqwEEXA4wzZ9H66pJYJR1ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031249990929-h08cfc23c69b8f1to3i1lrqg13vgrdhp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cleany"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031249990929:android:bad00228ef49c57b4da8b0",
+        "android_client_info": {
+          "package_name": "com.cleany.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeU8hEUUq2VqwEEXA4wzZ9H66pJYJR1ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031249990929-h08cfc23c69b8f1to3i1lrqg13vgrdhp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cleany"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031249990929:android:ee6fd3adb544928d4da8b0",
+        "android_client_info": {
+          "package_name": "com.example.cleany"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeU8hEUUq2VqwEEXA4wzZ9H66pJYJR1ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031249990929-gnmncm8ffkl2um4u11eboqtp0hlekaki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031249990929-h08cfc23c69b8f1to3i1lrqg13vgrdhp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cleany"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
