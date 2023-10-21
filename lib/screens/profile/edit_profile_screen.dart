@@ -2,6 +2,7 @@ import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/color_data.dart';

@@ -107,7 +107,6 @@ class _TabBookingsState extends State<TabBookings> {
   @override
   Widget build(BuildContext context) {
     FetchPixels(context);
-
     // return _dashboard();
     return SafeArea(
       child: Column(

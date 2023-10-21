@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           getVerSpace(FetchPixels.getPixelHeight(40)),
           profilePicture(context),
           getVerSpace(FetchPixels.getPixelHeight(40)),
-          getCustomFont('Name', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Name'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}',
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Email', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Email'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].email,
@@ -92,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Phone #', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Phone #'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.phoneNumber,
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Status', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Status'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.status,
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Role', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Role'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.role,
@@ -128,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Gender', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Gender'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.gender,
@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Language', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Language'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.language,
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Zip Code', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Zip Code'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.zipCode,
@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           defVerSpaceSet,
           defDividerSet,
           defVerSpaceSet,
-          getCustomFont('Address', 16, textColor, 1, fontWeight: FontWeight.w400),
+          getCustomFont('Address'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
             cleanerProfile.details[0].profile.address,
@@ -208,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           left: FetchPixels.getPixelWidth(20),
           right: FetchPixels.getPixelWidth(20),
           bottom: FetchPixels.getPixelHeight(30)),
-      child: getButton(context, blueColor, 'Edit Profile', Colors.white, () {
+      child: getButton(context, blueColor, 'Edit Profile'.tr, Colors.white, () {
         Navigator.of(context).pushNamed(AppRoutes.edit);
       }, 18,
           weight: FontWeight.w600,

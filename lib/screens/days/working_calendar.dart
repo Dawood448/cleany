@@ -5,6 +5,7 @@ import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/providers/booking_list_provider.dart';
 import 'package:cleany/screens/booking/booking_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -148,7 +149,7 @@ class _CalendarState extends State<Calendar> {
       width: double.maxFinite,
       child: details == null
           ? Text(
-              'Something went wrong',
+              'Something went wrong'.tr,
               style: TextStyle(color: error, fontWeight: FontWeight.w700),
             )
           : Column(
@@ -205,7 +206,7 @@ class _CalendarState extends State<Calendar> {
                                   : success.withOpacity(0.2),
                         ),
                         child: Text(
-                          details.schedule?.shiftStatus?.capitalize ?? '',
+                          GetStringUtils(details.schedule?.shiftStatus)?.capitalize ?? '',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -362,13 +363,13 @@ class _CalendarState extends State<Calendar> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: const [
+                                  children:  [
                                     Icon(Icons.phone),
                                     SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      'Contact No:',
+                                      'Contact No:'.tr,
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -380,13 +381,13 @@ class _CalendarState extends State<Calendar> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: const [
+                                  children:  [
                                     Icon(Icons.calendar_today_outlined),
                                     SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      'Date:',
+                                      'Date:'.tr,
                                       style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -401,13 +402,13 @@ class _CalendarState extends State<Calendar> {
                               children: [
                                 Expanded(
                                   child: Row(
-                                    children: const [
+                                    children:  [
                                       Icon(Icons.location_city),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       Text(
-                                        'Address:',
+                                        'Address:'.tr,
                                         style: TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -512,7 +513,7 @@ class _CalendarState extends State<Calendar> {
         Constant.backToPrev(context);
       },
       istext: true,
-      title: 'Schedule',
+      title: 'Schedule'.tr,
       weight: FontWeight.w900,
       fontsize: 24,
       textColor: Colors.black,

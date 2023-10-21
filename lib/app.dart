@@ -105,7 +105,7 @@ class _AppState extends State<App> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: LocaleString(),
-      locale: const Locale('es', 'SP'),
+      locale: const Locale('en','US'),
       home: _hasInternetConnection
           ? MultiProvider(
               providers: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../base/color_data.dart';
 import '../../../base/constant.dart';
@@ -46,7 +47,7 @@ class _SupportScreenState extends State<SupportScreen> {
       Constant.backToPrev(context);
     },
         istext: true,
-        title: 'Support',
+        title: 'Support'.tr,
         weight: FontWeight.w900,
         fontsize: 24,
         textColor: Colors.black);
@@ -60,7 +61,7 @@ class _SupportScreenState extends State<SupportScreen> {
         primary: true,
         children: [
           getMultilineCustomFont(
-              'If you have any questions or issues while using our application, please contact our support team at support@bookcleany.com.',
+              'If you have any questions or issues while using our application, please contact our support team at support@bookcleany.com.'.tr,
               16,
               Colors.black,
               fontWeight: FontWeight.w400,

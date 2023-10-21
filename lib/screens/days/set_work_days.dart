@@ -1,15 +1,14 @@
 import 'dart:async';
-
 import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/providers/leave_list_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -203,16 +202,16 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                 setState(() {
                   getLeave.list.removeAt(index);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Leave removed!'),
+                     SnackBar(
+                      content: Text('Leave removed!'.tr),
                     ),
                   );
                 });
               } else {
                 if (context.mounted)
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Something went wrong with leave deletion!'),
+                     SnackBar(
+                      content: Text('Something went wrong with leave deletion!'.tr),
                     ),
                   );
               }
@@ -250,17 +249,17 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                   ),
                   getVerSpace(FetchPixels.getPixelHeight(15)),
                   Text(
-                    'Start Date: ${_dateFormat.format(DateTime.tryParse(getLeave.list[index].data![index].start ?? '') ?? DateTime.now())}',
+                    'Start Date: ${_dateFormat.format(DateTime.tryParse(getLeave.list[index].data![index].start ?? '') ?? DateTime.now())}'.tr,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   getVerSpace(FetchPixels.getPixelHeight(8)),
                   Text(
-                    'End Date: ${_dateFormat.format(DateTime.tryParse(getLeave.list[index].data![index].end ?? '') ?? DateTime.now())}',
+                    'End Date: ${_dateFormat.format(DateTime.tryParse(getLeave.list[index].data![index].end ?? '') ?? DateTime.now())}'.tr,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                   getVerSpace(FetchPixels.getPixelHeight(8)),
                   Text(
-                    'Service Provider: ${getLeave.list[index].data![index].serviceProvider}',
+                    'Service Provider: ${getLeave.list[index].data![index].serviceProvider}'.tr,
                     style: const TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ],
@@ -289,9 +288,9 @@ class _SetWorkDaysState extends State<SetWorkDays> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Choose Schedule',
-            style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900),
+           Text(
+            'Choose Schedule'.tr,
+            style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900),
           ),
           getVerSpace(FetchPixels.getPixelHeight(20)),
           Row(
@@ -299,7 +298,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
               Expanded(
                 child: getDefaultTextFiledWithLabel(
                   context,
-                  'Start Date',
+                  'Start Date'.tr,
                   _dateController,
                   Colors.grey,
                   function: () => _selectDate(context),
@@ -317,7 +316,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
               Expanded(
                 child: getDefaultTextFiledWithLabel(
                   context,
-                  'Start Time',
+                  'Start Time'.tr,
                   _timeController,
                   Colors.grey,
                   function: () => _selectTime(context),
@@ -339,7 +338,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
               Expanded(
                 child: getDefaultTextFiledWithLabel(
                   context,
-                  'End Date',
+                  'End Date'.tr,
                   _dateController1,
                   Colors.grey,
                   function: () => _selectDate1(context),
@@ -357,7 +356,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
               Expanded(
                 child: getDefaultTextFiledWithLabel(
                   context,
-                  'End Time',
+                  'End Time'.tr,
                   _timeController1,
                   Colors.grey,
                   function: () => _selectTime1(context),
@@ -377,7 +376,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
           getButton(
             context,
             blueColor,
-            'Submit',
+            'Submit'.tr,
             Colors.white,
             () async {
               var startDatetime = '${_dateController.text}T${_timeController.text}';
@@ -392,8 +391,8 @@ class _SetWorkDaysState extends State<SetWorkDays> {
               } else {
                 if (mounted)
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Something went wrong while creating leave'),
+                     SnackBar(
+                      content: Text('Something went wrong while creating leave'.tr),
                     ),
                   );
               }
@@ -416,7 +415,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
         Constant.backToPrev(context);
       },
       istext: true,
-      title: 'Set Work Days',
+      title: 'Set Work Days'.tr,
       weight: FontWeight.w900,
       fontsize: 24,
       textColor: Colors.black,
@@ -426,7 +425,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
   Widget titleField() {
     return getDefaultTextFiledWithLabel(
       context,
-      'Title',
+      'Title'.tr,
       _titleController,
       Colors.grey,
       function: () {},
@@ -472,13 +471,13 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                                 ),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
-                              labelText: 'Enter Title'),
+                              labelText: 'Enter Title'.tr),
                         ),
                         Row(
-                          children: const [
+                          children:  [
                             Text(
-                              'Choose Start Date/Time',
-                              style: TextStyle(
+                              'Choose Start Date/Time'.tr,
+                              style: const TextStyle(
                                   // fontStyle: FontStyle.,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 0.1),
@@ -572,10 +571,10 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                     Column(
                       children: [
                         Row(
-                          children: const [
+                          children:  [
                             Text(
-                              'Choose End Date/Time',
-                              style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.1),
+                              'Choose End Date/Time'.tr,
+                              style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.1),
                             ),
                           ],
                         ),
@@ -673,10 +672,10 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                             } else {
                               if (mounted)
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Leave Created Unsuccessfully')));
+                                     SnackBar(content: Text('Leave Created Unsuccessfully'.tr)));
                             }
                           },
-                          child: const Text('Submit'),
+                          child:  Text('Submit'.tr),
                         )
                       ],
                     ),
@@ -714,7 +713,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                                       setState(() {
                                         getLeave.list.removeAt(index);
                                         ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(content: Text('Deleted SuccussFully!!!')));
+                                             SnackBar(content: Text('Deleted SuccussFully!!!'.tr)));
                                       });
                                     },
                                     child: Container(
@@ -744,9 +743,9 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    const Text(
-                                                      'Start Date:',
-                                                      style: TextStyle(
+                                                     Text(
+                                                      'Start Date:'.tr,
+                                                      style: const TextStyle(
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -758,9 +757,9 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    const Text(
-                                                      'End Date:',
-                                                      style: TextStyle(
+                                                     Text(
+                                                      'End Date:'.tr,
+                                                      style: const TextStyle(
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
@@ -772,9 +771,9 @@ class _SetWorkDaysState extends State<SetWorkDays> {
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    const Text(
-                                                      'Service Provider:',
-                                                      style: TextStyle(
+                                                     Text(
+                                                      'Service Provider:'.tr,
+                                                      style: const TextStyle(
                                                         fontWeight: FontWeight.bold,
                                                       ),
                                                     ),

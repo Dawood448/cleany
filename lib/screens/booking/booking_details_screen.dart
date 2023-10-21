@@ -1,6 +1,4 @@
 import 'package:cleany/apis/request_apis.dart';
-import 'package:cleany/auth/auth.dart';
-import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/constants/stat_variables.dart';
 import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/variables/global_variables.dart';
@@ -8,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -204,64 +201,64 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Package
-          getCustomFont('Package', 18, Colors.black, 1,
+          getCustomFont('Package'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
-          _infoItem('user.svg', 'Name',
+          _infoItem('user.svg', 'Name'.tr,
               '${widget.booking!.data![widget.index].bod!.bodContactInfo!.firstName} ${widget.booking!.data![widget.index].bod!.bodContactInfo!.lastName}'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'termuse.svg',
-              'Type',
+              'Type'.tr,
               widget.booking!.data![widget.index].bod!.frequency!.type ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(22)),
           //
           // Location
-          getCustomFont('Location', 18, Colors.black, 1,
+          getCustomFont('Location'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           _infoItem(
               'home.svg',
-              'Street Address',
+              'Street Address'.tr,
               widget.booking!.data![widget.index].bod!.bodServiceLocation!
                       .streetAddress ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'location.svg',
-              'City',
+              'City'.tr,
               GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.city)
                       ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'location.svg',
-              'State',
+              'State'.tr,
               GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.state)
                       ?.capitalize ??
                   'N/A'),
           //
           // Contact
           getVerSpace(FetchPixels.getPixelHeight(22)),
-          getCustomFont('Contact', 18, Colors.black, 1,
+          getCustomFont('Contact'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           _infoItem(
               'call.svg',
-              'Phone Number',
+              'Phone Number'.tr,
               widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'message.svg',
-              'Email',
+              'Email'.tr,
               widget.booking!.data![widget.index].bod!.bodContactInfo!.email ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'user.svg',
-              'User Name',
+              'User Name'.tr,
               widget.booking!.data![widget.index].bod!.bodContactInfo!
                       .firstName ??
                   'N/A'),
@@ -292,22 +289,22 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Package
-          getCustomFont('Details', 18, Colors.black, 1,
+          getCustomFont('Details'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           _detailsItem(
-              'Slug',
+              'Slug'.tr,
               GetStringUtils(widget.booking!.data![widget.index].service?.slug)
                       ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-              'Title',
+              'Title'.tr,
               GetStringUtils(widget.booking!.data![widget.index].service?.title)?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-              'Status',
+              'Status'.tr,
               GetStringUtils(widget.booking!.data![widget.index].service
                       ?.status)?.capitalize ??
                   'N/A'),
@@ -323,26 +320,26 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //         'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-              'Three Days Reminder',
+              'Three Days Reminder'.tr,
               GetStringUtils(widget.booking!.data![widget.index].threeDayReminder
                   .toString())
                   .capitalize!),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-            'Appointment Date & Time',
+            'Appointment Date & Time'.tr,
             _dateFormat.format(
                 widget.booking!.data![widget.index].appointmentDateTime!),
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-            'How to enter on premise',
+            'How to enter on premise'.tr,
             widget.booking!.data![widget.index].bod!.bodContactInfo!
                     .howToEnterOnPremise ??
                 'N/A',
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-            'Do parking spot',
+            'Do parking spot'.tr,
             (widget.booking!.data![widget.index].bod!.bodContactInfo!
                         .parkingSpot ??
                     false)
@@ -351,7 +348,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
-            'Do you have pets',
+            'Do you have pets'.tr,
             (widget.booking!.data![widget.index].bod!.bodContactInfo!
                         .havePets ??
                     false)
@@ -370,7 +367,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           // Services
           Row(
             children: [
-              getCustomFont('Services', 18, Colors.black, 1,
+              getCustomFont('Services'.tr, 18, Colors.black, 1,
                   fontWeight: FontWeight.w900),
               Expanded(
                 child: getCustomFont(
@@ -464,7 +461,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       children: [
         getSvgImage(svgPath, width: 18, height: 18),
         getHorSpace(FetchPixels.getPixelWidth(8)),
-        getCustomFont('$title: ', 16, textColor, 1,
+        getCustomFont('$title: '.tr, 16, textColor, 1,
             fontWeight: FontWeight.w400),
         Expanded(
             child: getCustomFont(value, 16, Colors.black, 2,
@@ -479,7 +476,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       children: [
         getSvgImage('unselected.svg', color: blueColor, width: 14, height: 14),
         getHorSpace(FetchPixels.getPixelWidth(8)),
-        getCustomFont('$title: ', 16, textColor, 1,
+        getCustomFont('$title: '.tr, 16, textColor, 1,
             fontWeight: FontWeight.w400),
         Expanded(
             child: getCustomFont(value, 16, Colors.black, 2,
@@ -499,7 +496,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       child: Row(
         children: [
           Expanded(
-            child: getButton(context, backGroundColor, 'Directions', blueColor,
+            child: getButton(context, backGroundColor, 'Directions'.tr, blueColor,
                 () async {
               // TODO: launch google maps
               if (widget.booking!.data![widget.index].dispatchId!
@@ -508,8 +505,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   widget.booking!.data![widget.index].dispatchId!
                           .serviceProvider!.userProfile!.latitude ==
                       null) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Location Not Found'),
+                ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                  content: Text('Location Not Found'.tr),
                 ));
               } else {
                 await launchNativeMap();
@@ -536,8 +533,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                     () async {
                       _shiftStart().then(
                           (value) => ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Shift Started'),
+                                 SnackBar(
+                                  content: Text('Shift Started'.tr),
                                 ),
                               ));
                     },
@@ -558,8 +555,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                         () async {
                           _shiftEnd().then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Shift Ended'),
+                               SnackBar(
+                                content: Text('Shift Ended'.tr),
                               ),
                             );
                             Navigator.pop(context);
@@ -585,7 +582,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: getCustomFont(
-            'Health Check',
+            'Health Check'.tr,
             18,
             Colors.black,
             1,
@@ -599,7 +596,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               getCustomFont(
-                'How are you feeling about cleaning today?',
+                'How are you feeling about cleaning today?'.tr,
                 16,
                 Colors.black,
                 2,
@@ -608,7 +605,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               getVerSpace(FetchPixels.getPixelHeight(20)),
               getDefaultTextFiledWithLabel(
                 context,
-                'Work Mood',
+                'Work Mood'.tr,
                 workMoodTextController,
                 Colors.grey,
                 function: () {},
@@ -629,7 +626,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                     vertical: VisualDensity.minimumDensity,
                   ),
                   title: getCustomFont(
-                    'I am COVID negative today',
+                    'I am COVID negative today'.tr,
                     16,
                     Colors.black,
                     1,
@@ -653,7 +650,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               child: getButton(
                 context,
                 blueColor,
-                'Confirm',
+                'Confirm'.tr,
                 Colors.white,
                 () async {
                   if (canUpload) {
@@ -691,7 +688,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: getCustomFont(
-            'Alert',
+            'Alert'.tr,
             18,
             Colors.black,
             1,
@@ -705,7 +702,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               getCustomFont(
-                'Tell us something about the work of today?',
+                'Tell us something about the work of today?'.tr,
                 16,
                 Colors.black,
                 2,
@@ -714,7 +711,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               getVerSpace(FetchPixels.getPixelHeight(20)),
               getDefaultTextFiledWithLabel(
                 context,
-                'Today\'s work',
+                'Today\'s work'.tr,
                 workCompleteTextController,
                 Colors.grey,
                 function: () {},
@@ -735,7 +732,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                     vertical: VisualDensity.minimumDensity,
                   ),
                   title: getCustomFont(
-                    'Completed all tasks',
+                    'Completed all tasks'.tr,
                     16,
                     Colors.black,
                     1,
@@ -758,7 +755,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               child: getButton(
                 context,
                 blueColor,
-                'Confirm',
+                'Confirm'.tr,
                 Colors.white,
                 () async {
                   if (canUpload) {
@@ -792,1277 +789,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     );
   }
 
-  Widget _bookingDetails() {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Colors.grey[200],
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(color: AppColors.appThemeColor),
-            child: Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          const Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.check_circle,
-                                    size: 30.0,
-                                    color: Color.fromARGB(255, 14, 217, 28),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'BOOKING CONFIRMED',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.all(5),
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30))),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          /////////////////////////////////////
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const Row(
-                                        children: [
-                                          Text(
-                                            'Congratulations!',
-                                            style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      const Row(
-                                        children: [
-                                          Text(
-                                            'This Booking is assigned successfully to you.',
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Booking ID:',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Text(
-                                            widget
-                                                .booking!.data![widget.index].id
-                                                .toString(),
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Booked On:',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Text(
-                                            DateFormat.yMMMEd().format(widget
-                                                .booking!
-                                                .data![widget.index]
-                                                .bod!
-                                                .frequency!
-                                                .startDate as DateTime),
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text('Booking Details',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.italic)),
-                                    Row(
-                                      children: [
-                                        const Text('Chat',
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic)),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ChatsScreen(
-                                                          bookingId: widget
-                                                              .booking!
-                                                              .data![
-                                                                  widget.index]
-                                                              .id,
-                                                        )));
-                                          },
-                                          child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  right: 20),
-                                              child: const Icon(
-                                                Icons.chat,
-                                                color: Colors.blue,
-                                                size: 30,
-                                              )),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      const Row(
-                                        children: [
-                                          Text('Package',
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600)),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(Icons.people_alt,
-                                              color: Colors.grey),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('Name',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                  )),
-                                              Text(
-                                                '${widget.booking!.data![widget.index].bod!.bodContactInfo!.firstName}\'s Place',
-                                                style: const TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(Icons.menu,
-                                              color: Colors.grey),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('Type'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .frequency!
-                                                      .type
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text('Booking Location',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(
-                                            Icons.location_city,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('Street Address'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodServiceLocation!
-                                                      .streetAddress
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(
-                                            Icons.location_history,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('State'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodServiceLocation!
-                                                      .state
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(Icons.add_location_alt,
-                                              color: Colors.grey),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('City'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodServiceLocation!
-                                                      .city
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text('Booking Contact',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(
-                                            Icons.phone,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('Contact'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodContactInfo!
-                                                      .phone
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(
-                                            Icons.email,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('Email'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodContactInfo!
-                                                      .email
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          const Icon(
-                                            Icons.people_alt,
-                                            color: Colors.grey,
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const Text('User Name'),
-                                              Text(
-                                                  widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .bodContactInfo!
-                                                      .firstName
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text(
-                                  'Details',
-                                  style: TextStyle(
-                                      // color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Slug',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          Text(
-                                              widget
-                                                      .booking
-                                                      ?.data?[widget.index]
-                                                      .bod
-                                                      ?.frequency
-                                                      ?.service
-                                                      ?.slug
-                                                      ?.toString() ??
-                                                  'N/A',
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Title',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          Text(
-                                              widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .frequency!
-                                                      .service
-                                                      ?.title
-                                                      .toString() ??
-                                                  "N/A",
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Status',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          Text(
-                                              widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .frequency!
-                                                      .service
-                                                      ?.status
-                                                      .toString() ??
-                                                  "N/A",
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Cleaner Notes',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          Text(
-                                              widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .cleanerNotes
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Customer Notes',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          // widget.booking!.data![widget.index]
-                                          //         .customerNotes!
-                                          //         .toString()
-                                          //         .isEmpty
-                                          //     ? Text('')
-                                          //     :
-                                          Text(
-                                              widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .customerNotes
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Three Days Reminder',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                              )),
-                                          Text(
-                                              widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .threeDayReminder
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Expanded(
-                                            child: Text(
-                                                'Appointment Date and Time',
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                )),
-                                          ),
-                                          Text(
-                                              DateFormat.yMMMEd().format(widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .appointmentDateTime
-                                                  as DateTime),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600))
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
 
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Services',
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text(
-                                              widget
-                                                      .booking!
-                                                      .data![widget.index]
-                                                      .bod!
-                                                      .frequency!
-                                                      .service
-                                                      ?.title
-                                                      .toString() ??
-                                                  "N/A",
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold))
-                                        ],
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          child: const Text('Items',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text('Title',
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            for (int i = 0;
-                                                i < widget.servicesIndex;
-                                                i++)
-                                              Text(widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .packages![i]
-                                                  .item!
-                                                  .title
-                                                  .toString()),
-                                          ],
-                                        ),
-                                      ),
-
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text('Extras',
-                                              style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text(
-                                              widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .bod!
-                                                  .frequency!
-                                                  .service!
-                                                  .title
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold))
-                                        ],
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          child: const Text('Items',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const Text('Title',
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            for (int i = 0;
-                                                i < widget.extraIndex;
-                                                i++)
-                                              Text(widget
-                                                  .booking!
-                                                  .data![widget.index]
-                                                  .extras![i]
-                                                  .extra!
-                                                  .title
-                                                  .toString()),
-                                          ],
-                                        ),
-                                      ),
-
-                                      // ListView.builder(
-                                      //     shrinkWrap: true,
-                                      //     physics: ClampingScrollPhysics(),
-                                      //     itemBuilder: (context, index) {
-                                      //       return Container();
-                                      //     }),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          // Text('Goto GoogleMap',
-                                          //     style: TextStyle(
-                                          //         fontSize: 18,
-                                          //         fontWeight:
-                                          //             FontWeight.bold)),
-                                          ElevatedButton.icon(
-                                              style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Colors.white),
-                                              onPressed: () async {
-                                                if (widget
-                                                        .booking!
-                                                        .data![widget.index]
-                                                        .dispatchId!
-                                                        .serviceProvider!
-                                                        .userProfile!
-                                                        .longitude ==
-                                                    null) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                          const SnackBar(
-                                                    content: Text(
-                                                        'Location Not Found'),
-                                                  ));
-                                                } else {
-                                                  await launchNativeMap();
-                                                }
-                                              },
-                                              icon: const Icon(
-                                                Icons.location_on,
-                                                color: Colors.blue,
-                                              ),
-                                              label: const Text(
-                                                'See on the Google Map',
-                                                style: TextStyle(
-                                                    color: Colors.blue),
-                                              ))
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text('Start Shift and End Shift',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                              ]),
-
-                          // Start SHift / End Shift
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          widget.booking!.data![widget.index].dispatchId!
-                                      .shiftStarted ==
-                                  false
-                              ? Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible:
-                                              true, // user must tap button!
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                                title:
-                                                    const Text('Health Check!'),
-                                                content: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      4,
-                                                  child: Column(
-                                                    //mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      StatefulBuilder(builder:
-                                                          (BuildContext context,
-                                                              void Function(
-                                                                      void
-                                                                          Function())
-                                                                  setState) {
-                                                        return CheckboxListTile(
-                                                          title: const Text(
-                                                              'I\'m Covid negative today'),
-                                                          value: isShiftStarted,
-                                                          onChanged: (val) {
-                                                            setState(() {
-                                                              isShiftStarted =
-                                                                  val!;
-                                                              debugPrint(
-                                                                  isShiftStarted
-                                                                      .toString());
-                                                            });
-                                                          },
-                                                        );
-                                                      }),
-                                                      Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 15.0,
-                                                                  right: 15.0),
-                                                          child: const Text(
-                                                              'How are you feeling about cleaning today?')),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      Theme(
-                                                        data: ThemeData(
-                                                          primaryColor: Colors
-                                                              .greenAccent,
-                                                          primaryColorDark:
-                                                              Colors.green,
-                                                        ),
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 15.0,
-                                                                  right: 70.0),
-                                                          child: TextField(
-                                                            controller:
-                                                                workMoodTextController,
-                                                            decoration: const InputDecoration(
-                                                                border: OutlineInputBorder(
-                                                                    borderSide: BorderSide(
-                                                                        color: Colors
-                                                                            .teal)),
-                                                                labelText:
-                                                                    'Work Mood',
-                                                                suffixStyle: TextStyle(
-                                                                    color: Colors
-                                                                        .green)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                actions: <Widget>[
-                                                  Center(
-                                                    child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2,
-                                                        child: ElevatedButton(
-                                                          onPressed: canUpload
-                                                              ? () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                          const SnackBar(
-                                                                    content: Text(
-                                                                        'Shift Started'),
-                                                                  ));
-                                                                  setState(() {
-                                                                    debugPrint(widget
-                                                                        .booking!
-                                                                        .data![widget
-                                                                            .index]
-                                                                        .schedule!
-                                                                        .id
-                                                                        .toString());
-                                                                    ApiRequests().startShift(
-                                                                        widget
-                                                                            .booking!
-                                                                            .data![widget
-                                                                                .index]
-                                                                            .schedule!
-                                                                            .id
-                                                                            .toString(),
-                                                                        _isChecked[0]
-                                                                            .toString(),
-                                                                        workMoodTextController
-                                                                            .text);
-                                                                    isShiftStarted =
-                                                                        true;
-                                                                    stateShiftStarted();
-                                                                  });
-                                                                }
-                                                              : null,
-                                                          child: const Center(
-                                                              child: Text(
-                                                                  'Confirm')),
-                                                        )),
-                                                  )
-                                                ]);
-                                          },
-                                        );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 50, vertical: 20),
-                                          textStyle: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold)),
-                                      child: const Text(
-                                        'Start Shift',
-                                      )),
-                                )
-                              : widget.booking!.data![widget.index].dispatchId!
-                                          .shiftEnded ==
-                                      false
-                                  ? Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            barrierDismissible:
-                                                true, // user must tap button!
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: const Text('Alert!'),
-                                                content: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      4,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      StatefulBuilder(builder:
-                                                          (BuildContext context,
-                                                              void Function(
-                                                                      void
-                                                                          Function())
-                                                                  setState) {
-                                                        return CheckboxListTile(
-                                                          title: const Text(
-                                                              'Completed All the tasks'),
-                                                          value: isShiftEnded,
-                                                          onChanged: (val) {
-                                                            setState(() {
-                                                              isShiftEnded =
-                                                                  val!;
-                                                            });
-                                                          },
-                                                        );
-                                                      }),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 15.0,
-                                                                  right: 15.0),
-                                                          child: const Text(
-                                                              'Tell us something about the work of today!')),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Theme(
-                                                        data: ThemeData(
-                                                          primaryColor:
-                                                              Colors.redAccent,
-                                                          primaryColorDark:
-                                                              Colors.red,
-                                                        ),
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  left: 15.0,
-                                                                  right: 30.0),
-                                                          child: TextField(
-                                                            controller:
-                                                                workCompleteTextController,
-                                                            onChanged:
-                                                                (value) {},
-                                                            decoration: const InputDecoration(
-                                                                border: OutlineInputBorder(
-                                                                    borderSide: BorderSide(
-                                                                        color: Colors
-                                                                            .teal)),
-                                                                labelText: '',
-                                                                suffixStyle: TextStyle(
-                                                                    color: Colors
-                                                                        .green)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                actions: <Widget>[
-                                                  Center(
-                                                    child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2,
-                                                        child: ElevatedButton(
-                                                          onPressed: canUpload
-                                                              ? () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-
-                                                                  setState(() {
-                                                                    StatVariables
-                                                                            .done =
-                                                                        true;
-                                                                  });
-                                                                  setState(() {
-                                                                    ApiRequests().endShift(
-                                                                        widget
-                                                                            .booking!
-                                                                            .data![widget
-                                                                                .index]
-                                                                            .schedule!
-                                                                            .id
-                                                                            .toString(),
-                                                                        isShiftEnded
-                                                                            .toString(),
-                                                                        workCompleteTextController
-                                                                            .text);
-
-                                                                    Navigator
-                                                                        .push(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              BookingDetailsScreen(
-                                                                                shiftStarted: true,
-                                                                                booking: widget.booking,
-                                                                                index: widget.index,
-                                                                              )),
-                                                                    );
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                            const SnackBar(
-                                                                      content: Text(
-                                                                          'Shift Ended'),
-                                                                    ));
-                                                                  });
-                                                                  //Navigator.of(context).pop();
-                                                                }
-                                                              : null,
-                                                          child: const Center(
-                                                              child: Text(
-                                                                  'Confirm')),
-                                                        )),
-                                                  )
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.red,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 50, vertical: 20),
-                                            textStyle: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold)),
-                                        child: const Text(
-                                          'End Shift',
-                                        ),
-                                      ),
-                                    )
-                                  : const Text(''),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )),
-    );
-  }
 
   launchNativeMap() async {
     debugPrint('Long');
@@ -2091,3 +818,1277 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         ' ${widget.booking!.data!.first.bod!.bodContactInfo!.firstName}\'s Place');
   }
 }
+
+// Widget _bookingDetails() {
+//   return SafeArea(
+//     child: Scaffold(
+//         backgroundColor: Colors.grey[200],
+//         body: Container(
+//           height: MediaQuery.of(context).size.height,
+//           width: MediaQuery.of(context).size.width,
+//           decoration: const BoxDecoration(color: AppColors.appThemeColor),
+//           child: Column(
+//             children: [
+//               Container(
+//                 padding:
+//                 const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Row(
+//                       children: [
+//                         InkWell(
+//                           onTap: () {
+//                             Navigator.of(context).pop();
+//                           },
+//                           child: const Icon(
+//                             Icons.arrow_back,
+//                             color: Colors.white,
+//                             size: 30,
+//                           ),
+//                         ),
+//                         const SizedBox(
+//                           width: 20,
+//                         ),
+//                         Column(
+//                           children: [
+//                             Row(
+//                               children: [
+//                                 const Icon(
+//                                   Icons.check_circle,
+//                                   size: 30.0,
+//                                   color: Color.fromARGB(255, 14, 217, 28),
+//                                 ),
+//                                 const SizedBox(
+//                                   width: 5,
+//                                 ),
+//                                 Text(
+//                                   'BOOKING CONFIRMED'.tr,
+//                                   style: const TextStyle(
+//                                       color: Colors.white,
+//                                       fontWeight: FontWeight.bold,
+//                                       fontSize: 20),
+//                                 ),
+//                               ],
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Expanded(
+//                 child: Container(
+//                   height: MediaQuery.of(context).size.height,
+//                   width: MediaQuery.of(context).size.width,
+//                   margin: const EdgeInsets.all(5),
+//                   padding: const EdgeInsets.all(10.0),
+//                   decoration: BoxDecoration(
+//                       color: Colors.grey[200],
+//                       borderRadius: const BorderRadius.only(
+//                           topLeft: Radius.circular(30),
+//                           topRight: Radius.circular(30))),
+//                   child: SingleChildScrollView(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         /////////////////////////////////////
+//                         const SizedBox(
+//                           height: 10,
+//                         ),
+//                         Column(
+//                             mainAxisAlignment: MainAxisAlignment.start,
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Container(
+//                                 padding: const EdgeInsets.all(10.0),
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(8),
+//                                 ),
+//                                 child: Column(
+//                                   // mainAxisAlignment: MainAxisAlignment.start,
+//                                   children: [
+//                                     Row(
+//                                       children: [
+//                                         Text(
+//                                           'Congratulations!'.tr,
+//                                           style: const TextStyle(
+//                                               fontSize: 30,
+//                                               fontWeight: FontWeight.bold),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         Text(
+//                                           'This Booking is assigned successfully to you.'.tr,
+//                                           style: const TextStyle(
+//                                               fontSize: 15,
+//                                               color: Colors.grey),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 10,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         Text(
+//                                           'Booking ID:'.tr,
+//                                           style: const TextStyle(
+//                                             fontSize: 18,
+//                                           ),
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 15,
+//                                         ),
+//                                         Text(
+//                                           widget
+//                                               .booking!.data![widget.index].id
+//                                               .toString(),
+//                                           style: const TextStyle(
+//                                             fontSize: 15,
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 10,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         Text(
+//                                           'Booked on:'.tr,
+//                                           style: const TextStyle(
+//                                             fontSize: 18,
+//                                           ),
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 15,
+//                                         ),
+//                                         Text(
+//                                           DateFormat.yMMMEd().format(widget
+//                                               .booking!
+//                                               .data![widget.index]
+//                                               .bod!
+//                                               .frequency!
+//                                               .startDate as DateTime),
+//                                           style: const TextStyle(
+//                                             fontSize: 15,
+//                                           ),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 15,
+//                               ),
+//                               Row(
+//                                 mainAxisAlignment:
+//                                 MainAxisAlignment.spaceBetween,
+//                                 children: [
+//                                   Text('Booking Details'.tr,
+//                                       style: const TextStyle(
+//                                           fontSize: 18,
+//                                           fontWeight: FontWeight.bold,
+//                                           fontStyle: FontStyle.italic)),
+//                                   Row(
+//                                     children: [
+//                                       Text('Chat'.tr,
+//                                           style: const TextStyle(
+//                                               color: Colors.blue,
+//                                               fontSize: 18,
+//                                               fontWeight: FontWeight.bold,
+//                                               fontStyle: FontStyle.italic)),
+//                                       const SizedBox(
+//                                         width: 10,
+//                                       ),
+//                                       InkWell(
+//                                         onTap: () {
+//                                           Navigator.push(
+//                                             context,
+//                                             MaterialPageRoute(
+//                                               builder: (context) =>
+//                                                   ChatsScreen(
+//                                                     bookingId: widget
+//                                                         .booking!
+//                                                         .data![
+//                                                     widget.index]
+//                                                         .id,
+//                                                   ),),);
+//                                         },
+//                                         child: Container(
+//                                             padding: const EdgeInsets.only(
+//                                                 right: 20),
+//                                             child: const Icon(
+//                                               Icons.chat,
+//                                               color: Colors.blue,
+//                                               size: 30,
+//                                             )),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ],
+//                               ),
+//                               const SizedBox(
+//                                 height: 10,
+//                               ),
+//                               Container(
+//                                 padding: const EdgeInsets.all(8),
+//                                 color: Colors.white,
+//                                 child: Column(
+//                                   children: [
+//                                     Row(
+//                                       children: [
+//                                         Text('Package'.tr,
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600)),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(Icons.people_alt,
+//                                             color: Colors.grey),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Name'.tr,
+//                                               style: const TextStyle(
+//                                                 fontSize: 15,
+//                                               ),
+//                                             ),
+//                                             Text(
+//                                               '${widget.booking!.data![widget.index].bod!.bodContactInfo!.firstName}\'s Place',
+//                                               style: const TextStyle(
+//                                                   fontSize: 17,
+//                                                   fontWeight:
+//                                                   FontWeight.w600),
+//                                             )
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(Icons.menu,
+//                                             color: Colors.grey),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           mainAxisAlignment:
+//                                           MainAxisAlignment.start,
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Type'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .frequency!
+//                                                     .type
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 10,
+//                               ),
+//
+//                               Text('Booking Location'.tr,
+//                                   style: const TextStyle(
+//                                       fontSize: 18,
+//                                       fontWeight: FontWeight.bold)),
+//                               const SizedBox(
+//                                 height: 5,
+//                               ),
+//                               Container(
+//                                 padding: const EdgeInsets.all(8),
+//                                 color: Colors.white,
+//                                 child: Column(
+//                                   children: [
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(
+//                                           Icons.location_city,
+//                                           color: Colors.grey,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Street Address'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodServiceLocation!
+//                                                     .streetAddress
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(
+//                                           Icons.location_history,
+//                                           color: Colors.grey,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('State'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodServiceLocation!
+//                                                     .state
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(Icons.add_location_alt,
+//                                             color: Colors.grey),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('City'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodServiceLocation!
+//                                                     .city
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 10,
+//                               ),
+//                               Text('Booking Contact'.tr,
+//                                   style: const TextStyle(
+//                                       fontSize: 18,
+//                                       fontWeight: FontWeight.bold)),
+//                               const SizedBox(
+//                                 height: 5,
+//                               ),
+//                               Container(
+//                                 padding: const EdgeInsets.all(8),
+//                                 color: Colors.white,
+//                                 child: Column(
+//                                   children: [
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(
+//                                           Icons.phone,
+//                                           color: Colors.grey,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Contact'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodContactInfo!
+//                                                     .phone
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(
+//                                           Icons.email,
+//                                           color: Colors.grey,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('Email'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodContactInfo!
+//                                                     .email
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       children: [
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         const Icon(
+//                                           Icons.people_alt,
+//                                           color: Colors.grey,
+//                                         ),
+//                                         const SizedBox(
+//                                           width: 20,
+//                                         ),
+//                                         Column(
+//                                           crossAxisAlignment:
+//                                           CrossAxisAlignment.start,
+//                                           children: [
+//                                             Text('User Name'.tr),
+//                                             Text(
+//                                                 widget
+//                                                     .booking!
+//                                                     .data![widget.index]
+//                                                     .bod!
+//                                                     .bodContactInfo!
+//                                                     .firstName
+//                                                     .toString(),
+//                                                 style: const TextStyle(
+//                                                     fontSize: 17,
+//                                                     fontWeight:
+//                                                     FontWeight.w600))
+//                                           ],
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 5,
+//                               ),
+//                               const Text(
+//                                 'Details',
+//                                 style: TextStyle(
+//                                   // color: Colors.white,
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 20),
+//                               ),
+//                               const SizedBox(
+//                                 height: 5,
+//                               ),
+//                               Container(
+//                                 padding: const EdgeInsets.all(8),
+//                                 color: Colors.white,
+//                                 child: Column(
+//                                   children: [
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Slug'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         Text(
+//                                             widget
+//                                                 .booking
+//                                                 ?.data?[widget.index]
+//                                                 .bod
+//                                                 ?.frequency
+//                                                 ?.service
+//                                                 ?.slug
+//                                                 ?.toString() ??
+//                                                 'N/A',
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Title'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .bod!
+//                                                 .frequency!
+//                                                 .service
+//                                                 ?.title
+//                                                 .toString() ??
+//                                                 "N/A",
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Status'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .bod!
+//                                                 .frequency!
+//                                                 .service
+//                                                 ?.status
+//                                                 .toString() ??
+//                                                 "N/A",
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Cleaner Notes'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .cleanerNotes
+//                                                 .toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Customer Notes'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         // widget.booking!.data![widget.index]
+//                                         //         .customerNotes!
+//                                         //         .toString()
+//                                         //         .isEmpty
+//                                         //     ? Text('')
+//                                         //     :
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .customerNotes
+//                                                 .toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Three Days Reminder'.tr,
+//                                             style: const TextStyle(
+//                                               fontSize: 17,
+//                                             )),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .threeDayReminder
+//                                                 .toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 5,
+//                                     ),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Expanded(
+//                                           child: Text(
+//                                               'Appointment Date and Time'.tr,
+//                                               style: const TextStyle(
+//                                                 fontSize: 17,
+//                                               )),
+//                                         ),
+//                                         Text(
+//                                             DateFormat.yMMMEd().format(widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .appointmentDateTime
+//                                             as DateTime),
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.w600))
+//                                       ],
+//                                     ),
+//                                     const SizedBox(
+//                                       height: 10,
+//                                     ),
+//
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Services'.tr,
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.bold)),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .bod!
+//                                                 .frequency!
+//                                                 .service
+//                                                 ?.title
+//                                                 .toString() ??
+//                                                 "N/A",
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.bold))
+//                                       ],
+//                                     ),
+//                                     Align(
+//                                       alignment: Alignment.centerLeft,
+//                                       child: Container(
+//                                         padding: const EdgeInsets.all(5),
+//                                         child:  Text('Items'.tr,
+//                                             style: const TextStyle(
+//                                                 fontSize: 16,
+//                                                 fontWeight: FontWeight.bold)),
+//                                       ),
+//                                     ),
+//                                     Container(
+//                                       padding: const EdgeInsets.symmetric(
+//                                           horizontal: 25),
+//                                       child: Row(
+//                                         mainAxisAlignment:
+//                                         MainAxisAlignment.spaceBetween,
+//                                         children: [
+//                                           Text('Title'.tr,
+//                                               style: const TextStyle(
+//                                                   fontSize: 15,
+//                                                   fontWeight:
+//                                                   FontWeight.bold)),
+//                                           for (int i = 0;
+//                                           i < widget.servicesIndex;
+//                                           i++)
+//                                             Text(widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .packages![i]
+//                                                 .item!
+//                                                 .title
+//                                                 .toString()),
+//                                         ],
+//                                       ),
+//                                     ),
+//
+//                                     const SizedBox(
+//                                       height: 10,
+//                                     ),
+//
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         Text('Extras'.tr,
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.bold)),
+//                                         Text(
+//                                             widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .bod!
+//                                                 .frequency!
+//                                                 .service!
+//                                                 .title
+//                                                 .toString(),
+//                                             style: const TextStyle(
+//                                                 fontSize: 17,
+//                                                 fontWeight: FontWeight.bold))
+//                                       ],
+//                                     ),
+//                                     Align(
+//                                       alignment: Alignment.centerLeft,
+//                                       child: Container(
+//                                         padding: const EdgeInsets.all(5),
+//                                         child:  Text('Items'.tr,
+//                                             style: const TextStyle(
+//                                                 fontSize: 16,
+//                                                 fontWeight: FontWeight.bold)),
+//                                       ),
+//                                     ),
+//                                     Container(
+//                                       padding: const EdgeInsets.symmetric(
+//                                           horizontal: 25),
+//                                       child: Row(
+//                                         mainAxisAlignment:
+//                                         MainAxisAlignment.spaceBetween,
+//                                         children: [
+//                                           Text('Title'.tr,
+//                                               style: const TextStyle(
+//                                                   fontSize: 15,
+//                                                   fontWeight:
+//                                                   FontWeight.bold)),
+//                                           for (int i = 0;
+//                                           i < widget.extraIndex;
+//                                           i++)
+//                                             Text(widget
+//                                                 .booking!
+//                                                 .data![widget.index]
+//                                                 .extras![i]
+//                                                 .extra!
+//                                                 .title
+//                                                 .toString()),
+//                                         ],
+//                                       ),
+//                                     ),
+//
+//                                     // ListView.builder(
+//                                     //     shrinkWrap: true,
+//                                     //     physics: ClampingScrollPhysics(),
+//                                     //     itemBuilder: (context, index) {
+//                                     //       return Container();
+//                                     //     }),
+//                                     Row(
+//                                       mainAxisAlignment:
+//                                       MainAxisAlignment.end,
+//                                       children: [
+//                                         // Text('Goto GoogleMap',
+//                                         //     style: TextStyle(
+//                                         //         fontSize: 18,
+//                                         //         fontWeight:
+//                                         //             FontWeight.bold)),
+//                                         ElevatedButton.icon(
+//                                             style: ElevatedButton.styleFrom(
+//                                                 backgroundColor:
+//                                                 Colors.white),
+//                                             onPressed: () async {
+//                                               if (widget
+//                                                   .booking!
+//                                                   .data![widget.index]
+//                                                   .dispatchId!
+//                                                   .serviceProvider!
+//                                                   .userProfile!
+//                                                   .longitude ==
+//                                                   null) {
+//                                                 ScaffoldMessenger.of(context)
+//                                                     .showSnackBar(
+//                                                     SnackBar(
+//                                                       content: Text(
+//                                                           'Location Not Found'.tr),
+//                                                     ));
+//                                               } else {
+//                                                 await launchNativeMap();
+//                                               }
+//                                             },
+//                                             icon: const Icon(
+//                                               Icons.location_on,
+//                                               color: Colors.blue,
+//                                             ),
+//                                             label:  Text(
+//                                               'See on the Google Map'.tr,
+//                                               style: const TextStyle(
+//                                                   color: Colors.blue),
+//                                             ))
+//                                       ],
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               const SizedBox(
+//                                 height: 5,
+//                               ),
+//                               Text('Start Shift and End Shift'.tr,
+//                                   style: const TextStyle(
+//                                       fontSize: 18,
+//                                       fontWeight: FontWeight.bold)),
+//                             ]),
+//
+//                         // Start SHift / End Shift
+//                         const SizedBox(
+//                           height: 10,
+//                         ),
+//
+//                         widget.booking!.data![widget.index].dispatchId!
+//                             .shiftStarted ==
+//                             false
+//                             ? Align(
+//                           alignment: Alignment.bottomCenter,
+//                           child: ElevatedButton(
+//                               onPressed: () {
+//                                 showDialog(
+//                                   context: context,
+//                                   barrierDismissible:
+//                                   true, // user must tap button!
+//                                   builder: (BuildContext context) {
+//                                     return AlertDialog(
+//                                         title:
+//                                         Text('Health Check!'.tr),
+//                                         content: SizedBox(
+//                                           width: MediaQuery.of(context)
+//                                               .size
+//                                               .width,
+//                                           height: MediaQuery.of(context)
+//                                               .size
+//                                               .height /
+//                                               4,
+//                                           child: Column(
+//                                             //mainAxisSize: MainAxisSize.min,
+//                                             crossAxisAlignment:
+//                                             CrossAxisAlignment
+//                                                 .start,
+//                                             children: [
+//                                               StatefulBuilder(builder:
+//                                                   (BuildContext context,
+//                                                   void Function(
+//                                                       void
+//                                                       Function())
+//                                                   setState) {
+//                                                 return CheckboxListTile(
+//                                                   title:  Text(
+//                                                       'I\'m Covid negative today'.tr),
+//                                                   value: isShiftStarted,
+//                                                   onChanged: (val) {
+//                                                     setState(() {
+//                                                       isShiftStarted =
+//                                                       val!;
+//                                                       debugPrint(
+//                                                           isShiftStarted
+//                                                               .toString());
+//                                                     });
+//                                                   },
+//                                                 );
+//                                               }),
+//                                               Container(
+//                                                   padding:
+//                                                   const EdgeInsets
+//                                                       .only(
+//                                                       left: 15.0,
+//                                                       right: 15.0),
+//                                                   child:  Text(
+//                                                       'How are you feeling about cleaning today?'.tr)),
+//                                               const SizedBox(
+//                                                   height: 10),
+//                                               Theme(
+//                                                 data: ThemeData(
+//                                                   primaryColor: Colors
+//                                                       .greenAccent,
+//                                                   primaryColorDark:
+//                                                   Colors.green,
+//                                                 ),
+//                                                 child: Container(
+//                                                   padding:
+//                                                   const EdgeInsets
+//                                                       .only(
+//                                                       left: 15.0,
+//                                                       right: 70.0),
+//                                                   child: TextField(
+//                                                     controller:
+//                                                     workMoodTextController,
+//                                                     decoration:  InputDecoration(
+//                                                         border: const OutlineInputBorder(
+//                                                             borderSide: BorderSide(
+//                                                                 color: Colors
+//                                                                     .teal)),
+//                                                         labelText:
+//                                                         'Work Mood'.tr,
+//                                                         suffixStyle: const TextStyle(
+//                                                             color: Colors
+//                                                                 .green)),
+//                                                   ),
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
+//                                         ),
+//                                         actions: <Widget>[
+//                                           Center(
+//                                             child: SizedBox(
+//                                                 width: MediaQuery.of(
+//                                                     context)
+//                                                     .size
+//                                                     .width /
+//                                                     2,
+//                                                 child: ElevatedButton(
+//                                                   onPressed: canUpload
+//                                                       ? () {
+//                                                     Navigator.of(
+//                                                         context)
+//                                                         .pop();
+//                                                     ScaffoldMessenger.of(
+//                                                         context)
+//                                                         .showSnackBar(
+//                                                         SnackBar(
+//                                                           content: Text(
+//                                                               'Shift Started'.tr),
+//                                                         ));
+//                                                     setState(() {
+//                                                       debugPrint(widget
+//                                                           .booking!
+//                                                           .data![widget
+//                                                           .index]
+//                                                           .schedule!
+//                                                           .id
+//                                                           .toString());
+//                                                       ApiRequests().startShift(
+//                                                           widget
+//                                                               .booking!
+//                                                               .data![widget
+//                                                               .index]
+//                                                               .schedule!
+//                                                               .id
+//                                                               .toString(),
+//                                                           _isChecked[0]
+//                                                               .toString(),
+//                                                           workMoodTextController
+//                                                               .text);
+//                                                       isShiftStarted =
+//                                                       true;
+//                                                       stateShiftStarted();
+//                                                     });
+//                                                   }
+//                                                       : null,
+//                                                   child: const Center(
+//                                                       child: Text(
+//                                                           'Confirm')),
+//                                                 )),
+//                                           )
+//                                         ]);
+//                                   },
+//                                 );
+//                               },
+//                               style: ElevatedButton.styleFrom(
+//                                   backgroundColor: Colors.green,
+//                                   padding: const EdgeInsets.symmetric(
+//                                       horizontal: 50, vertical: 20),
+//                                   textStyle: const TextStyle(
+//                                       fontSize: 20,
+//                                       fontWeight: FontWeight.bold)),
+//                               child:  Text(
+//                                 'Start Shift'.tr,
+//                               )),
+//                         )
+//                             : widget.booking!.data![widget.index].dispatchId!
+//                             .shiftEnded ==
+//                             false
+//                             ? Align(
+//                           alignment: Alignment.bottomCenter,
+//                           child: ElevatedButton(
+//                             onPressed: () {
+//                               showDialog(
+//                                 context: context,
+//                                 barrierDismissible:
+//                                 true, // user must tap button!
+//                                 builder: (BuildContext context) {
+//                                   return AlertDialog(
+//                                     title:  Text('Alert!'.tr),
+//                                     content: SizedBox(
+//                                       width: MediaQuery.of(context)
+//                                           .size
+//                                           .width,
+//                                       height: MediaQuery.of(context)
+//                                           .size
+//                                           .height /
+//                                           4,
+//                                       child: Column(
+//                                         crossAxisAlignment:
+//                                         CrossAxisAlignment
+//                                             .start,
+//                                         children: [
+//                                           StatefulBuilder(builder:
+//                                               (BuildContext context,
+//                                               void Function(
+//                                                   void
+//                                                   Function())
+//                                               setState) {
+//                                             return CheckboxListTile(
+//                                               title:  Text(
+//                                                   'Completed All the tasks'.tr),
+//                                               value: isShiftEnded,
+//                                               onChanged: (val) {
+//                                                 setState(() {
+//                                                   isShiftEnded =
+//                                                   val!;
+//                                                 });
+//                                               },
+//                                             );
+//                                           }),
+//                                           const SizedBox(
+//                                               height: 10),
+//                                           Container(
+//                                               padding:
+//                                               const EdgeInsets
+//                                                   .only(
+//                                                   left: 15.0,
+//                                                   right: 15.0),
+//                                               child:  Text(
+//                                                   'Tell us something about the work of today!'.tr)),
+//                                           const SizedBox(
+//                                             height: 10,
+//                                           ),
+//                                           Theme(
+//                                             data: ThemeData(
+//                                               primaryColor:
+//                                               Colors.redAccent,
+//                                               primaryColorDark:
+//                                               Colors.red,
+//                                             ),
+//                                             child: Container(
+//                                               padding:
+//                                               const EdgeInsets
+//                                                   .only(
+//                                                   left: 15.0,
+//                                                   right: 30.0),
+//                                               child: TextField(
+//                                                 controller:
+//                                                 workCompleteTextController,
+//                                                 onChanged:
+//                                                     (value) {},
+//                                                 decoration: const InputDecoration(
+//                                                     border: OutlineInputBorder(
+//                                                         borderSide: BorderSide(
+//                                                             color: Colors
+//                                                                 .teal)),
+//                                                     labelText: '',
+//                                                     suffixStyle: TextStyle(
+//                                                         color: Colors
+//                                                             .green)),
+//                                               ),
+//                                             ),
+//                                           ),
+//                                         ],
+//                                       ),
+//                                     ),
+//                                     actions: <Widget>[
+//                                       Center(
+//                                         child: SizedBox(
+//                                             width: MediaQuery.of(
+//                                                 context)
+//                                                 .size
+//                                                 .width /
+//                                                 2,
+//                                             child: ElevatedButton(
+//                                               onPressed: canUpload
+//                                                   ? () {
+//                                                 Navigator.of(
+//                                                     context)
+//                                                     .pop();
+//
+//                                                 setState(() {
+//                                                   StatVariables
+//                                                       .done =
+//                                                   true;
+//                                                 });
+//                                                 setState(() {
+//                                                   ApiRequests().endShift(
+//                                                       widget
+//                                                           .booking!
+//                                                           .data![widget
+//                                                           .index]
+//                                                           .schedule!
+//                                                           .id
+//                                                           .toString(),
+//                                                       isShiftEnded
+//                                                           .toString(),
+//                                                       workCompleteTextController
+//                                                           .text);
+//
+//                                                   Navigator
+//                                                       .push(
+//                                                     context,
+//                                                     MaterialPageRoute(
+//                                                         builder: (context) =>
+//                                                             BookingDetailsScreen(
+//                                                               shiftStarted: true,
+//                                                               booking: widget.booking,
+//                                                               index: widget.index,
+//                                                             )),
+//                                                   );
+//                                                   ScaffoldMessenger.of(
+//                                                       context)
+//                                                       .showSnackBar(
+//                                                       const SnackBar(
+//                                                         content: Text(
+//                                                             'Shift Ended'),
+//                                                       ));
+//                                                 });
+//                                                 //Navigator.of(context).pop();
+//                                               }
+//                                                   : null,
+//                                               child:  Center(
+//                                                   child: Text(
+//                                                       'Confirm'.tr)),
+//                                             )),
+//                                       )
+//                                     ],
+//                                   );
+//                                 },
+//                               );
+//                             },
+//                             style: ElevatedButton.styleFrom(
+//                                 backgroundColor: Colors.red,
+//                                 padding: const EdgeInsets.symmetric(
+//                                     horizontal: 50, vertical: 20),
+//                                 textStyle: const TextStyle(
+//                                     fontSize: 20,
+//                                     fontWeight: FontWeight.bold)),
+//                             child:  Text(
+//                               'End Shift'.tr,
+//                             ),
+//                           ),
+//                         )
+//                             : const Text(''),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               )
+//             ],
+//           ),
+//         )),
+//   );
+// }
