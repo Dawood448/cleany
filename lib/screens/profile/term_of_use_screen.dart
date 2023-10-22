@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../base/color_data.dart';
 import '../../../base/constant.dart';
@@ -60,27 +61,7 @@ class _TermOfUseScreenState extends State<TermOfUseScreen> {
         primary: true,
         children: [
           getMultilineCustomFont(
-              '''Welcome to Bookcleany! By using our mobile application, you agree to be bound by the following Terms of Use:
-
-Booking Process:
-
-Bookings: We match you with cleaning job opportunities based on your location and skill set. Once you accept a job, you are responsible for completing it in a timely and professional manner.
-Payment: You will be paid for your completed jobs on a weekly basis. Bookcleany charges a small commission for each job completed.
-Your Responsibilities:
-
-Professionalism: You are expected to act in a professional manner when interacting with clients and other users of our application.
-Safety: You are responsible for ensuring your own safety and the safety of others while completing cleaning jobs.
-Ratings and Reviews: Clients may rate and review your performance after each job. Your ratings and reviews will be visible to other clients.
-Prohibited Activities:
-
-Fraud: You may not engage in any fraudulent activity while using our application.
-Harassment: You may not harass or discriminate against other users of our application.
-Illegal Activities: You may not use our application to engage in any illegal activities.
-Intellectual Property:
-All content and materials on our application, including but not limited to logos, text, images, and software, are the property of Bookcleany and are protected by copyright and other intellectual property laws.
-
-Termination:
-We reserve the right to terminate your account if you violate any of our Terms of Use.''',
+              'terms and conditions'.tr,
               16,
               Colors.black,
               fontWeight: FontWeight.w400,

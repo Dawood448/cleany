@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../base/color_data.dart';
 import '../../../base/constant.dart';
@@ -46,7 +47,7 @@ class _ReportScreenState extends State<ReportScreen> {
       Constant.backToPrev(context);
     },
         istext: true,
-        title: 'Report',
+        title: 'Report'.tr,
         weight: FontWeight.w900,
         fontsize: 24,
         textColor: Colors.black);
@@ -60,7 +61,7 @@ class _ReportScreenState extends State<ReportScreen> {
         primary: true,
         children: [
           getMultilineCustomFont(
-              'If you witness or experience any illegal or inappropriate activity while using our application, please report it to us immediately at report@bookcleany.com. We take all reports seriously and will investigate each case thoroughly.',
+              'reports'.tr,
               16,
               Colors.black,
               fontWeight: FontWeight.w400,

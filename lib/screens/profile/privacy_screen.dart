@@ -50,25 +50,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         primary: true,
         children: [
           getMultilineCustomFont(
-              '''At Bookcleany, we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information when you use our mobile application.
-
-Information We Collect:
-Personal Information: When you sign up for Bookcleany, we collect your name, email address, and phone number. We also collect your location information to match you with cleaning jobs near you.
-Usage Information: We collect information about how you use our application, such as the pages you view, the dates and times of your visits, and the actions you take.
-
-How We Use Your Information:
-To provide you with cleaning job opportunities that match your location and skill set.
-To communicate with you regarding your account, bookings, and other important information.
-To improve our application and services.
-
-Disclosure of Your Information:
-We may disclose your information to our partners and affiliates, as well as third-party service providers who help us operate our application and provide our services.
-
-Security:
-We take the security of your personal information seriously and use industry-standard security measures to protect your data.
-
-Changes to This Policy:
-We reserve the right to update this Privacy Policy at any time. We will notify you of any changes by posting the updated policy on our website.'''.tr,
+              'privacy and policy'.tr,
               16,
               Colors.black,
               fontWeight: FontWeight.w400,

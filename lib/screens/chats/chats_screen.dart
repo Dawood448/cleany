@@ -192,7 +192,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           Expanded(
             child: getDefaultTextFiledWithLabel(
               context,
-              'Type a message...',
+              'Type a message...'.tr,
               _controller,
               textColor,
               function: () {},
@@ -258,7 +258,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         Expanded(
           flex: 1,
           child: getCustomFont(
-            'New Chat',
+            'New Chat'.tr,
             20,
             Colors.black,
             1,
