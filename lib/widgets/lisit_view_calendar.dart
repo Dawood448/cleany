@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:cleany/models/booking_details_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ListViewCalendar extends StatefulWidget {
@@ -32,8 +33,8 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 5),
-                const Text(
-                  'Place',
+                 Text(
+                  'Place'.tr,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 )
               ],
@@ -41,8 +42,8 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Contact No:',
+                 Text(
+                  'Contact No:'.tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
@@ -52,8 +53,8 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Address:',
+                 Text(
+                  'Address:'.tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(widget
@@ -64,8 +65,8 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Date:',
+                 Text(
+                  'Date:'.tr,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(

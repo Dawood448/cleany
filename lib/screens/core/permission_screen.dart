@@ -1,6 +1,7 @@
 import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/screens/home/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PermissionScreen extends StatefulWidget {
   const PermissionScreen({Key? key}) : super(key: key);
@@ -42,21 +43,21 @@ class _PermissionScreenState extends State<PermissionScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text(
-                        'Cleaning On Demand',
+                       Text(
+                        'Cleaning On Demand'.tr,
                         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Column(
-                        children: const [
+                        children:  [
                           Text(
-                            'Book an apointment in',
+                            'Book an apointment in'.tr,
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
-                          Text('less then 60 seconds and get on',
+                          Text('less then 60 seconds and get on'.tr,
                               style: TextStyle(color: Colors.white, fontSize: 20)),
-                          Text('the schedule as early as',
+                          Text('the schedule as early as'.tr,
                               style: TextStyle(color: Colors.white, fontSize: 20)),
-                          Text('tommorrow', style: TextStyle(color: Colors.white, fontSize: 20))
+                          Text('tommorrow'.tr, style: TextStyle(color: Colors.white, fontSize: 20))
                         ],
                       ),
                       Container(
@@ -64,14 +65,14 @@ class _PermissionScreenState extends State<PermissionScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Skip',
+                             Text(
+                              'Skip'.tr,
                               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [
-                                const Text(
-                                  'Next',
+                                 Text(
+                                  'Next'.tr,
                                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(

@@ -3,6 +3,7 @@ import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/days/set_work_days.dart';
@@ -65,8 +66,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      'Cleaner',
+                     Text(
+                      'Cleaner'.tr,
                       style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),
                     ),
                   ],
@@ -78,14 +79,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 Navigator.pushNamed(context, AppRoutes.profile);
               },
               leading: const Icon(Icons.account_circle),
-              title: const Text('Profile'),
+              title:  Text('Profile'.tr),
             ),
             ListTile(
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.workingCalender);
               },
               leading: const Icon(Icons.calendar_today_rounded),
-              title: const Text('Working Calendar'),
+              title:  Text('Working Calendar'.tr),
             ),
             ListTile(
               onTap: () {
@@ -97,7 +98,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 // Navigator.pushNamed(context, AppRoutes.setWorkDays);
               },
               leading: const Icon(Icons.work_off_outlined),
-              title: const Text('Set Work Days'),
+              title:  Text('Set Work Days'.tr),
             ),
             ListTile(
               onTap: () {
@@ -105,7 +106,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 Navigator.pushNamed(context, '/');
               },
               leading: const Icon(Icons.arrow_back),
-              title: const Text('Sign Out'),
+              title:  Text('Sign Out'.tr),
             ),
           ],
         ),

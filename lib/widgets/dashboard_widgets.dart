@@ -2,6 +2,7 @@ import 'package:cleany/screens/booking/booking_details_screen.dart';
 import 'package:cleany/screens/chats/chats_screen.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 Widget notifications = ListView.builder(
@@ -30,11 +31,11 @@ Widget notifications = ListView.builder(
                   Icon(Icons.notifications_active_outlined),
                 ],
               ),
-              title: const Text(
-                'New Task',
+              title:  Text(
+                'New Task'.tr,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: const Text('New Booking available'),
+              subtitle: Text('New Booking available'.tr),
               //isThreeLine: true,
             ),
           ),
@@ -90,12 +91,12 @@ Widget todayTask = ListView.builder(
                       )),
                 ],
               ),
-              title: const Text("Lucy's Place"),
+              title:  Text("Lucy's Place".tr),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Gotta clean the kitchen'),
-                  Text('Shantinagar'),
+                children:  [
+                  Text('Gotta clean the kitchen'.tr),
+                  Text('Shantinagar'.tr),
                 ],
               ),
               isThreeLine: true,
@@ -158,9 +159,9 @@ Widget pendingTask = MultiProvider(
                 title: const Text("Lucy's Place"),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text('Gotta clean the kitchen'),
-                    Text('Shantinagar'),
+                  children:  [
+                    Text('Gotta clean the kitchen'.tr),
+                    Text('Shantinagar'.tr),
                   ],
                 ),
                 isThreeLine: true,
@@ -215,9 +216,9 @@ Widget completedTask = ListView.builder(
               title: const Text("Lucy's Place"),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('Gotta clean the kitchen'),
-                  Text('Shantinagar'),
+                children:  [
+                  Text('Gotta clean the kitchen'.tr),
+                  Text('Shantinagar'.tr),
                 ],
               ),
               isThreeLine: true,

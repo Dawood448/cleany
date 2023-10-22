@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:cleany/apis/request_apis.dart';
-import 'package:cleany/screens/home/navbar.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../base/color_data.dart';
 import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
@@ -64,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         if (mounted)
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Invalid Username OR Password')));
+               SnackBar(content: Text('Invalid Username OR Password'.tr)));
       }
       debugPrint(responseVal.toString());
     });
@@ -78,10 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
       email.isEmpty
           ? ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Enter a valid Email')))
+               SnackBar(content: Text('Enter a valid Email'.tr)))
           : password.isEmpty
               ? ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Enter a valid Password')))
+                   SnackBar(content: Text('Enter a valid Password'.tr)))
               : manageNavigating();
     }
   }
@@ -109,10 +107,10 @@ class _LoginScreenState extends State<LoginScreen> {
       shrinkWrap: true,
       children: [
         getVerSpace(FetchPixels.getPixelHeight(70)),
-        getCustomFont('Login', 24, Colors.black, 1,
+        getCustomFont('Login'.tr, 24, Colors.black, 1,
             fontWeight: FontWeight.w900, textAlign: TextAlign.center),
         getVerSpace(FetchPixels.getPixelHeight(10)),
-        getCustomFont('Glad to meet you again! ', 16, Colors.black, 1,
+        getCustomFont('Glad to meet you again! '.tr, 16, Colors.black, 1,
             fontWeight: FontWeight.w400, textAlign: TextAlign.center),
         getVerSpace(FetchPixels.getPixelHeight(30)),
         emailField(context),
@@ -143,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushNamed(context, AppRoutes.loading);
         },
         child: getCustomFont(
-          'Forgot Password?',
+          'Forgot Password?'.tr,
           16,
           blueColor,
           1,
@@ -198,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         getCustomFont(
-          'Don’t have an account?',
+          'Don’t have an account?'.tr,
           14,
           Colors.black,
           1,
@@ -209,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // TODO: implement sign up functionality
           },
           child: getCustomFont(
-            ' Sign Up',
+            ' Sign Up'.tr,
             16,
             blueColor,
             1,
@@ -224,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return getButton(
       context,
       blueColor,
-      'Login',
+      'Login'.tr,
       Colors.white,
       () {
         signIn();
@@ -241,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, value, child) {
         return getDefaultTextFiledWithLabel(
           context,
-          'Password',
+          'Password'.tr,
           passwordEditingController,
           Colors.grey,
           function: () {},
@@ -251,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
           image: 'lock.svg',
           isPass: valueNotifier.value,
           withSufix: true,
-          validator: (val) => val!.isEmpty ? 'Enter Correct Password' : null,
+          validator: (val) => val!.isEmpty ? 'Enter Correct Password'.tr : null,
           suffiximage: 'eye.svg',
           imagefunction: () => valueNotifier.value = !valueNotifier.value,
         );
@@ -263,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget emailField(BuildContext context) {
     return getDefaultTextFiledWithLabel(
       context,
-      'Email',
+      'Email'.tr,
       emailEditingController,
       Colors.grey,
       function: () {},
@@ -277,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen> {
           RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(val!)
               ? null
-              : 'Enter Correct email',
+              : 'Enter Correct email'.tr,
     );
   }
 }

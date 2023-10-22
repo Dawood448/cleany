@@ -4,123 +4,7 @@ class LocaleString extends Translations {
   @override
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
-    'en_US': {
-      'Booking': 'Booking',
-      'Pending': 'Pending',
-      'Contact': 'Contact',
-      'From': 'From',
-      'Place': 'Place',
-      'My Profile': 'My Profile',
-      'Working Calender': 'Working Calendar',
-      'Set Work days': 'Set Work days',
-      'Privacy Policy': 'Privacy Policy',
-      'Terms of Use': 'Terms of Use',
-      'type a message...': 'type a message...',
-      'Support': 'Support',
-      'Report': 'Report',
-      'Logout': 'Logout',
-      'Reviews': 'Reviews',
-      'No Reviews Yet!': 'No Reviews Yet!',
-      'Chats': 'Chats',
-      'Booking ID': 'Booking ID',
-      'Booked': 'Booked',
-      'logoutFailSnackBarText': 'Logout Failed',
-      'logoutExceptionSnackBarText2': 'An error occurred while logging out',
-      'AppBarDashboardText': 'Home',
-      'AppBarInspectionText': 'Inspection',
-      'AppBarInspectionText1': 'Inspection Report',
-      'AppBarCustomInspectionText': 'Custom Inspection',
-      'radiatorLevelText': 'Radiator Level',
-      'AppBarProfileText': 'Profile',
-      'engineOilText': 'Engine Oil',
-      'hydraulicOilText': 'Hydraulic Oil',
-      'brakeFluidText': 'Brake Fluid',
-      'batteryElctroText': 'Battery Electrolyte',
-      'fuelText': 'Fuel',
-      'leaksText': 'Leaks',
-      'New Chat' : 'New Chat',
-      'mastChainText': 'Mast Chains',
-      'hydraulicDriveText': 'Hydraulic Drive',
-      'hydraulicHosesText': 'Hydraulic Hoses',
-      'mirrorsText': 'Mirrors',
-      'pedalsText': 'Pedals',
-      'tiresText': 'Tires',
-      'forksText': 'Forks',
-      'retroHornText': 'Retro horn',
-      'flasherBeaconText': 'Flasher Beacon',
-      'reviewButtonText': 'Send',
-      'itemGoodText': 'Good',
-      'itemBadText': 'Bad',
-      'selectConditionText': 'Select Condition',
-      'reviewText': 'Review',
-      'inspectionDueText': 'Inspection Due:',
-      'dueInspectionReport': 'Due Inspection Report',
-      'noInspectionDueText': 'No Inspection Due',
-      'selectValueText': 'Please select a value',
-      'dataUploadSuccess': 'Data Uploaded Successfully',
-      'dataUploadUnSuccess': 'Data Uploaded UnSuccessfully',
-      'changelang': 'en',
-      'statusText': 'Status',
-      'dataUnauthenticatedText': 'Data Unauthenticated',
-      'okText': 'OK',
-      'DataFormatIncorrectText': 'Data format is incorrect',
-      'congoText': 'Congratulations',
-      'logoutText': 'Logout',
-      'tryAgainText': 'Try Again',
-      'noForkliftAssignText': 'No Forklift Assigned',
-      'electricText': 'Electric',
-      'nonElectricText': 'Internal Combustion',
-      'brandText': 'Brand',
-      'modelText': 'Model',
-      'warehouseText': 'Warehouse',
-      'registrationNumberText': 'Registration Number',
-      'registrationDateText': 'Registration Date',
-      'typeText': 'Type',
-      'seriesText': 'Series',
-      'selectOptionText': 'Please Select All Options',
-      'terms and conditions': '''Welcome to Bookcleany! By using our mobile application, you agree to be bound by the following Terms of Use:
-
-Booking Process:
-
-Bookings: We match you with cleaning job opportunities based on your location and skill set. Once you accept a job, you are responsible for completing it in a timely and professional manner.
-Payment: You will be paid for your completed jobs on a weekly basis. Bookcleany charges a small commission for each job completed.
-Your Responsibilities:
-
-Professionalism: You are expected to act in a professional manner when interacting with clients and other users of our application.
-Safety: You are responsible for ensuring your own safety and the safety of others while completing cleaning jobs.
-Ratings and Reviews: Clients may rate and review your performance after each job. Your ratings and reviews will be visible to other clients.
-Prohibited Activities:
-
-Fraud: You may not engage in any fraudulent activity while using our application.
-Harassment: You may not harass or discriminate against other users of our application.
-Illegal Activities: You may not use our application to engage in any illegal activities.
-Intellectual Property:
-All content and materials on our application, including but not limited to logos, text, images, and software, are the property of Bookcleany and are protected by copyright and other intellectual property laws.
-
-Termination:
-We reserve the right to terminate your account if you violate any of our Terms of Use.''',
-      'privacy and policy' : '''At Bookcleany, we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information when you use our mobile application.
-
-Information We Collect:
-Personal Information: When you sign up for Bookcleany, we collect your name, email address, and phone number. We also collect your location information to match you with cleaning jobs near you.
-Usage Information: We collect information about how you use our application, such as the pages you view, the dates and times of your visits, and the actions you take.
-
-How We Use Your Information:
-To provide you with cleaning job opportunities that match your location and skill set.
-To communicate with you regarding your account, bookings, and other important information.
-To improve our application and services.
-
-Disclosure of Your Information:
-We may disclose your information to our partners and affiliates, as well as third-party service providers who help us operate our application and provide our services.
-
-Security:
-We take the security of your personal information seriously and use industry-standard security measures to protect your data.
-
-Changes to This Policy:
-We reserve the right to update this Privacy Policy at any time. We will notify you of any changes by posting the updated policy on our website.''',
-      'reports': 'If you witness or experience any illegal or inappropriate activity while using our application, please report it to us immediately at report@bookcleany.com. We take all reports seriously and will investigate each case thoroughly.',
-    },
-    'es_SP': {
+   'es_SP': {
       'Bookings': 'Reserva',
       'Contact': 'Reserva',
       'Pending': 'Pendiente',
@@ -241,6 +125,69 @@ We reserve the right to update this Privacy Policy at any time. We will notify y
       'Choose End Date/Time': 'CElija fecha/hora de finalizaciónharla',
       'Leave Created Unsuccessfully': 'Dejar creado sin éxito',
       'Deleted SuccussFully!!!': 'Eliminado con éxito!!!',
+      'Attach Pictur': 'Adjuntar imagen',
+      'NEW':'NUEVO',
+     'Choose Your Language':'Elige tu idioma',
+      'English':'Inglés',
+      'Español':'Español',
+     'Favorite Contacts':'Contactos Favoritos',
+     'Cleaner':'Limpiador',
+     'Sign Out':'Cerrar sesión',
+     'New Task':'Nueva Tarea',
+     'New Booking available':'Nueva Reserva disponible',
+     'Gotta clean the kitchen':'Tengo que limpiar la cocina',
+     'Shantinagar':'Shantinagar',
+      'Invalid Username OR Password':'Nombre de usuario o contraseña no válidos',
+      'Enter a valid Email':'Ingrese un correo electrónico válido',
+      'Enter a valid Password':'Ingrese una contraseña válida',
+      'Glad to meet you again! ':'Encantado/Encantada de conocerte de nuevo!',
+      // 'Forgot Password?' : 'Has olvidado tu Contraseña?',
+      'Don’t have an account?' : 'No tienes una cuenta?',
+      ' Sign Up' : 'Inscribirse',
+      // 'Password' : 'Contraseña',
+      // 'Enter Correct Password' : 'Ingrese la contraseña correcta',
+      // 'Enter Correct email' : 'Ingrese el correo electrónico correcto',
+      // 'Type a message...' : 'Escribe un mensaje...',
+     'No internet connection available' : 'No hay conexión a Internet disponible',
+     'Refresh' : 'Refrescar',
+     'No Internet Connection' : 'No hay conexión a Internet',
+     'No Internet' : 'No hay Internet',
+     'Cleaning On Demand' : 'Limpieza a Pedido',
+     'Book an apointment in' : 'Reserve una cita en',
+     'less then 60 seconds and get on' : 'menos de 60 segundos y suba',
+     'the schedule as early as' : 'el cronograma lo antes posible',
+     'tommorrow' : 'mañana',
+     'Skip' : 'Saltar',
+     'Next' : 'Siguiente',
+     '1 d ago' : '1 d ago',
+     'Reply' : 'Responder',
+     'No Chats Yet!' : 'Aún no hay chats!',
+     'CHATS' : 'CHARLAS',
+     // 'Notifications' : 'Notificaciones',
+     // 'No Notifications Yet!' : 'Aún no hay notificaciones!',
+     'We’ll notify you when something arrives.' : 'Te avisaremos cuando llegue algo.',
+     'Deleted' : 'Eliminado',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       'If you have any questions or issues while using our application, please contact our support team at support@bookcleany.com.':
       'Si tiene alguna pregunta o problema al utilizar nuestra aplicación, comuníquese con nuestro equipo de soporte en support@bookcleany.com.',
       'privacy and policy': '''En Bookcleany, respetamos su privacidad y estamos comprometidos a proteger su información personal. Esta Política de Privacidad explica cómo recopilamos, usamos y divulgamos información cuando utiliza nuestra aplicación móvil.

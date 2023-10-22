@@ -2,6 +2,7 @@ import 'package:cleany/models/chat_list_model.dart';
 import 'package:cleany/models/message_model.dart';
 import 'package:cleany/screens/chats/chats_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RecentChats extends StatefulWidget {
   List<ChattingListModel> chats = [];
@@ -134,8 +135,8 @@ class _RecentChatsState extends State<RecentChats> {
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   alignment: Alignment.center,
-                                  child: const Text(
-                                    'NEW',
+                                  child:  Text(
+                                    'NEW'.tr,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,

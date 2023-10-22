@@ -3,6 +3,7 @@ import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/providers/notification_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -70,7 +71,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget buildSearchWidget(BuildContext context) {
     return gettoolbarMenu(context, 'back.svg', () {
       Constant.backToPrev(context);
-    }, istext: true, title: 'Notifications', weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
+    }, istext: true, title: 'Notifications'.tr, weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
   }
 
   Expanded notificationList() {
@@ -171,10 +172,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
         getVerSpace(FetchPixels.getPixelHeight(40)),
-        getCustomFont('No Notifications Yet!', 20, Colors.black, 1, fontWeight: FontWeight.w900),
+        getCustomFont('No Notifications Yet!'.tr, 20, Colors.black, 1, fontWeight: FontWeight.w900),
         getVerSpace(FetchPixels.getPixelHeight(10)),
         getCustomFont(
-          'We’ll notify you when something arrives.',
+          'We’ll notify you when something arrives.'.tr,
           16,
           Colors.black,
           1,
@@ -189,7 +190,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appThemeColor,
-        title: const Text('Notifications'),
+        title:  Text('Notifications'.tr),
       ),
       body: Center(
         child: MultiProvider(
@@ -203,7 +204,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   onDismissed: (direction) {
                     setState(() {
                       getNotification.list[index].data!.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Deleted')));
+                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('Deleted'.tr)));
                     });
                   },
                   child: InkWell(

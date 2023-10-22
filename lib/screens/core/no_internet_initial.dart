@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../base/color_data.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -38,7 +39,7 @@ class _NoInternetInitialState extends State<NoInternetInitial> {
         getVerSpace(FetchPixels.getPixelHeight(40)),
         getAssetImage('logo.png', 100, 100),
         getVerSpace(FetchPixels.getPixelHeight(20)),
-        getCustomFont('No internet connection available', 24, Colors.black, 1,
+        getCustomFont('No internet connection available'.tr, 24, Colors.black, 1,
             fontWeight: FontWeight.w900, textAlign: TextAlign.center),
         const Spacer(),
         buildButton(context),
@@ -48,7 +49,7 @@ class _NoInternetInitialState extends State<NoInternetInitial> {
   }
 
   Widget buildButton(BuildContext context) {
-    return getButton(context, blueColor, 'Refresh', Colors.white, () async {
+    return getButton(context, blueColor, 'Refresh'.tr, Colors.white, () async {
       await widget.checkInternetAccess();
     }, 18,
         weight: FontWeight.w600,
@@ -76,17 +77,17 @@ class _NoInternetInitialState extends State<NoInternetInitial> {
           //crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
+             SizedBox(
               height: 220,
               child: Text(
-                'No Internet Connection',
+                'No Internet Connection'.tr,
                 style: TextStyle(),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24.0),
               child: Text(
-                'No Internet',
+                'No Internet'.tr,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -103,7 +104,7 @@ class _NoInternetInitialState extends State<NoInternetInitial> {
                   onPressed: () async {
                     await widget.checkInternetAccess();
                   },
-                  child: const Text('Refresh'),
+                  child:  Text('Refresh'.tr),
                 ),
               ),
             ),

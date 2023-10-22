@@ -1,6 +1,7 @@
 import 'package:cleany/models/message_model.dart';
 import 'package:cleany/screens/chats/chats_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FavoriteContacts extends StatelessWidget {
   const FavoriteContacts({Key? key}) : super(key: key);
@@ -16,8 +17,8 @@ class FavoriteContacts extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const Text(
-                  'Favorite Contacts',
+                 Text(
+                  'Favorite Contacts'.tr,
                   style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 18.0,

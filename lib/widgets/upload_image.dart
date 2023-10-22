@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class CardPicture extends StatelessWidget {
@@ -59,7 +59,7 @@ class CardPicture extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Attach Picture',
+                  'Attach Picture'.tr,
                   style: TextStyle(fontSize: 17.0, color: Colors.grey[600]),
                 ),
                 Icon(

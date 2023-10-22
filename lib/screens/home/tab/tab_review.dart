@@ -64,7 +64,7 @@ class _TabReviewState extends State<TabReview> {
           child: Align(
             alignment: Alignment.topLeft,
             child: getCustomFont(
-                '${reviewLists.length} Reviews', 16, Colors.black, 1,
+                '${reviewLists.length} Reviews'.tr, 16, Colors.black, 1,
                 fontWeight: FontWeight.w900, textAlign: TextAlign.start),
           ),
         ),
@@ -154,7 +154,7 @@ class _TabReviewState extends State<TabReview> {
                                   ),
                                 ),
                                 getCustomFont(
-                                  '1 d ago',
+                                  '1 d ago'.tr,
                                   14,
                                   textColor,
                                   1,
@@ -186,7 +186,7 @@ class _TabReviewState extends State<TabReview> {
                                     height: FetchPixels.getPixelHeight(20)),
                                 getHorSpace(FetchPixels.getPixelWidth(6)),
                                 getCustomFont(
-                                  'Reply',
+                                  'Reply'.tr,
                                   14,
                                   textColor,
                                   1,

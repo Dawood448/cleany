@@ -11,7 +11,7 @@ buildLanguageDialog(BuildContext context) {
       context: context,
       builder: (builder) {
         return AlertDialog(
-          title: const Text('Choose Your Language'),
+          title:  Text('Choose Your Language'.tr),
           content: SizedBox(
             width: double.maxFinite,
             child: ListView.separated(

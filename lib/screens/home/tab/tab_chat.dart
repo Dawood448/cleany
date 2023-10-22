@@ -128,7 +128,7 @@ class _TabChatState extends State<TabChat> {
         getSvgImage('chat_screen.svg',
             height: FetchPixels.getPixelHeight(124), width: FetchPixels.getPixelHeight(124)),
         getVerSpace(FetchPixels.getPixelHeight(30)),
-        getCustomFont('No Chats Yet!', 20, Colors.black, 1,
+        getCustomFont('No Chats Yet!'.tr, 20, Colors.black, 1,
             fontWeight: FontWeight.w900, textAlign: TextAlign.center)
       ],
     );
@@ -182,8 +182,8 @@ class _TabChatState extends State<TabChat> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  const Text(
-                                    'CHATS',
+                                   Text(
+                                    'CHATS'.tr,
                                     style: TextStyle(
                                         color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                                   ),
