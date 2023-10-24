@@ -18,7 +18,7 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   var index = 0;
 
-  List<String> bottomBarList = ['documnet.svg', 'chat.svg', 'review.svg', 'user.svg'];
+  List<String> bottomBarList = ['document.svg', 'chat.svg', 'review.svg', 'user.svg'];
 
   List<Widget> tabList = [
     const TabBookings(),
@@ -38,6 +38,7 @@ class _NavbarState extends State<Navbar> {
         backgroundColor: backGroundColor,
         body: tabList[index],
         bottomNavigationBar: buildBottomBar(size, iconSize),
+        floatingActionButton: buildChatButton(), // Add the FloatingActionButton here
       ),
       onWillPop: () async {
         Constant.closeApp();
@@ -53,7 +54,7 @@ class _NavbarState extends State<Navbar> {
       child: Row(
         children: List.generate(
           bottomBarList.length,
-          (index1) {
+              (index1) {
             return Expanded(
               flex: 1,
               child: InkWell(
@@ -67,10 +68,16 @@ class _NavbarState extends State<Navbar> {
                     width: size,
                     height: size,
                     decoration: BoxDecoration(
-                        color: index == index1 ? blueColor : Colors.transparent, shape: BoxShape.circle),
+                      color: index == index1 ? blueColor : Colors.transparent,
+                      shape: BoxShape.circle,
+                    ),
                     child: Center(
-                      child: getSvgImage(bottomBarList[index1],
-                          width: iconSize, height: iconSize, color: index == index1 ? Colors.white : null),
+                      child: getSvgImage(
+                        bottomBarList[index1],
+                        width: iconSize,
+                        height: iconSize,
+                        color: index == index1 ? Colors.white : null,
+                      ),
                     ),
                   ),
                 ),
@@ -79,6 +86,18 @@ class _NavbarState extends State<Navbar> {
           },
         ),
       ),
+    );
+  }
+
+  FloatingActionButton buildChatButton() {
+    return FloatingActionButton(
+      onPressed: () {
+
+
+
+          },
+      child: Icon(Icons.chat),
+      backgroundColor: Colors.blue,
     );
   }
 }
