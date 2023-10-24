@@ -23,23 +23,20 @@ import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
 
 // ignore: must_be_immutable
-class ChatsScreen extends StatefulWidget {
-  var bookingId;
+class AdminChatsScreen extends StatefulWidget {
 
-  ChatsScreen({
+  AdminChatsScreen({
     Key? key,
-    this.bookingId,
   }) : super(key: key);
 
   @override
-  State<ChatsScreen> createState() => _ChatsScreenState();
+  State<AdminChatsScreen> createState() => _AdminChatsScreenState();
 }
 
 // TextEditingController controllerMsg = TextEditingController();
 ScrollController _scrollController = ScrollController();
 
-class _ChatsScreenState extends State<ChatsScreen> {
-  List<ModelChat> chatLists = DataFile.chatList;
+class _AdminChatsScreenState extends State<AdminChatsScreen> {
   List<ModelMessage> messageLists = DataFile.messageList;
 
   // int index = 0;
@@ -58,7 +55,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       var token = await Authentication.token();
       channel = IOWebSocketChannel.connect(
         // 'wss://api.bookcleany.com/ws/chat/74',
-          'wss://api.bookcleany.com/ws/chat/${widget.bookingId}',
+          'wss://api.bookcleany.com/ws/user_chat?',
           headers: {'Authorization': token});
       print(token);
       chats.clear();
@@ -247,18 +244,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
               width: FetchPixels.getPixelHeight(24),
               height: FetchPixels.getPixelHeight(24)),
         ),
-        getHorSpace(FetchPixels.getPixelWidth(20)),
-        Container(
-          height: FetchPixels.getPixelHeight(50),
-          width: FetchPixels.getPixelHeight(50),
-          decoration: BoxDecoration(
-              image: getDecorationAssetImage(context, 'default_avatar.png')),
-        ),
-        getHorSpace(FetchPixels.getPixelWidth(10)),
+        getHorSpace(FetchPixels.getPixelWidth(120)),
         Expanded(
           flex: 1,
           child: getCustomFont(
-            'New Chat'.tr,
+            'Admin Chat'.tr,
             20,
             Colors.black,
             1,
@@ -286,7 +276,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           final bool isMe = chats[index]['role'] == 'Cleaner';
           return Column(
             crossAxisAlignment:
-            !isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Wrap(
                 children: [
@@ -295,11 +285,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         horizontal: FetchPixels.getPixelWidth(16),
                         vertical: FetchPixels.getPixelHeight(13)),
                     decoration: BoxDecoration(
-                        color: !isMe ? blueColor : receiverColor,
+                        color: isMe ? blueColor : receiverColor,
                         borderRadius: BorderRadius.circular(
                             FetchPixels.getPixelHeight(12))),
                     child: getMultilineCustomFont(chats[index]['message'], 16,
-                        !isMe ? Colors.white : Colors.black,
+                        isMe ? Colors.white : Colors.black,
                         fontWeight: FontWeight.w400, txtHeight: 1.3),
                   )
                 ],
@@ -307,7 +297,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
               getVerSpace(FetchPixels.getPixelHeight(10)),
               Row(
                 mainAxisAlignment:
-                !isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   getCustomFont(
                     time,
@@ -317,7 +307,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     fontWeight: FontWeight.w400,
                   ),
                   getHorSpace(FetchPixels.getPixelWidth(10)),
-                  !isMe
+                  isMe
                       ? getSvgImage('seen.svg',
                       height: FetchPixels.getPixelHeight(18),
                       width: FetchPixels.getPixelHeight(18))

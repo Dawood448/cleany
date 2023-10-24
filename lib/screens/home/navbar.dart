@@ -1,3 +1,4 @@
+import 'package:cleany/screens/chats/admin_chat_screen.dart';
 import 'package:cleany/screens/home/tab/tab_bookings.dart';
 import 'package:cleany/screens/home/tab/tab_profile.dart';
 import 'package:cleany/screens/home/tab/tab_review.dart';
@@ -18,7 +19,7 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   var index = 0;
 
-  List<String> bottomBarList = ['document.svg', 'chat.svg', 'review.svg', 'user.svg'];
+  List<String> bottomBarList = ['documnet.svg', 'chat.svg', 'review.svg', 'user.svg'];
 
   List<Widget> tabList = [
     const TabBookings(),
@@ -92,9 +93,7 @@ class _NavbarState extends State<Navbar> {
   FloatingActionButton buildChatButton() {
     return FloatingActionButton(
       onPressed: () {
-
-
-
+        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => AdminChatsScreen() ));
           },
       child: Icon(Icons.chat),
       backgroundColor: Colors.blue,
