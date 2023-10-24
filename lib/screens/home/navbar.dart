@@ -3,6 +3,7 @@ import 'package:cleany/screens/home/tab/tab_bookings.dart';
 import 'package:cleany/screens/home/tab/tab_profile.dart';
 import 'package:cleany/screens/home/tab/tab_review.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -19,7 +20,12 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   var index = 0;
 
-  List<String> bottomBarList = ['documnet.svg', 'chat.svg', 'review.svg', 'user.svg'];
+  List<String> bottomBarList = [
+    'documnet.svg',
+    'chat.svg',
+    'review.svg',
+    'user.svg'
+  ];
 
   List<Widget> tabList = [
     const TabBookings(),
@@ -39,7 +45,7 @@ class _NavbarState extends State<Navbar> {
         backgroundColor: backGroundColor,
         body: tabList[index],
         bottomNavigationBar: buildBottomBar(size, iconSize),
-        floatingActionButton: buildChatButton(), // Add the FloatingActionButton here
+        floatingActionButton: buildChatButton(),
       ),
       onWillPop: () async {
         Constant.closeApp();
@@ -55,7 +61,7 @@ class _NavbarState extends State<Navbar> {
       child: Row(
         children: List.generate(
           bottomBarList.length,
-              (index1) {
+          (index1) {
             return Expanded(
               flex: 1,
               child: InkWell(
@@ -93,10 +99,14 @@ class _NavbarState extends State<Navbar> {
   FloatingActionButton buildChatButton() {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => AdminChatsScreen() ));
-          },
-      child: Icon(Icons.chat),
-      backgroundColor: Colors.blue,
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => const AdminChatsScreen(),
+          ),
+        );
+      },
+      backgroundColor: Colors.white,
+      child: Lottie.asset('assets/images/animation_lo4lk0ax.json'),
     );
   }
 }
