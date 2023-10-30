@@ -1,5 +1,6 @@
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:provider/provider.dart';
 import '../../../../base/color_data.dart';
@@ -7,6 +8,7 @@ import '../../../auth/auth.dart';
 import '../../../base/resizer/fetch_pixels.dart';
 import '../../../base/widget_utils.dart';
 import '../../../providers/cleaner_details_provider.dart';
+import '../../../widgets/webView.dart';
 
 class TabProfile extends StatefulWidget {
   const TabProfile({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class TabProfile extends StatefulWidget {
 }
 
 class _TabProfileState extends State<TabProfile> {
+
+
   @override
   Widget build(BuildContext context) {
     FetchPixels(context);
@@ -28,10 +32,20 @@ class _TabProfileState extends State<TabProfile> {
           getVerSpace(FetchPixels.getPixelHeight(40)),
           buildExpand(context),
           getVerSpace(FetchPixels.getPixelHeight(10)),
+          SizedBox(
+              height: 100,
+              width: 100,
+              child: TextButton(onPressed: (){
+                print("web");
+
+                Get.to(WebViewExample())  ;
+              }, child: Text("web"))),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: FetchPixels.getDefaultHorSpace(context)),
             child: buildButtonLogout(context),
           ),
+
+
         ],
       ),
     );
