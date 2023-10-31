@@ -168,6 +168,7 @@ class LocaleString extends Translations {
      'We’ll notify you when something arrives.' : 'Te avisaremos cuando llegue algo.',
      'Deleted' : 'Eliminado',
      'Chat with Admin' : 'Charla con el administrador',
+     'Learning & Resources':'Aprendizaje y Recursos',
 
 
 

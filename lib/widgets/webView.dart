@@ -34,7 +34,7 @@ Page resource error:
           ''');
         },
         onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
+          if (request.url.startsWith('https://bookcleany.com/')) {
             debugPrint('blocking navigation to ${request.url}');
             return NavigationDecision.prevent;
           }
@@ -55,7 +55,7 @@ Page resource error:
       },
     )
     ..loadRequest(
-      Uri.parse('https://www.youtube.com'),
+      Uri.parse('https://bookcleany.com/'),
     );
 
   @override

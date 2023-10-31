@@ -18,8 +18,6 @@ class TabProfile extends StatefulWidget {
 }
 
 class _TabProfileState extends State<TabProfile> {
-
-
   @override
   Widget build(BuildContext context) {
     FetchPixels(context);
@@ -32,20 +30,11 @@ class _TabProfileState extends State<TabProfile> {
           getVerSpace(FetchPixels.getPixelHeight(40)),
           buildExpand(context),
           getVerSpace(FetchPixels.getPixelHeight(10)),
-          SizedBox(
-              height: 100,
-              width: 100,
-              child: TextButton(onPressed: (){
-                print("web");
-
-                Get.to(WebViewExample())  ;
-              }, child: Text("web"))),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: FetchPixels.getDefaultHorSpace(context)),
+            padding: EdgeInsets.symmetric(
+                horizontal: FetchPixels.getDefaultHorSpace(context)),
             child: buildButtonLogout(context),
           ),
-
-
         ],
       ),
     );
@@ -67,7 +56,8 @@ class _TabProfileState extends State<TabProfile> {
     return Expanded(
       flex: 1,
       child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: FetchPixels.getDefaultHorSpace(context)),
+        padding: EdgeInsets.symmetric(
+            horizontal: FetchPixels.getDefaultHorSpace(context)),
         children: [
           Container(
             height: FetchPixels.getPixelHeight(100),
@@ -76,7 +66,9 @@ class _TabProfileState extends State<TabProfile> {
               image: getDecorationAssetImage(
                 context,
                 cleanerProfile.details.isNotEmpty
-                    ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
+                    ? cleanerProfile.details.first.profile.gender
+                                .toLowerCase() ==
+                            'male'
                         ? 'male.png'
                         : 'female.png'
                     : 'profile_image.png',
@@ -84,65 +76,110 @@ class _TabProfileState extends State<TabProfile> {
             ),
           ),
           getVerSpace(FetchPixels.getPixelHeight(44)),
-          getButtonWithIcon(context, Colors.white, 'My Profile'.tr, Colors.black,
-              () => Navigator.pushNamed(context, AppRoutes.profile), 16,
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'My Profile'.tr,
+              Colors.black,
+              () => Navigator.pushNamed(context, AppRoutes.profile),
+              16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'user.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Working Calender'.tr, Colors.black,
-              () => Navigator.pushNamed(context, AppRoutes.workingCalender), 16,
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'Working Calender'.tr,
+              Colors.black,
+              () => Navigator.pushNamed(context, AppRoutes.workingCalender),
+              16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'calender.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Set Work days'.tr, Colors.black,
-              () => Navigator.pushNamed(context, AppRoutes.setWorkDays), 16,
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'Set Work days'.tr,
+              Colors.black,
+              () => Navigator.pushNamed(context, AppRoutes.setWorkDays),
+              16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'clock.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Privacy Policy'.tr, Colors.black,
-              () => Navigator.pushNamed(context, AppRoutes.privacy), 16,
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'Privacy Policy'.tr,
+              Colors.black,
+              () => Navigator.pushNamed(context, AppRoutes.privacy),
+              16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'privacy.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getButtonWithIcon(context, Colors.white, 'Terms of Use'.tr, Colors.black,
-              () => Navigator.pushNamed(context, AppRoutes.terms), 16,
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'Terms of Use'.tr,
+              Colors.black,
+              () => Navigator.pushNamed(context, AppRoutes.terms),
+              16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'termuse.svg',
@@ -153,9 +190,13 @@ class _TabProfileState extends State<TabProfile> {
               () => Navigator.pushNamed(context, AppRoutes.support), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'headphone.svg',
@@ -166,15 +207,45 @@ class _TabProfileState extends State<TabProfile> {
               () => Navigator.pushNamed(context, AppRoutes.report), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
-              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
               boxShadow: [
-                const BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
+              ],
+              prefixIcon: true,
+              prefixImage: 'documnet.svg',
+              sufixIcon: true,
+              suffixImage: 'arrow_right.svg'),
+          getVerSpace(FetchPixels.getPixelHeight(20)),
+
+          getButtonWithIcon(context, Colors.white, 'Learning & Resources'.tr, Colors.black,
+              () => Get.to(WebViewExample()), 16,
+              weight: FontWeight.w400,
+              buttonHeight: FetchPixels.getPixelHeight(60),
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              boxShadow: [
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
               ],
               prefixIcon: true,
               prefixImage: 'documnet.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(40)),
+
+          // TextButton(
+          //     onPressed: () {
+          //       print("web");
+          //
+          //       Get.to(WebViewExample());
+          //     },
+          //     child: Text("web")),
         ],
       ),
     );
@@ -183,7 +254,8 @@ class _TabProfileState extends State<TabProfile> {
   Align buildHeader() {
     return Align(
       alignment: Alignment.topCenter,
-      child: getCustomFont('Profile'.tr, 24, Colors.black, 1, fontWeight: FontWeight.w900),
+      child: getCustomFont('Profile'.tr, 24, Colors.black, 1,
+          fontWeight: FontWeight.w900),
     );
   }
 }

@@ -34,7 +34,7 @@ dependencies:
 
   # helpers
   json_annotation:
-  flutter_secure_storage:
+  flutter_secure_storage: ^9.0.0
   cached_network_image:
   connectivity:
   maps_launcher:
