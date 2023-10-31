@@ -11,7 +11,7 @@ class WebViewExample extends StatefulWidget {
 class WebViewExampleState extends State<WebViewExample> {
   var webViewController = WebViewController();
   final controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.disabled)
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setNavigationDelegate(
       NavigationDelegate(
         onProgress: (int progress) {
