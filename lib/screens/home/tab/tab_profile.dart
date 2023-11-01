@@ -2,6 +2,7 @@ import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../base/color_data.dart';
@@ -26,6 +27,7 @@ class _TabProfileState extends State<TabProfile> {
       throw Exception('Could not launch $url');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     FetchPixels(context);
@@ -35,7 +37,7 @@ class _TabProfileState extends State<TabProfile> {
         children: [
           getVerSpace(FetchPixels.getPixelHeight(20)),
           buildHeader(),
-          getVerSpace(FetchPixels.getPixelHeight(40)),
+          getVerSpace(FetchPixels.getPixelHeight(20)),
           buildExpand(context),
           getVerSpace(FetchPixels.getPixelHeight(10)),
           Padding(
@@ -65,25 +67,20 @@ class _TabProfileState extends State<TabProfile> {
       flex: 1,
       child: ListView(
         padding: EdgeInsets.symmetric(
-            horizontal: FetchPixels.getDefaultHorSpace(context)),
+          horizontal: FetchPixels.getDefaultHorSpace(context),
+        ),
         children: [
-          Container(
-            height: FetchPixels.getPixelHeight(100),
-            width: FetchPixels.getPixelHeight(100),
-            decoration: BoxDecoration(
-              image: getDecorationAssetImage(
-                context,
-                cleanerProfile.details.isNotEmpty
-                    ? cleanerProfile.details.first.profile.gender
-                                .toLowerCase() ==
-                            'male'
-                        ? 'male.png'
-                        : 'female.png'
-                    : 'profile_image.png',
-              ),
-            ),
+          SizedBox(
+            height: FetchPixels.getPixelHeight(150),
+            width: FetchPixels.getPixelHeight(150),
+            child: cleanerProfile.details.isNotEmpty
+                ? cleanerProfile.details.first.profile.gender.toLowerCase() ==
+                        'male'
+                    ? Lottie.asset('assets/images/male.json')
+                    : Lottie.asset('assets/images/female.json')
+                : Image.asset('assets/images/profile_image.png'),
           ),
-          getVerSpace(FetchPixels.getPixelHeight(44)),
+          getVerSpace(FetchPixels.getPixelHeight(20)),
           getButtonWithIcon(
               context,
               Colors.white,
@@ -229,8 +226,8 @@ class _TabProfileState extends State<TabProfile> {
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(20)),
 
-          getButtonWithIcon(context, Colors.white, 'Learning & Resources'.tr, Colors.black,
-              () =>_launchInWebView(url), 16,
+          getButtonWithIcon(context, Colors.white, 'Learning & Resources'.tr,
+              Colors.black, () => _launchInWebView(url), 16,
               weight: FontWeight.w400,
               buttonHeight: FetchPixels.getPixelHeight(60),
               borderRadius:

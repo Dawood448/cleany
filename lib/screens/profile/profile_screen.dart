@@ -5,6 +5,7 @@ import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/color_data.dart';
@@ -65,9 +66,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         shrinkWrap: true,
         primary: true,
         children: [
-          getVerSpace(FetchPixels.getPixelHeight(40)),
+          // getVerSpace(FetchPixels.getPixelHeight(40)),
           profilePicture(context),
-          getVerSpace(FetchPixels.getPixelHeight(40)),
+          getVerSpace(FetchPixels.getPixelHeight(20)),
           getCustomFont('Name'.tr, 16, textColor, 1, fontWeight: FontWeight.w400),
           getVerSpace(FetchPixels.getPixelHeight(6)),
           getCustomFont(
@@ -184,19 +185,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
       alignment: Alignment.topCenter,
-      child: Container(
-        height: FetchPixels.getPixelHeight(100),
-        width: FetchPixels.getPixelHeight(100),
-        decoration: BoxDecoration(
-          image: getDecorationAssetImage(
-            context,
-            cleanerProfile.details.isNotEmpty
-                ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
-                    ? 'male.png'
-                    : 'female.png'
-                : 'profile_image.png',
-          ),
-        ),
+      child:           SizedBox(
+        height: FetchPixels.getPixelHeight(200),
+        width: FetchPixels.getPixelHeight(200),
+        child: cleanerProfile.details.isNotEmpty
+            ? cleanerProfile.details.first.profile.gender.toLowerCase() ==
+            'male'
+            ? Lottie.asset('assets/images/male.json')
+            : Lottie.asset('assets/images/female.json')
+            : Image.asset('assets/images/profile_image.png'),
       ),
     );
   }

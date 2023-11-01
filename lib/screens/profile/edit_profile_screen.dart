@@ -3,6 +3,7 @@ import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/color_data.dart';
@@ -120,12 +121,11 @@ class _EditScreenState extends State<EditScreen> {
                 padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
                 child: buildHeader(context),
               ),
-              getVerSpace(FetchPixels.getPixelHeight(40)),
+              getVerSpace(FetchPixels.getPixelHeight(10)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
                 child: profilePicture(context),
               ),
-              getVerSpace(FetchPixels.getPixelHeight(20)),
               buildExpandList(context, defVerSpaceSet),
             ],
           ),
@@ -141,7 +141,7 @@ class _EditScreenState extends State<EditScreen> {
   Widget buildHeader(BuildContext context) {
     return gettoolbarMenu(context, 'back.svg', () {
       Constant.backToPrev(context);
-    }, istext: true, title: 'Edit Profile', weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
+    }, istext: true, title: 'Edit Profile'.tr, weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
   }
 
   Expanded buildExpandList(BuildContext context, Widget defVerSpaceSet) {
@@ -238,7 +238,7 @@ class _EditScreenState extends State<EditScreen> {
           left: FetchPixels.getPixelWidth(20),
           right: FetchPixels.getPixelWidth(20),
           bottom: FetchPixels.getPixelHeight(30)),
-      child: getButton(context, blueColor, 'Save', Colors.white, () {
+      child: getButton(context, blueColor, 'Save'.tr, Colors.white, () {
         // TODO: implement save functionality
       }, 18,
           weight: FontWeight.w600,
@@ -251,19 +251,15 @@ class _EditScreenState extends State<EditScreen> {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
       alignment: Alignment.topCenter,
-      child: Container(
-        height: FetchPixels.getPixelHeight(100),
-        width: FetchPixels.getPixelHeight(100),
-        decoration: BoxDecoration(
-          image: getDecorationAssetImage(
-            context,
-            cleanerProfile.details.isNotEmpty
-                ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
-                    ? 'male.png'
-                    : 'female.png'
-                : 'profile_image.png',
-          ),
-        ),
+      child:     SizedBox(
+        height: FetchPixels.getPixelHeight(200),
+        width: FetchPixels.getPixelHeight(200),
+        child: cleanerProfile.details.isNotEmpty
+            ? cleanerProfile.details.first.profile.gender.toLowerCase() ==
+            'male'
+            ? Lottie.asset('assets/images/male.json')
+            : Lottie.asset('assets/images/female.json')
+            : Image.asset('assets/images/profile_image.png'),
       ),
     );
   }
