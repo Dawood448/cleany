@@ -401,159 +401,166 @@ class _TabBookingsState extends State<TabBookings> {
   }
 
   Widget buildBookingItem(BookingDetailsData? details) {
-    return Container(
-      margin: EdgeInsets.only(
-        bottom: FetchPixels.getPixelHeight(20),
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: const [
-          BoxShadow(
-              color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
-        ],
-        borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: FetchPixels.getPixelWidth(16),
-        vertical: FetchPixels.getPixelHeight(16),
-      ),
-      width: double.maxFinite,
-      child: details == null
-          ? Text(
-              'Something went wrong',
-              style: TextStyle(color: error, fontWeight: FontWeight.w700),
-            )
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("${DateFormat('dd MMMM, yyyy').format(details!.appointmentDateTime!)}"),
+        getVerSpace(FetchPixels.getPixelHeight(12)),
+        Container(
+          margin: EdgeInsets.only(
+            bottom: FetchPixels.getPixelHeight(20),
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+            ],
+            borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: FetchPixels.getPixelWidth(16),
+            vertical: FetchPixels.getPixelHeight(16),
+          ),
+          width: double.maxFinite,
+          child: details == null
+              ? Text(
+                  'Something went wrong',
+                  style: TextStyle(color: error, fontWeight: FontWeight.w700),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      radius: FetchPixels.getPixelHeight(30),
-                      backgroundColor: blueColor,
-                      child: Hero(
-                        tag: details.id.toString(),
-                        child: getAssetImage(
-                          'default_avatar.png',
-                          FetchPixels.getPixelHeight(58),
-                          FetchPixels.getPixelHeight(58),
-                        ),
-                      ),
-                    ),
-                    getHorSpace(FetchPixels.getPixelWidth(12)),
-                    Column(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w900),
-                        ),
-                        getVerSpace(FetchPixels.getPixelHeight(8)),
-                        Text(
-                          _dateFormat.format(
-                              details.schedule?.startTime ?? DateTime.now()),
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                        getVerSpace(FetchPixels.getPixelHeight(5)),
-                        Text(
-                          'From ${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    if (details.schedule?.shiftStatus?.isNotEmpty ?? false) ...[
-                      const Spacer(),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: FetchPixels.getPixelWidth(12),
-                          vertical: FetchPixels.getPixelHeight(6),
-                        ),
-                        decoration: ShapeDecoration(
-                          shape: const StadiumBorder(),
-                          color: details.schedule?.shiftStatus == 'pending'
-                              ? error.withOpacity(0.2)
-                              : details.schedule?.shiftStatus == 'completed'
-                                  ? completed.withOpacity(0.2)
-                                  : success.withOpacity(0.2),
-                        ),
-                        child: Text(
-                          GetStringUtils(details.schedule?.shiftStatus)
-                                  ?.capitalize ??
-                              '',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: details.schedule?.shiftStatus == 'pending'.tr
-                                ? error
-                                : details.schedule?.shiftStatus ==
-                                        'completed'.tr
-                                    ? completed
-                                    : success,
+                        CircleAvatar(
+                          radius: FetchPixels.getPixelHeight(30),
+                          backgroundColor: blueColor,
+                          child: Hero(
+                            tag: details.id.toString(),
+                            child: getAssetImage(
+                              'default_avatar.png',
+                              FetchPixels.getPixelHeight(58),
+                              FetchPixels.getPixelHeight(58),
+                            ),
                           ),
                         ),
-                      ),
-                    ]
-                  ],
-                ),
-                getVerSpace(FetchPixels.getPixelHeight(12)),
-                getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
-                getVerSpace(FetchPixels.getPixelHeight(12)),
-                Row(
-                  children: [
-                    getSvgImage('location.svg'),
-                    getHorSpace(FetchPixels.getPixelWidth(10)),
-                    Expanded(
-                      child: Text(
-                        details.bod?.bodServiceLocation?.streetAddress ?? 'N/A',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.start,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
+                        getHorSpace(FetchPixels.getPixelWidth(12)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(8)),
+                            Text(
+                              _dateFormat.format(
+                                  details.schedule?.startTime ?? DateTime.now()),
+                              style:
+                                  const TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(5)),
+                            Text(
+                              'From ${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
+                              style:
+                                  const TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        if (details.schedule?.shiftStatus?.isNotEmpty ?? false) ...[
+                          const Spacer(),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: FetchPixels.getPixelWidth(12),
+                              vertical: FetchPixels.getPixelHeight(6),
+                            ),
+                            decoration: ShapeDecoration(
+                              shape: const StadiumBorder(),
+                              color: details.schedule?.shiftStatus == 'pending'
+                                  ? error.withOpacity(0.2)
+                                  : details.schedule?.shiftStatus == 'completed'
+                                      ? completed.withOpacity(0.2)
+                                      : success.withOpacity(0.2),
+                            ),
+                            child: Text(
+                              GetStringUtils(details.schedule?.shiftStatus)
+                                      ?.capitalize ??
+                                  '',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: details.schedule?.shiftStatus == 'pending'.tr
+                                    ? error
+                                    : details.schedule?.shiftStatus ==
+                                            'completed'.tr
+                                        ? completed
+                                        : success,
+                              ),
+                            ),
+                          ),
+                        ]
+                      ],
                     ),
-                    if (details.schedule!.shiftStatus == 'pending' ||
-                        details.schedule!.shiftStatus == 'completed') ...[
-                      getHorSpace(FetchPixels.getPixelWidth(30)),
-                      InkWell(
-                        onTap: () {
-                          if (details.schedule!.shiftStatus == 'pending') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatsScreen(
-                                  bookingId: details.id,
-                                ),
-                              ),
-                            );
-                          } else if (details.schedule!.shiftStatus ==
-                              'completed') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatsScreen(
-                                  bookingId: details.id,
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                        customBorder: const CircleBorder(),
-                        child: const Icon(CupertinoIcons.chat_bubble),
-                      ),
-                    ]
+                    getVerSpace(FetchPixels.getPixelHeight(12)),
+                    getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
+                    getVerSpace(FetchPixels.getPixelHeight(12)),
+                    Row(
+                      children: [
+                        getSvgImage('location.svg'),
+                        getHorSpace(FetchPixels.getPixelWidth(10)),
+                        Expanded(
+                          child: Text(
+                            details.bod?.bodServiceLocation?.streetAddress ?? 'N/A',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style:
+                                const TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ),
+                        if (details.schedule!.shiftStatus == 'pending' ||
+                            details.schedule!.shiftStatus == 'completed') ...[
+                          getHorSpace(FetchPixels.getPixelWidth(30)),
+                          InkWell(
+                            onTap: () {
+                              if (details.schedule!.shiftStatus == 'pending') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatsScreen(
+                                      bookingId: details.id,
+                                    ),
+                                  ),
+                                );
+                              } else if (details.schedule!.shiftStatus ==
+                                  'completed') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatsScreen(
+                                      bookingId: details.id,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            customBorder: const CircleBorder(),
+                            child: const Icon(CupertinoIcons.chat_bubble),
+                          ),
+                        ]
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+        ),
+      ],
     );
   }
 
