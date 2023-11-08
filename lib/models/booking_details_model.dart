@@ -100,12 +100,12 @@ class BookingDetailsData {
     packages =
         List.from(json['packages']).map((e) => Packages.fromJson(e)).toList();
     extras = List.from(json['extras']).map((e) => Extras.fromJson(e)).toList();
-    dispatchId = DispatchId.fromJson(json['dispatch_id']);
+    dispatchId = json['dispatch_id'] != null ? DispatchId.fromJson(json['dispatch_id']) : null;
     serviceProvider = json['service_provider'];
-    service=  Service.fromJson(json['service']) ;
-    schedule = Schedule.fromJson(json['schedule']);
-    bod = Bod.fromJson(json['bod']);
-    outstanding = Outstanding.fromJson(json['outstanding']);
+    service=  json['service'] != null ? Service.fromJson(json['service']) : null ;
+    schedule = json['schedule'] != null ?  Schedule.fromJson(json['schedule']) : null;
+    bod = json['bod'] != null ? Bod.fromJson(json['bod']) : null;
+    outstanding = json['outstanding'] != null ? Outstanding.fromJson(json['outstanding']) : null;
     collection = null;
     dispatch =
         json['dispatch'] != null ? Dispatch.fromJson(json['dispatch']) : null;

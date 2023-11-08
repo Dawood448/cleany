@@ -9,6 +9,7 @@ import 'package:cleany/screens/notification/notification_screen.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:cleany/variables/global_variables.dart';
 import 'package:cleany/widgets/drawer_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
@@ -61,11 +62,6 @@ class _TabBookingsState extends State<TabBookings> {
     super.initState();
   }
 
-  // void chatAssign() async {
-  //   ChatRoom list = await ApiRequests().getChatsApi(chatRoom);
-  //   for (int i = 0; i < list.data!.length; i++) {}
-  // }
-
   void taskAssign(BookingListProvider bookingsList) {
     debugPrint('Refreshed-----');
 
@@ -73,7 +69,7 @@ class _TabBookingsState extends State<TabBookings> {
     todayBookings.clear();
     pendingBookings.clear();
     completedBookings.clear();
-    print(bookingsList.list.length);
+    // print(bookingsList.list.length);
     for (int i = 0; i < bookingsList.list.length; i++) {
       if (bookingsList.list[i].data![i].schedule!.createdAt!.day == valDay &&
           bookingsList.list[i].data![i].schedule!.createdAt!.month ==
@@ -104,45 +100,136 @@ class _TabBookingsState extends State<TabBookings> {
   final _timeFormat = DateFormat.jm();
   final _dateFormat = DateFormat('dd MMMM, yyyy');
 
+
   @override
   Widget build(BuildContext context) {
+
+    final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
+
     FetchPixels(context);
     // return _dashboard();
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          getVerSpace(FetchPixels.getPixelHeight(25)),
-          buildTopRow(context),
-          getVerSpace(FetchPixels.getPixelHeight(25)),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(
-                horizontal: FetchPixels.getDefaultHorSpace(context)),
-            child: getCustomFont('Bookings'.tr, 18, Colors.black, 1,
-                fontWeight: FontWeight.w900),
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              labelStyle: TextStyle(fontWeight: FontWeight.w400,),
+              labelColor: Colors.black,
+              tabs: [
+                Tab(text: 'Current'), // First Tab
+                Tab(text: 'Upcoming'), // Second Tab
+              ],
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: getCustomFont(
+              (() {
+                if (cleanerProfile.details.isNotEmpty) {
+                  print(cleanerProfile.details.first.profile.firstName);
+                  return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
+                } else {
+                  return '';
+                }
+              })(),
+              16,
+              Colors.black,
+              1,
+              fontWeight: FontWeight.w400,
+            ),
+            // centerTitle: true,
+            leading: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: FetchPixels.getPixelHeight(46),
+                  width: FetchPixels.getPixelHeight(46),
+                  decoration: BoxDecoration(
+                    image: getDecorationAssetImage(
+                      context,
+                      cleanerProfile.details.isNotEmpty
+                          ? cleanerProfile.details.first.profile.gender
+                                      .toLowerCase() ==
+                                  'male'
+                              ? 'male.png'
+                              : 'female.png'
+                          : 'profile_image.png',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    buildLanguageDialog(context);
+                  },
+                  icon: const Icon(
+                    Icons.language,
+                    size: 25,
+                    color: Colors.black,
+                  )),
+              InkWell(
+                customBorder: const CircleBorder(),
+                onTap: () {
+                  Navigator.of(context).pushNamed(AppRoutes.notifications);
+                },
+                child: getSvgImage(
+                  'notification_unselected.svg',
+                  height: FetchPixels.getPixelHeight(24),
+                  width: FetchPixels.getPixelHeight(24),
+                ),
+              )
+            ],
           ),
-          getVerSpace(FetchPixels.getPixelHeight(25)),
-          Expanded(
-            flex: 1,
-            child: RefreshIndicator(
-              onRefresh: () async {
-                final bookingsList =
-                    Provider.of<BookingListProvider>(context, listen: false);
-                bookingsList
-                    .getDetails(context)
-                    .then((value) => taskAssign(bookingsList));
-                setState(() {});
-              },
-              child: Stack(
+          // body:
+          body: TabBarView(
+            children: [
+              // Content for the "Current" tab
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // bookingList()
-                  (allBookings.isEmpty) ? nullListView() : bookingList()
+                  // getVerSpace(FetchPixels.getPixelHeight(25)),
+                  // buildTopRow(context),
+                  getVerSpace(FetchPixels.getPixelHeight(25)),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: FetchPixels.getDefaultHorSpace(context)),
+                    child: getCustomFont('Bookings'.tr, 18, Colors.black, 1,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  getVerSpace(FetchPixels.getPixelHeight(25)),
+                  Expanded(
+                    flex: 1,
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        final bookingsList = Provider.of<BookingListProvider>(
+                            context,
+                            listen: false);
+                        bookingsList
+                            .getDetails(context)
+                            .then((value) => taskAssign(bookingsList));
+                        setState(() {});
+                      },
+                      child: Stack(
+                        children: [
+                          bookingList(),
+                          // (allBookings.isEmpty) ? nullListView() : bookingList()
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
-            ),
-          )
-        ],
+              // Content for the "Upcoming" tab
+              const Center(
+                child: Text('Upcoming Content'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -215,8 +302,6 @@ class _TabBookingsState extends State<TabBookings> {
   }
 
   Widget nullListView() {
-    print("---------");
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -232,75 +317,85 @@ class _TabBookingsState extends State<TabBookings> {
   }
 
   Widget bookingList() {
-    print("*******");
-    return ListView.builder(
-      physics: const AlwaysScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(
-          horizontal: FetchPixels.getDefaultHorSpace(context)),
-      shrinkWrap: true,
-      primary: true,
-      itemCount: allBookings.length,
-      itemBuilder: (context, index) {
-        // print("okokokok");
-        return GestureDetector(
-            child: buildBookingItem(allBookings[index].data![index]),
-            onTap: () {
-              try {
-                if (allBookings[index]
-                    .data![index]
-                    .schedule!
-                    .shiftStatus ==
-                    'pending') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookingDetailsScreen(
-                        shiftStarted: true,
-                        booking: allBookings[index],
-                        index: index,
-                        servicesIndex: allBookings[index]
-                            .data![index]
-                            .packages!
-                            .length,
-                        extraIndex: allBookings[index]
-                            .data![index]
-                            .extras!
-                            .length,
-                      ),
-                    ),
-                  ).then((value) {
-                    final bookingsList =
-                    Provider.of<BookingListProvider>(context,
-                        listen: false);
-                    bookingsList
-                        .getDetails(context)
-                        .then((value) => taskAssign(bookingsList));
-                    setState(() {});
-                  });
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookingDetailsScreen(
-                        shiftStarted: true,
-                        booking: allBookings[index],
-                        index: index,
-                      ),
-                    ),
-                  ).then((value) {
-                    final bookingsList =
-                    Provider.of<BookingListProvider>(context,
-                        listen: false);
-                    bookingsList
-                        .getDetails(context)
-                        .then((value) => taskAssign(bookingsList));
-                    setState(() {});
-                  });
-                }
-              } catch (e) {
-                log(e.toString());
-              }
-            });
+    return FutureBuilder<List<BookingDetailsModel>>(
+      future: ApiRequests().getBookingetailsApi(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Loading state
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          // Error state
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.data == null) {
+          // Handle the case where snapshot.data is null
+          return nullListView();
+        } else {
+          List<BookingDetailsModel> allBookings = snapshot.data!;
+
+          return ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: EdgeInsets.symmetric(
+              horizontal: FetchPixels.getDefaultHorSpace(context),
+            ),
+            shrinkWrap: true,
+            primary: true,
+            itemCount: allBookings.length,
+            itemBuilder: (context, index) {
+              final booking = allBookings[index];
+              return GestureDetector(
+                child: buildBookingItem(booking.data![index]),
+                onTap: () {
+                  try {
+                    final bookingData = booking.data![index];
+                    if (bookingData.schedule?.shiftStatus == 'pending') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingDetailsScreen(
+                            shiftStarted: true,
+                            booking: booking,
+                            index: index,
+                            servicesIndex: bookingData.packages?.length,
+                            extraIndex: bookingData.extras?.length,
+                          ),
+                        ),
+                      ).then((value) {
+                        final bookingsList = Provider.of<BookingListProvider>(
+                            context,
+                            listen: false);
+                        bookingsList
+                            .getDetails(context)
+                            .then((value) => taskAssign(bookingsList));
+                        setState(() {});
+                      });
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingDetailsScreen(
+                            shiftStarted: true,
+                            booking: booking,
+                            index: index,
+                          ),
+                        ),
+                      ).then((value) {
+                        final bookingsList = Provider.of<BookingListProvider>(
+                            context,
+                            listen: false);
+                        bookingsList
+                            .getDetails(context)
+                            .then((value) => taskAssign(bookingsList));
+                        setState(() {});
+                      });
+                    }
+                  } catch (e) {
+                    log(e.toString());
+                  }
+                },
+              );
+            },
+          );
+        }
       },
     );
   }
@@ -390,13 +485,16 @@ class _TabBookingsState extends State<TabBookings> {
                                   : success.withOpacity(0.2),
                         ),
                         child: Text(
-                          GetStringUtils(details.schedule?.shiftStatus)?.capitalize ?? '',
+                          GetStringUtils(details.schedule?.shiftStatus)
+                                  ?.capitalize ??
+                              '',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: details.schedule?.shiftStatus == 'pending'.tr
                                 ? error
-                                : details.schedule?.shiftStatus == 'completed'.tr
+                                : details.schedule?.shiftStatus ==
+                                        'completed'.tr
                                     ? completed
                                     : success,
                           ),
@@ -449,7 +547,7 @@ class _TabBookingsState extends State<TabBookings> {
                           }
                         },
                         customBorder: const CircleBorder(),
-                        child: getSvgImage('message.svg'),
+                        child: const Icon(CupertinoIcons.chat_bubble),
                       ),
                     ]
                   ],
@@ -497,7 +595,7 @@ class _TabBookingsState extends State<TabBookings> {
                               const SizedBox(
                                 width: 20,
                               ),
-                               Text(
+                              Text(
                                 'DASHBOARD'.tr,
                                 style: const TextStyle(
                                     color: Colors.white,
@@ -549,9 +647,9 @@ class _TabBookingsState extends State<TabBookings> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                 Text(
-                                  'Today\'s Appointments' .tr,
-                                  style:const TextStyle(
+                                Text(
+                                  'Today\'s Appointments'.tr,
+                                  style: const TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -669,10 +767,10 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    :  Center(
+                                    : Center(
                                         child: Text(
                                           'No appointments today'.tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 17,
                                           ),
                                         ),
@@ -680,7 +778,7 @@ class _TabBookingsState extends State<TabBookings> {
                                 const SizedBox(
                                   height: 30.0,
                                 ),
-                                 Text(
+                                Text(
                                   'Pending Appointments'.tr,
                                   style: const TextStyle(
                                       fontSize: 20.0,
@@ -812,7 +910,8 @@ class _TabBookingsState extends State<TabBookings> {
                                                                       .additionalInfo
                                                                       .toString() ==
                                                                   ''
-                                                              ? 'No additional information provided'.tr
+                                                              ? 'No additional information provided'
+                                                                  .tr
                                                               : pendingBookings[
                                                                       index]
                                                                   .data![index]
@@ -830,10 +929,10 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    :  Center(
+                                    : Center(
                                         child: Text(
                                           'No appointments today'.tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 17,
                                           ),
                                         ),
@@ -841,9 +940,9 @@ class _TabBookingsState extends State<TabBookings> {
                                 const SizedBox(
                                   height: 30.0,
                                 ),
-                                 Text(
+                                Text(
                                   'Completed Appointments'.tr,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20.0,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -948,7 +1047,8 @@ class _TabBookingsState extends State<TabBookings> {
                                                                       .additionalInfo
                                                                       .toString() ==
                                                                   ''
-                                                              ? 'No additional information provided'.tr
+                                                              ? 'No additional information provided'
+                                                                  .tr
                                                               : completedBookings[
                                                                       index]
                                                                   .data![index]
@@ -966,10 +1066,10 @@ class _TabBookingsState extends State<TabBookings> {
                                               );
                                             }),
                                       )
-                                    :  Center(
+                                    : Center(
                                         child: Text(
                                           'No appointments today'.tr,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 17,
                                           ),
                                         ),

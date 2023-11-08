@@ -281,6 +281,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         scrollDirection: Axis.vertical,
         itemCount: chats.length,
         itemBuilder: (context, index) {
+
           // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
           final bool isMe = chats[index]['role'] == 'Cleaner';

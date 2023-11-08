@@ -111,7 +111,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             () {
               Constant.backToPrev(context);
             },
-            title: 'Booking ID'.tr + '${widget.booking!.data![widget.index].id}',
+            title: '${'Booking ID'.tr}${widget.booking!.data![widget.index].id}',
             weight: FontWeight.w900,
             istext: true,
             textColor: Colors.black,
@@ -137,7 +137,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           children: [
             getHorSpace(FetchPixels.getPixelWidth(24)),
             getCustomFont(
-                'Booked on'.tr +' ${_dateFormat.format(widget.booking!.data![widget.index].bod!.frequency!.startDate!)}',
+                '${'Booked on'.tr} ${_dateFormat.format(widget.booking!.data![widget.index].bod!.frequency!.startDate!)}',
                 12,
                 textColor,
                 1,

@@ -12,6 +12,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../models/review_model.dart';
@@ -161,7 +162,7 @@ class ApiRequests {
     return chattingDetails;
   }
 
-  Future getBookingetailsApi() async {
+  Future<List<BookingDetailsModel>> getBookingetailsApi() async {
     BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
     BookingDetailsModel? bookingDetails;
     List<BookingDetailsModel> bookings = [];
@@ -187,7 +188,6 @@ class ApiRequests {
         for (int i = 0; i < bookingDetails.data!.length; i++) {
           bookings.add(bookingDetails);
         }
-
       }
     } catch (e) {
       log(e.toString());
@@ -352,6 +352,8 @@ class ApiRequests {
 
         await storage.write(key: 'jwt', value: tokens.toString());
         await storage.write(key: 'userid', value: userId.toString());
+        // debugPrint(responseData.role);
+
 
         return response.statusCode;
       } else {
