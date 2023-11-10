@@ -109,7 +109,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             () {
               Constant.backToPrev(context);
             },
-            title: '${'Booking ID'.tr}${widget.booking!.data![widget.index].id}',
+            title:
+                '${'Booking ID'.tr}${widget.booking!.data![widget.index].id}',
             weight: FontWeight.w900,
             istext: true,
             textColor: Colors.black,
@@ -226,14 +227,16 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           _infoItem(
               'location.svg',
               'City'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.city)
+              GetStringUtils(widget.booking!.data![widget.index].bod!
+                          .bodServiceLocation!.city)
                       ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'location.svg',
               'State'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].bod!.bodServiceLocation!.state)
+              GetStringUtils(widget.booking!.data![widget.index].bod!
+                          .bodServiceLocation!.state)
                       ?.capitalize ??
                   'N/A'),
           //
@@ -298,7 +301,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
               'Title'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].service?.title)?.capitalize ??
+              GetStringUtils(widget.booking!.data![widget.index].service?.title)
+                      ?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           // _detailsItem(
@@ -364,8 +368,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               fontWeight: FontWeight.w900),
           Center(
             child: getCustomFont(
-                GetStringUtils(widget.booking!.data![widget.index].service
-                        ?.title)?.capitalize ??
+                GetStringUtils(
+                            widget.booking!.data![widget.index].service?.title)
+                        ?.capitalize ??
                     'N/A',
                 16,
                 Colors.black,
@@ -380,25 +385,55 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           for (int i = 0; i < widget.servicesIndex; i++)
             Padding(
               padding: EdgeInsets.only(bottom: FetchPixels.getPixelHeight(8)),
-              child: Row(
+              child:
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     getHorSpace(FetchPixels.getPixelWidth(24)),
+                  //     // getSvgImage('unselected.svg',
+                  //     //     color: blueColor, width: 14, height: 14),
+                  //     // getHorSpace(FetchPixels.getPixelWidth(8)),
+                  Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  getHorSpace(FetchPixels.getPixelWidth(24)),
-                  getSvgImage('unselected.svg',
-                      color: blueColor, width: 14, height: 14),
-                  getHorSpace(FetchPixels.getPixelWidth(8)),
-                  Expanded(
-                    child: getCustomFont(
-                        widget.booking!.data![widget.index].packages![i].item!
-                                .title ??
-                            'N/A',
+                  getCustomFont(
+                    '${widget.booking!.data![widget.index].packages![i].item!.package_name ?? 'N/A'} Package',
+                    16,
+                    Colors.black,
+                    2,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  getVerSpace(FetchPixels.getPixelHeight(5)),
+                  Row(
+                    children: [
+                      getHorSpace(FetchPixels.getPixelWidth(25)),
+                      getSvgImage('unselected.svg',
+                          color: blueColor, width: 14, height: 14),
+                      getHorSpace(FetchPixels.getPixelWidth(8)),
+                      getCustomFont(
+                          widget.booking!.data![widget.index].packages![i].item!
+                                  .title ??
+                              'N/A',
+                          16,
+                          Colors.black,
+                          2,
+                          fontWeight: FontWeight.w400),
+                      getHorSpace(FetchPixels.getPixelWidth(25)),
+                      getCustomFont(
+                        '${widget.booking!.data![widget.index].packages![i].item!.timeHrs ?? 'N/A'} hrs',
                         16,
                         Colors.black,
                         2,
-                        fontWeight: FontWeight.w400),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ],
                   ),
                 ],
               ),
+
+              //   ],
+              // ),
             ),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           // Extras
@@ -432,16 +467,23 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   getSvgImage('unselected.svg',
                       color: blueColor, width: 14, height: 14),
                   getHorSpace(FetchPixels.getPixelWidth(8)),
-                  Expanded(
-                    child: getCustomFont(
-                        widget.booking!.data![widget.index].extras![i].extra!
-                                .title ??
-                            'N/A',
-                        16,
-                        Colors.black,
-                        2,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  getCustomFont(
+                      widget.booking!.data![widget.index].extras![i].extra!
+                              .title ??
+                          'N/A',
+                      16,
+                      Colors.black,
+                      2,
+                      fontWeight: FontWeight.w400),
+                  getHorSpace(FetchPixels.getPixelWidth(25)),
+
+                  getCustomFont(
+                      '${widget.booking!.data![widget.index].extras![i].extra!.timeHrs ?? 'N/A'} hrs',
+
+                      16,
+                      Colors.black,
+                      2,
+                      fontWeight: FontWeight.w400),
                 ],
               ),
             ),
@@ -491,8 +533,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       child: Row(
         children: [
           Expanded(
-            child: getButton(context, backGroundColor, 'Directions'.tr, blueColor,
-                () async {
+            child: getButton(
+                context, backGroundColor, 'Directions'.tr, blueColor, () async {
               // TODO: launch google maps
               if (widget.booking!.data![widget.index].dispatchId!
                           .serviceProvider!.userProfile!.longitude ==
@@ -500,7 +542,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   widget.booking!.data![widget.index].dispatchId!
                           .serviceProvider!.userProfile!.latitude ==
                       null) {
-                ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text('Location Not Found'.tr),
                 ));
               } else {
@@ -528,7 +570,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                     () async {
                       _shiftStart().then(
                           (value) => ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
+                                SnackBar(
                                   content: Text('Shift Started'.tr),
                                 ),
                               ));
@@ -550,7 +592,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                         () async {
                           _shiftEnd().then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                               SnackBar(
+                              SnackBar(
                                 content: Text('Shift Ended'.tr),
                               ),
                             );
@@ -783,8 +825,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       },
     );
   }
-
-
 
   launchNativeMap() async {
     debugPrint('Long');

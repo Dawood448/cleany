@@ -218,6 +218,7 @@ class Item {
     this.createdAt,
     this.updatedAt,
     this.package,
+    this.package_name,
   });
   num? id;
   String? title;
@@ -227,6 +228,7 @@ class Item {
   DateTime? createdAt;
   DateTime? updatedAt;
   num? package;
+  String? package_name;
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -237,6 +239,7 @@ class Item {
     createdAt = DateTime.tryParse(json['created_at']);
     updatedAt = DateTime.tryParse(json['updated_at']);
     package = json['package'];
+    package_name = json['package_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -249,6 +252,7 @@ class Item {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['package'] = package;
+    data['package_name'] = package_name;
     return data;
   }
 }
