@@ -11,6 +11,8 @@ import 'package:cleany/variables/global_variables.dart';
 import 'package:cleany/widgets/drawer_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +48,6 @@ class _TabBookingsState extends State<TabBookings> {
   void initState() {
     print('initState');
     setState(() {
-      print('bookingList');
-
       final bookingsList =
           Provider.of<BookingListProvider>(context, listen: false);
       bookingsList
@@ -100,45 +100,35 @@ class _TabBookingsState extends State<TabBookings> {
   final _timeFormat = DateFormat.jm();
   final _dateFormat = DateFormat('dd MMMM, yyyy');
 
-
   @override
   Widget build(BuildContext context) {
-
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
 
     FetchPixels(context);
     // return _dashboard();
     return SafeArea(
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              labelStyle: TextStyle(fontWeight: FontWeight.w400,),
-              labelColor: Colors.black,
-              tabs: [
-                Tab(text: 'Current'), // First Tab
-                Tab(text: 'Upcoming'), // Second Tab
-              ],
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: getCustomFont(
-              (() {
-                if (cleanerProfile.details.isNotEmpty) {
-                  print(cleanerProfile.details.first.profile.firstName);
-                  return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
-                } else {
-                  return '';
-                }
-              })(),
-              16,
-              Colors.black,
-              1,
-              fontWeight: FontWeight.w400,
-            ),
-            // centerTitle: true,
-            leading: Row(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: getCustomFont(
+            (() {
+              if (cleanerProfile.details.isNotEmpty) {
+                print(cleanerProfile.details.first.profile.firstName);
+                return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
+              } else {
+                return '';
+              }
+            })(),
+            16,
+            Colors.black,
+            1,
+            fontWeight: FontWeight.w400,
+          ),
+          // centerTitle: true,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -160,75 +150,68 @@ class _TabBookingsState extends State<TabBookings> {
                 ),
               ],
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    buildLanguageDialog(context);
-                  },
-                  icon: const Icon(
-                    Icons.language,
-                    size: 25,
-                    color: Colors.black,
-                  )),
-              InkWell(
-                customBorder: const CircleBorder(),
-                onTap: () {
-                  Navigator.of(context).pushNamed(AppRoutes.notifications);
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  buildLanguageDialog(context);
                 },
+                icon: const Icon(
+                  Icons.language,
+                  size: 25,
+                  color: Colors.black,
+                )),
+            InkWell(
+              customBorder: const CircleBorder(),
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRoutes.notifications);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5.0),
                 child: getSvgImage(
                   'notification_unselected.svg',
                   height: FetchPixels.getPixelHeight(24),
                   width: FetchPixels.getPixelHeight(24),
                 ),
-              )
-            ],
-          ),
-          // body:
-          body: TabBarView(
-            children: [
-              // Content for the "Current" tab
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // getVerSpace(FetchPixels.getPixelHeight(25)),
-                  // buildTopRow(context),
-                  getVerSpace(FetchPixels.getPixelHeight(25)),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: FetchPixels.getDefaultHorSpace(context)),
-                    child: getCustomFont('Bookings'.tr, 18, Colors.black, 1,
-                        fontWeight: FontWeight.w900),
-                  ),
-                  getVerSpace(FetchPixels.getPixelHeight(25)),
-                  Expanded(
-                    flex: 1,
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        final bookingsList = Provider.of<BookingListProvider>(
-                            context,
-                            listen: false);
-                        bookingsList
-                            .getDetails(context)
-                            .then((value) => taskAssign(bookingsList));
-                        setState(() {});
-                      },
-                      child: Stack(
-                        children: [
-                          bookingList(),
-                          // (allBookings.isEmpty) ? nullListView() : bookingList()
-                        ],
-                      ),
-                    ),
-                  )
-                ],
               ),
-              // Content for the "Upcoming" tab
-              const Center(
-                child: Text('Upcoming Content'),
+            )
+          ],
+        ),
+        // body:
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // getVerSpace(FetchPixels.getPixelHeight(25)),
+            // buildTopRow(context),
+            getVerSpace(FetchPixels.getPixelHeight(25)),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.symmetric(
+                  horizontal: FetchPixels.getDefaultHorSpace(context)),
+              child: getCustomFont('Bookings'.tr, 18, Colors.black, 1,
+                  fontWeight: FontWeight.w900),
+            ),
+            getVerSpace(FetchPixels.getPixelHeight(25)),
+            Expanded(
+              flex: 1,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  final bookingsList =
+                      Provider.of<BookingListProvider>(context, listen: false);
+                  bookingsList
+                      .getDetails(context)
+                      .then((value) => taskAssign(bookingsList));
+                  setState(() {});
+                },
+                child: Stack(
+                  children: [
+                    bookingList(),
+                    // (allBookings.isEmpty) ? nullListView() : bookingList()
+                  ],
+                ),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
@@ -264,7 +247,6 @@ class _TabBookingsState extends State<TabBookings> {
             child: getCustomFont(
               (() {
                 if (cleanerProfile.details.isNotEmpty) {
-                  print(cleanerProfile.details.first.profile.firstName);
                   return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
                 } else {
                   return '';
@@ -404,7 +386,18 @@ class _TabBookingsState extends State<TabBookings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("${DateFormat('dd MMMM, yyyy').format(details!.appointmentDateTime!)}"),
+        Container(
+          width: Get.width,
+          height: 35,
+          color: Colors.grey.withOpacity(0.2),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 10.0),
+            child: Text(
+              DateFormat('dd MMMM, yyyy').format(details!.appointmentDateTime!),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ),
+        ),
         getVerSpace(FetchPixels.getPixelHeight(12)),
         Container(
           margin: EdgeInsets.only(
@@ -414,7 +407,9 @@ class _TabBookingsState extends State<TabBookings> {
             color: Colors.white,
             boxShadow: const [
               BoxShadow(
-                  color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  offset: Offset(0.0, 4.0)),
             ],
             borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
           ),
@@ -458,22 +453,83 @@ class _TabBookingsState extends State<TabBookings> {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w900),
                             ),
-                            getVerSpace(FetchPixels.getPixelHeight(8)),
-                            Text(
-                              _dateFormat.format(
-                                  details.schedule?.startTime ?? DateTime.now()),
-                              style:
-                                  const TextStyle(color: Colors.grey, fontSize: 12),
-                            ),
                             getVerSpace(FetchPixels.getPixelHeight(5)),
                             Text(
-                              'From ${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
-                              style:
-                                  const TextStyle(color: Colors.grey, fontSize: 12),
+                              'JOB ID# ${details.id ?? ''}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(5)),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Start: ',
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                Text(
+                                  _dateFormat.format(
+                                      details.schedule?.startTime ??
+                                          DateTime.now()),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(5)),
+                            Row(
+                              children: [
+                                const Text(
+                                  'From: ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                Text(
+                                  '${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(5)),
+                            Row(
+                              children: [
+                                const Text(
+                                  'End: ',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                Text(
+                                  _dateFormat.format(
+                                      details.schedule?.endTime ??
+                                          DateTime.now()),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                      fontSize: 12),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        if (details.schedule?.shiftStatus?.isNotEmpty ?? false) ...[
+                        if (details.schedule?.shiftStatus?.isNotEmpty ??
+                            false) ...[
                           const Spacer(),
                           Container(
                             alignment: Alignment.centerRight,
@@ -496,7 +552,8 @@ class _TabBookingsState extends State<TabBookings> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: details.schedule?.shiftStatus == 'pending'.tr
+                                color: details.schedule?.shiftStatus ==
+                                        'pending'.tr
                                     ? error
                                     : details.schedule?.shiftStatus ==
                                             'completed'.tr
@@ -517,12 +574,13 @@ class _TabBookingsState extends State<TabBookings> {
                         getHorSpace(FetchPixels.getPixelWidth(10)),
                         Expanded(
                           child: Text(
-                            details.bod?.bodServiceLocation?.streetAddress ?? 'N/A',
+                            details.bod?.bodServiceLocation?.streetAddress ??
+                                'N/A',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
-                            style:
-                                const TextStyle(color: Colors.grey, fontSize: 12),
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 12),
                           ),
                         ),
                         if (details.schedule!.shiftStatus == 'pending' ||

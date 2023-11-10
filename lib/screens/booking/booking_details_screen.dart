@@ -2,6 +2,7 @@ import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/constants/stat_variables.dart';
 import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/variables/global_variables.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -49,9 +50,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint('START SHIFT +++++++++++++++ ${widget.shiftStarted}');
-    debugPrint('SERVICES INDEX     ${widget.servicesIndex}');
-
     isShiftStarted =
         widget.booking!.data![widget.index].dispatchId!.shiftStarted ?? false;
     isShiftEnded =
@@ -117,7 +115,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             textColor: Colors.black,
             fontsize: 24,
             isrightimage: true,
-            rightimage: 'message.svg',
+            rightimage: CupertinoIcons.chat_bubble_text,
             rightFunction: () {
               Navigator.push(
                 context,
@@ -292,23 +290,22 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getCustomFont('Details'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
-          _detailsItem(
-              'Slug'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].service?.slug)
-                      ?.capitalize ??
-                  'N/A'),
+          // _detailsItem(
+          //     'Slug'.tr,
+          //     GetStringUtils(widget.booking!.data![widget.index].service?.slug)
+          //             ?.capitalize ??
+          //         'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItem(
               'Title'.tr,
               GetStringUtils(widget.booking!.data![widget.index].service?.title)?.capitalize ??
                   'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
-          _detailsItem(
-              'Status'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].service
-                      ?.status)?.capitalize ??
-                  'N/A'),
-          getVerSpace(FetchPixels.getPixelHeight(8)),
+          // _detailsItem(
+          //     'Status'.tr,
+          //     GetStringUtils(widget.booking!.data![widget.index].service
+          //             ?.status)?.capitalize ??
+          //         'N/A'),
           // _detailsItem(
           //     'Cleaner Notes',
           //     widget.booking!.data![widget.index].cleanerNotes?.capitalize ??
@@ -318,19 +315,18 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //     'Customer Notes',
           //     widget.booking!.data![widget.index].customerNotes?.capitalize ??
           //         'N/A'),
-          getVerSpace(FetchPixels.getPixelHeight(8)),
+          // _detailsItem(
+          //     'Three Days Reminder'.tr,
+          //     GetStringUtils(widget.booking!.data![widget.index].threeDayReminder
+          //         .toString())
+          //         .capitalize!),
           _detailsItem(
-              'Three Days Reminder'.tr,
-              GetStringUtils(widget.booking!.data![widget.index].threeDayReminder
-                  .toString())
-                  .capitalize!),
-          getVerSpace(FetchPixels.getPixelHeight(8)),
-          _detailsItem(
-            'Appointment Date & Time'.tr,
+            'Appointment Date'.tr,
             _dateFormat.format(
                 widget.booking!.data![widget.index].appointmentDateTime!),
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
+
           _detailsItem(
             'How to enter on premise'.tr,
             widget.booking!.data![widget.index].bod!.bodContactInfo!
@@ -363,25 +359,23 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //       'N/A',
           // ),
           getVerSpace(FetchPixels.getPixelHeight(22)),
-          //
           // Services
-          Row(
-            children: [
-              getCustomFont('Services'.tr, 18, Colors.black, 1,
-                  fontWeight: FontWeight.w900),
-              Expanded(
-                child: getCustomFont(
-                    GetStringUtils(widget.booking!.data![widget.index].service
-                            ?.title)?.capitalize ??
-                        'N/A',
-                    16,
-                    Colors.black,
-                    1,
-                    fontWeight: FontWeight.w700,
-                    textAlign: TextAlign.end),
-              ),
-            ],
+          getCustomFont('Services'.tr, 18, Colors.black, 1,
+              fontWeight: FontWeight.w900),
+          Center(
+            child: getCustomFont(
+                GetStringUtils(widget.booking!.data![widget.index].service
+                        ?.title)?.capitalize ??
+                    'N/A',
+                16,
+                Colors.black,
+                1,
+                fontWeight: FontWeight.w700,
+                textAlign: TextAlign.end),
           ),
+          getVerSpace(FetchPixels.getPixelHeight(14)),
+          getCustomFont('Packages'.tr, 18, Colors.black, 1,
+              fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           for (int i = 0; i < widget.servicesIndex; i++)
             Padding(
@@ -407,25 +401,26 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               ),
             ),
           getVerSpace(FetchPixels.getPixelHeight(14)),
-          //
           // Extras
-          Row(
-            children: [
-              getCustomFont('Extras', 18, Colors.black, 1,
-                  fontWeight: FontWeight.w900),
-              Expanded(
-                child: getCustomFont(
-                    widget.booking!.data![widget.index].service
-                            ?.title ??
-                        'N/A',
-                    16,
-                    Colors.black,
-                    1,
-                    fontWeight: FontWeight.w700,
-                    textAlign: TextAlign.end),
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     getCustomFont("Extra's", 18, Colors.black, 1,
+          //         fontWeight: FontWeight.w900),
+          //     Expanded(
+          //       child: getCustomFont(
+          //           widget.booking!.data![widget.index].service
+          //                   ?.title ??
+          //               'N/A',
+          //           16,
+          //           Colors.black,
+          //           1,
+          //           fontWeight: FontWeight.w700,
+          //           textAlign: TextAlign.end),
+          //     ),
+          //   ],
+          // ),
+          getCustomFont("Extra's", 18, Colors.black, 1,
+              fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           for (int i = 0; i < widget.extraIndex; i++)
             Padding(

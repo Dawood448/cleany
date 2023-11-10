@@ -799,7 +799,7 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
     FontWeight? weight,
     String fontFamily = Constant.fontsFamily,
     bool isrightimage = false,
-    String? rightimage,
+    IconData? rightimage,
     Function? rightFunction}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -823,8 +823,8 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
               onTap: () {
                 rightFunction!();
               },
-              child: getSvgImage(rightimage!,
-                  height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)))
+              child:Icon(rightimage)
+  )
           : Container(),
     ],
   );
