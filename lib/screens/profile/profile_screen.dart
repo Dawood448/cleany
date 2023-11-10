@@ -193,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             'male'
             ? Lottie.asset('assets/images/male.json')
             : Lottie.asset('assets/images/female.json')
-            : Image.asset('assets/images/profile_image.png'),
+            : Image.network('assets/images/profile_image.png'),
       ),
     );
   }
