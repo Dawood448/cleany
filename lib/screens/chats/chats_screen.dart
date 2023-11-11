@@ -287,7 +287,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           final bool isMe = chats[index]['role'] == 'Cleaner';
           return Column(
             crossAxisAlignment:
-                !isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Wrap(
                 children: [
@@ -296,11 +296,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         horizontal: FetchPixels.getPixelWidth(16),
                         vertical: FetchPixels.getPixelHeight(13)),
                     decoration: BoxDecoration(
-                        color: !isMe ? blueColor : receiverColor,
+                        color: isMe ? blueColor : receiverColor,
                         borderRadius: BorderRadius.circular(
                             FetchPixels.getPixelHeight(12))),
                     child: getMultilineCustomFont(chats[index]['message'], 16,
-                        !isMe ? Colors.white : Colors.black,
+                        isMe ? Colors.white : Colors.black,
                         fontWeight: FontWeight.w400, txtHeight: 1.3),
                   )
                 ],
@@ -308,7 +308,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
               getVerSpace(FetchPixels.getPixelHeight(10)),
               Row(
                 mainAxisAlignment:
-                    !isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                    isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   getCustomFont(
                     time,
@@ -318,7 +318,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     fontWeight: FontWeight.w400,
                   ),
                   getHorSpace(FetchPixels.getPixelWidth(10)),
-                  !isMe
+                  isMe
                       ? getSvgImage('seen.svg',
                           height: FetchPixels.getPixelHeight(18),
                           width: FetchPixels.getPixelHeight(18))

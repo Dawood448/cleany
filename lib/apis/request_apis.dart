@@ -348,11 +348,12 @@ class ApiRequests {
     debugPrint(getToken.toString());
     try {
       if (response.statusCode == 200) {
+
         const storage = FlutterSecureStorage();
 
         await storage.write(key: 'jwt', value: tokens.toString());
         await storage.write(key: 'userid', value: userId.toString());
-        // debugPrint(responseData.role);
+        debugPrint(responseData);
 
 
         return response.statusCode;

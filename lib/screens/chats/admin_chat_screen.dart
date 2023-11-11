@@ -14,6 +14,7 @@ import '../../base/data/data_file.dart';
 import '../../base/models/model_message.dart';
 import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
+import '../../models/message_model.dart';
 
 class AdminChatsScreen extends StatefulWidget {
   const AdminChatsScreen({
@@ -27,7 +28,6 @@ class AdminChatsScreen extends StatefulWidget {
 ScrollController _scrollController = ScrollController();
 
 class _AdminChatsScreenState extends State<AdminChatsScreen> {
-
   List<ModelMessage> messageLists = DataFile.messageList;
 
   ChatRoom? reversedList;
@@ -80,22 +80,21 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
       child: Scaffold(
         backgroundColor: backGroundColor,
         body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: FetchPixels.getDefaultHorSpace(context)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getVerSpace(FetchPixels.getPixelHeight(13)),
-                buildHeader(context),
-                getVerSpace(FetchPixels.getPixelHeight(30)),
-                buildChatList(),
-                buildInputContainer(context)
-              ],
-            ),
+            child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: FetchPixels.getDefaultHorSpace(context)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getVerSpace(FetchPixels.getPixelHeight(13)),
+              buildHeader(context),
+              getVerSpace(FetchPixels.getPixelHeight(30)),
+              buildChatList(),
+              buildInputContainer(context)
+            ],
           ),
-        ),
+        )),
       ),
       onWillPop: () async {
         Constant.backToPrev(context);

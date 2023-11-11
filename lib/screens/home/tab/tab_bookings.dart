@@ -1042,7 +1042,8 @@ class _TabBookingsState extends State<TabBookings> {
                                                                   completedBookings[
                                                                       index],
                                                               index: index,
-                                                            )),
+                                                            ),
+                                                    ),
                                                   );
                                                 },
                                                 child: Container(

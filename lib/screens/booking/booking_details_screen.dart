@@ -49,6 +49,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
 
   @override
   void initState() {
+
     super.initState();
     isShiftStarted =
         widget.booking!.data![widget.index].dispatchId!.shiftStarted ?? false;
@@ -75,8 +76,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
 
   final _dateFormat = DateFormat('dd MMMM, yyyy');
 
+
   @override
   Widget build(BuildContext context) {
+
     FetchPixels(context);
     // return _bookingDetails();
     return WillPopScope(
@@ -299,7 +302,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //             ?.capitalize ??
           //         'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
-          _detailsItem(
+          _detailsItemWithOutSvg(
               'Title'.tr,
               GetStringUtils(widget.booking!.data![widget.index].service?.title)
                       ?.capitalize ??
@@ -324,21 +327,21 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //     GetStringUtils(widget.booking!.data![widget.index].threeDayReminder
           //         .toString())
           //         .capitalize!),
-          _detailsItem(
+          _detailsItemWithOutSvg(
             'Appointment Date'.tr,
             _dateFormat.format(
                 widget.booking!.data![widget.index].appointmentDateTime!),
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
 
-          _detailsItem(
+          _detailsItemWithOutSvg(
             'How to enter on premise'.tr,
             widget.booking!.data![widget.index].bod!.bodContactInfo!
                     .howToEnterOnPremise ??
                 'N/A',
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
-          _detailsItem(
+          _detailsItemWithOutSvg(
             'Do parking spot'.tr,
             (widget.booking!.data![widget.index].bod!.bodContactInfo!
                         .parkingSpot ??
@@ -347,7 +350,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 : 'No',
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
-          _detailsItem(
+          _detailsItemWithOutSvg(
             'Do you have pets'.tr,
             (widget.booking!.data![widget.index].bod!.bodContactInfo!
                         .havePets ??
@@ -512,6 +515,21 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         getSvgImage('unselected.svg', color: blueColor, width: 14, height: 14),
+        getHorSpace(FetchPixels.getPixelWidth(8)),
+        getCustomFont('$title: '.tr, 16, textColor, 1,
+            fontWeight: FontWeight.w400),
+        Expanded(
+            child: getCustomFont(value, 16, Colors.black, 2,
+                fontWeight: FontWeight.w700)),
+      ],
+    );
+  }
+
+  Widget _detailsItemWithOutSvg(String title, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // getSvgImage('unselected.svg', color: blueColor, width: 14, height: 14),
         getHorSpace(FetchPixels.getPixelWidth(8)),
         getCustomFont('$title: '.tr, 16, textColor, 1,
             fontWeight: FontWeight.w400),
