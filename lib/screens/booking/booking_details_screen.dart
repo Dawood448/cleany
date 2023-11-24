@@ -13,7 +13,6 @@ import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
 import '../chats/chats_screen.dart';
 
-// ignore: must_be_immutable
 class BookingDetailsScreen extends StatefulWidget {
   BookingDetailsScreen(
       {Key? key,
@@ -49,7 +48,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
 
   @override
   void initState() {
-
     super.initState();
     isShiftStarted =
         widget.booking!.data![widget.index].dispatchId!.shiftStarted ?? false;
@@ -76,10 +74,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
 
   final _dateFormat = DateFormat('dd MMMM, yyyy');
 
-
   @override
   Widget build(BuildContext context) {
-
     FetchPixels(context);
     // return _bookingDetails();
     return WillPopScope(
@@ -434,9 +430,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   ),
                 ],
               ),
-
-              //   ],
-              // ),
             ),
           getVerSpace(FetchPixels.getPixelHeight(14)),
           // Extras
@@ -479,10 +472,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                       2,
                       fontWeight: FontWeight.w400),
                   getHorSpace(FetchPixels.getPixelWidth(25)),
-
                   getCustomFont(
                       '${widget.booking!.data![widget.index].extras![i].extra!.timeHrs ?? 'N/A'} hrs',
-
                       16,
                       Colors.black,
                       2,
@@ -529,13 +520,13 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // getSvgImage('unselected.svg', color: blueColor, width: 14, height: 14),
         getHorSpace(FetchPixels.getPixelWidth(8)),
         getCustomFont('$title: '.tr, 16, textColor, 1,
             fontWeight: FontWeight.w400),
         Expanded(
             child: getCustomFont(value, 16, Colors.black, 2,
-                fontWeight: FontWeight.w700)),
+                fontWeight: FontWeight.w700),
+        ),
       ],
     );
   }

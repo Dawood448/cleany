@@ -13,13 +13,14 @@ class LocalNotificationService {
   static Future<String?> initialize() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // Initialization settings for Android
-    InitializationSettings initializationSettings = const InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/ic_launcher"),
-        iOS: DarwinInitializationSettings(
-          defaultPresentAlert: true,
-          defaultPresentBadge: true,
-          defaultPresentSound: true,
-        ),
+    InitializationSettings initializationSettings =
+        const InitializationSettings(
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings(
+        defaultPresentAlert: true,
+        defaultPresentBadge: true,
+        defaultPresentSound: true,
+      ),
     );
     await _notificationsPlugin.initialize(
       initializationSettings,
@@ -70,7 +71,7 @@ class LocalNotificationService {
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      if ( message.notification != null) {
+      if (message.notification != null) {
         LocalNotificationService.createAndDisplayNotification(message);
       }
       if (kDebugMode) {
@@ -95,12 +96,14 @@ class LocalNotificationService {
   Future<void> navigation(Map<String, dynamic> payload) async {
     try {
       if (payload['booking_id'] != '') {
-          Get.to(BookingDetailsScreen(
+        Get.to(
+          BookingDetailsScreen(
             index: 0,
-            booking: payload['booking_id'], shiftStarted: false,
-          ));
-        }
-       else if (payload['booking_id'] == '') {
+            booking: payload['booking_id'],
+            shiftStarted: false,
+          ),
+        );
+      } else if (payload['booking_id'] == '') {
         Get.to(const AdminChatsScreen());
       } else {}
     } catch (e) {
@@ -109,10 +112,4 @@ class LocalNotificationService {
       }
     }
   }
-
 }
-
-
-
-
-
