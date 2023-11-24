@@ -308,10 +308,7 @@ class _TabBookingsState extends State<TabBookings> {
         } else if (snapshot.hasError) {
           // Error state
           return Text('Error: ${snapshot.error}');
-        } else if (snapshot.data == null) {
-          // Handle the case where snapshot.data is null
-          return nullListView();
-        } else {
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           List<BookingDetailsModel> allBookings = snapshot.data!;
 
           return ListView.builder(
@@ -378,6 +375,7 @@ class _TabBookingsState extends State<TabBookings> {
             },
           );
         }
+        return nullListView();
       },
     );
   }

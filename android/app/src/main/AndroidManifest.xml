@@ -11,12 +11,6 @@
         android:label="Cleany Cleaner"
         android:enableOnBackInvokedCallback="false"
         android:icon="@mipmap/launcher_icon">
-
-
-
-
-
-
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyD7Y6D1Vbeyy6_-2nYEpNdqUaLoXaf7EXs"/>
         <activity

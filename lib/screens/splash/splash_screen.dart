@@ -24,24 +24,27 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    LocalNotificationService().setupNotification();
 
-    FirebaseMessaging.instance.getInitialMessage();
-
-    // This method only call when App is in foreground it mean app must be opened
-    FirebaseMessaging.onMessage.listen(
-      (message) {
-        if (message.notification != null) {
-          LocalNotificationService.createAndDisplayNotification(message);
-        }
-      },
-    );
-
-    // This method only call when App in background and not terminated (not closed)
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (message) {
-        if (message.notification != null) {}
-      },
-    );
+    // FirebaseMessaging.instance.getInitialMessage();
+    //
+    // // This method only call when App is in foreground it mean app must be opened
+    // FirebaseMessaging.onMessage.listen(
+    //   (message) {
+    //     if (message.data != null) {
+    //       LocalNotificationService.createAndDisplayNotification(message);
+    //     }
+    //   },
+    // );
+    //
+    // // This method only call when App in background and not terminated (not closed)
+    // FirebaseMessaging.onMessageOpenedApp.listen(
+    //   (message) {
+    //     if (message.notification != null) {
+    //       LocalNotificationService.createAndDisplayNotification(message);
+    //     }
+    //   },
+    // );
   }
 
   Future<void> getDeviceTokenToSendNotification() async {
