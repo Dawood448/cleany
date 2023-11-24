@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cleany/controller/booking_controller/booking_details_controller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -96,13 +97,13 @@ class LocalNotificationService {
   Future<void> navigation(Map<String, dynamic> payload) async {
     try {
       if (payload['booking_id'] != '') {
-        Get.to(
-          BookingDetailsScreen(
+        await BookingDetailsController().getBookingDetail(payload["booking_id"]).then((value){
+          print("${value!.data}");
+          Get.to(BookingDetailsScreen(
             index: 0,
-            booking: payload['booking_id'],
-            shiftStarted: false,
-          ),
-        );
+            booking: value, shiftStarted: false,
+          ));
+        });
       } else if (payload['booking_id'] == '') {
         Get.to(const AdminChatsScreen());
       } else {}

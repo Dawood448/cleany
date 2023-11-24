@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class BookingListProvider with ChangeNotifier {
   List<BookingDetailsModel> list = [];
+  BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
 
   bool loading = false;
 

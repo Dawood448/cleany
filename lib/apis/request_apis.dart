@@ -11,6 +11,7 @@ import 'package:cleany/models/response_get_leaves.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
@@ -193,6 +194,29 @@ class ApiRequests {
       log(e.toString());
     }
     return bookings;
+  }
+  Future<BookingDetailsData> getBookingDetailApi(int id) async {
+    BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
+    var token = await Authentication.token();
+    try {
+      String url = 'https://api.bookcleany.com/booking/booking_details/$id';
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+          'X-CSRFToken': token,
+        },
+      );
+      if (response.statusCode == 200) {
+        // log('${response.body}');
+        bookingDetailsModel =
+            BookingDetailsModel.fromJson(jsonDecode(response.body));
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return bookingDetailsModel.data!.first;
   }
 
   Future getChatListApi() async {
