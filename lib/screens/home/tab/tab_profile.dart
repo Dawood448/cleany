@@ -1,3 +1,4 @@
+import 'package:cleany/screens/home/tab/tab_review.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -240,6 +241,29 @@ class _TabProfileState extends State<TabProfile> {
               ],
               prefixIcon: true,
               prefixImage: 'documnet.svg',
+              sufixIcon: true,
+              suffixImage: 'arrow_right.svg'),
+          getVerSpace(FetchPixels.getPixelHeight(20)),
+
+          getButtonWithIcon(
+              context,
+              Colors.white,
+              'Reviews'.tr,
+              Colors.black,
+                  () => Get.to(const TabReview()),
+              16,
+              weight: FontWeight.w400,
+              buttonHeight: FetchPixels.getPixelHeight(60),
+              borderRadius:
+              BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              boxShadow: [
+                const BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
+              ],
+              prefixIcon: true,
+              prefixImage: 'review.svg',
               sufixIcon: true,
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(40)),

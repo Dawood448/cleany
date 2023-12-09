@@ -463,6 +463,26 @@ class _TabBookingsState extends State<TabBookings> {
                             Row(
                               children: [
                                 const Text(
+                                  'Service: ',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                Text(
+                                  details.service!.name ?? "",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                      fontSize: 14),
+                                ),
+                              ],
+                            ),
+                            getVerSpace(FetchPixels.getPixelHeight(5)),
+                            Row(
+                              children: [
+                                const Text(
                                   'Start: ',
                                   style: TextStyle(
                                     color: Colors.green,
@@ -506,7 +526,7 @@ class _TabBookingsState extends State<TabBookings> {
                             Row(
                               children: [
                                 const Text(
-                                  'End: ',
+                                  'Total Hours: ',
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,
@@ -514,9 +534,8 @@ class _TabBookingsState extends State<TabBookings> {
                                   ),
                                 ),
                                 Text(
-                                  _dateFormat.format(
-                                      details.schedule?.endTime ??
-                                          DateTime.now()),
+                                  '     ${details.totalHours.toString()}H' ??
+                                      "",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black,
@@ -1032,15 +1051,14 @@ class _TabBookingsState extends State<TabBookings> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            BookingDetailsScreen(
-                                                              shiftStarted:
-                                                                  true,
-                                                              booking:
-                                                                  completedBookings[
-                                                                      index],
-                                                              index: index,
-                                                            ),
+                                                      builder: (context) =>
+                                                          BookingDetailsScreen(
+                                                        shiftStarted: true,
+                                                        booking:
+                                                            completedBookings[
+                                                                index],
+                                                        index: index,
+                                                      ),
                                                     ),
                                                   );
                                                 },

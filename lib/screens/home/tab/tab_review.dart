@@ -38,11 +38,13 @@ class _TabReviewState extends State<TabReview> {
   Widget build(BuildContext context) {
     // ApiRequests().getReviews();
     FetchPixels(context);
-    return SafeArea(
-      child: getPaddingWidget(
-        EdgeInsets.symmetric(
-            horizontal: FetchPixels.getDefaultHorSpace(context)),
-        buildDetail(),
+    return Scaffold(
+      body: SafeArea(
+        child: getPaddingWidget(
+          EdgeInsets.symmetric(
+              horizontal: FetchPixels.getDefaultHorSpace(context)),
+          buildDetail(),
+        ),
       ),
     );
   }

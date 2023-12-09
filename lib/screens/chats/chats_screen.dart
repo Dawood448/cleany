@@ -10,6 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -284,6 +285,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
           // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
+          DateTime dateTime = DateTime.parse(time);
+          String formattedDateTime =
+          DateFormat('h:mma d MMM y').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
           return Column(
             crossAxisAlignment:
@@ -311,7 +315,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   getCustomFont(
-                    time,
+                     formattedDateTime
+                    ,
                     14,
                     textColor,
                     1,

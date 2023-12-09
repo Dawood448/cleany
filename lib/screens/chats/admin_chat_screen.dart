@@ -5,6 +5,7 @@ import 'package:cleany/models/chat_room.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import '../../auth/auth.dart';
@@ -190,10 +191,13 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
         scrollDirection: Axis.vertical,
         itemCount: chats.length,
         itemBuilder: (context, index) {
-          // print(chats);
           // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
+          DateTime dateTime = DateTime.parse(time);
+          String formattedDateTime =
+              DateFormat('h:mma d MMM y').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
+
           return Column(
             crossAxisAlignment:
                 isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -220,7 +224,7 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
                     isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   getCustomFont(
-                    time,
+                    formattedDateTime,
                     14,
                     textColor,
                     1,

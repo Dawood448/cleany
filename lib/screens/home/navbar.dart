@@ -23,14 +23,14 @@ class _NavbarState extends State<Navbar> {
   List<String> bottomBarList = [
     'documnet.svg',
     'chat.svg',
-    'review.svg',
+    // 'review.svg',
     'user.svg'
   ];
 
   List<Widget> tabList = [
     const TabBookings(),
     const TabChat(),
-    const TabReview(),
+    // const TabReview(),
     const TabProfile(),
   ];
 
