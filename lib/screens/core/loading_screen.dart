@@ -107,7 +107,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Container(
       color: Colors.white.withOpacity(0.7),
       child: Center(
-        child: Lottie.asset('assets/images/animation_lnpkah5y.json',
+        child: Lottie.asset('assets/images/animation_Loading.json',
             frameRate: FrameRate(100), height: Get.height * 0.2),
       ),
     );

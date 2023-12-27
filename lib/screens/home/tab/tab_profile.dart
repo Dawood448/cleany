@@ -21,7 +21,7 @@ class TabProfile extends StatefulWidget {
 }
 
 class _TabProfileState extends State<TabProfile> {
-  final Uri url = Uri.parse('https://bookcleany.com/');
+  final Uri url = Uri.parse('https://bookcleany.com');
 
   Future<void> _launchInWebView(Uri url) async {
     if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {

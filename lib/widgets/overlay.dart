@@ -20,7 +20,7 @@ class LoadingWidget extends StatelessWidget {
     return Container(
       color: Colors.white.withOpacity(0.7),
       child: Center(
-        child: Lottie.asset('assets/images/animation_lnpkah5y.json',
+        child: Lottie.asset('assets/images/Animation - 1703700124666.json',
             frameRate: FrameRate(100), height: height),
       ),
     );

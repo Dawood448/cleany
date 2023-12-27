@@ -44,7 +44,7 @@ class ApiRequests {
 
     try {
       String url =
-          'https://api.bookcleany.com/mobile_side/schedule/shift/start/';
+          'https://dev.bookcleany.com/mobile_side/schedule/shift/start/';
       final response = await http.patch(Uri.parse(url), headers: {
         'accept': 'application/json',
         'Authorization': 'Bearer $token',
@@ -74,7 +74,7 @@ class ApiRequests {
     debugPrint(longitude);
     try {
       String url =
-          'https://api.bookcleany.com/user_module/update_cleaner_location';
+          'https://dev.bookcleany.com/user_module/update_cleaner_location';
       final response = await http.post(Uri.parse(url), headers: {
         'accept': 'application/json',
         'Authorization': 'Bearer $token',
@@ -97,7 +97,7 @@ class ApiRequests {
     var token = await Authentication.token();
 
     try {
-      String url = 'https://api.bookcleany.com/mobile_side/schedule/shift/end/';
+      String url = 'https://dev.bookcleany.com/mobile_side/schedule/shift/end/';
       final response = await http.patch(Uri.parse(url), headers: {
         'accept': 'application/json',
         'Authorization': 'Bearer $token',
@@ -122,7 +122,7 @@ class ApiRequests {
     List<CleanerProfileModel1> getDetails = [];
     var token = await Authentication.token();
     try {
-      String url = 'https://api.bookcleany.com/mobile_side/cleaner/profile/';
+      String url = 'https://dev.bookcleany.com/mobile_side/cleaner/profile/';
       final response = await http.get(
         Uri.parse(url),
         headers: {
@@ -147,7 +147,7 @@ class ApiRequests {
     ChatRoom chattingDetails;
     var token = await Authentication.token();
 
-    String url = 'https://api.bookcleany.com/booking/get_booking_chat/$roomId';
+    String url = 'https://dev.bookcleany.com/booking/get_booking_chat/$roomId';
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -170,7 +170,7 @@ class ApiRequests {
 
     var token = await Authentication.token();
     try {
-      String url = 'https://api.bookcleany.com/booking/cleaner_booking_listing';
+      String url = 'https://dev.bookcleany.com/booking/cleaner_booking_listing';
       final response = await http.get(
         Uri.parse(url),
         headers: {
@@ -199,7 +199,7 @@ class ApiRequests {
     BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
     var token = await Authentication.token();
     try {
-      String url = 'https://api.bookcleany.com/booking/booking_details/$id';
+      String url = 'https://dev.bookcleany.com/booking/booking_details/$id';
       final response = await http.get(
         Uri.parse(url),
         headers: {
@@ -225,7 +225,7 @@ class ApiRequests {
     List<ChattingListModel> chat = [];
     var token = await Authentication.token();
     try {
-      String url = 'https://api.bookcleany.com/booking/get_cleaner_chat';
+      String url = 'https://dev.bookcleany.com/booking/get_cleaner_chat';
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
@@ -264,7 +264,7 @@ class ApiRequests {
       };
       final response = await http.get(
           Uri.parse(
-              'https://api.bookcleany.com/service_provider/list_leaves?service_provider=$userId'),
+              'https://dev.bookcleany.com/service_provider/list_leaves?service_provider=$userId'),
           headers: headers);
       if (response.statusCode == 200) {
         apiResponse = ApiResponse.fromJson(jsonDecode(response.body));
@@ -293,7 +293,7 @@ class ApiRequests {
         'Authorization': 'Bearer $token'
       };
       final response = await http.get(
-          Uri.parse('https://api.bookcleany.com/booking/notifications'),
+          Uri.parse('https://dev.bookcleany.com/booking/notifications'),
           headers: headers);
       if (response.statusCode == 200) {
         notificationListModel =
@@ -356,7 +356,7 @@ class ApiRequests {
 
   Future<int> getToken(
       String email, String password, String deviceToken) async {
-    String url = 'https://api.bookcleany.com/user_module/mobile_login';
+    String url = 'https://dev.bookcleany.com/user_module/mobile_login';
     final response = await http.post(Uri.parse(url), headers: {
       'accept': 'application/json',
     }, body: {
@@ -391,7 +391,7 @@ class ApiRequests {
   }
 
   Future postMessage(String msg, String chatRoomId) async {
-    String url = 'https://api.bookcleany.com/booking/admin_chat';
+    String url = 'https://dev.bookcleany.com/booking/admin_chat';
     var token = await Authentication.token();
 
     Map<String, String> headers = {
@@ -421,7 +421,7 @@ class ApiRequests {
   }
 
   Future deleteLeave(int? id) async {
-    String url = 'https://api.bookcleany.com/service_provider/delete_leave/$id';
+    String url = 'https://dev.bookcleany.com/service_provider/delete_leave/$id';
     var token = await Authentication.token();
     var userId = await Authentication.userId();
     debugPrint('MMMMMMMMMMMMMMMMM');
@@ -447,7 +447,7 @@ class ApiRequests {
 
   Future postLeave(
       String startDateTime, String endDateTime, String title) async {
-    String url = 'https://api.bookcleany.com/service_provider/create_leave';
+    String url = 'https://dev.bookcleany.com/service_provider/create_leave';
     var token = await Authentication.token();
     var userId = await Authentication.userId();
 
@@ -485,7 +485,7 @@ class ApiRequests {
 
     var response = await http.get(
       Uri.parse(
-          'https://api.bookcleany.com/user_module/customer_reviews_list?review_type=Service'),
+          'https://dev.bookcleany.com/user_module/customer_reviews_list?review_type=Service'),
       headers: headers,
     );
 
