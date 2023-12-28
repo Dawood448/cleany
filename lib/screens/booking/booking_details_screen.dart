@@ -349,10 +349,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           _detailsItemWithOutSvg(
             'Do you have pets'.tr,
             (widget.booking!.data![widget.index].bod!.bodContactInfo!
-                        .havePets ??
-                    false)
-                ? 'Yes'
-                : 'No',
+                        .havePets!)
+                // ? 'Yes'
+                // : 'No',
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           // _detailsItem(
