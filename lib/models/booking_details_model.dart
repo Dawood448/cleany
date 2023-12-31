@@ -63,7 +63,7 @@ class BookingDetailsData {
     this.updatedAt,
     this.serviceLocation,
   });
-  num? id;
+  String? id;
   List<Packages>? packages;
   List<Extras>? extras;
   DispatchId? dispatchId;
@@ -183,7 +183,7 @@ class Packages {
   String? price;
   DateTime? createdAt;
   DateTime? updatedAt;
-  num? booking;
+  String? booking;
 
   Packages.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -273,7 +273,7 @@ class Extras {
   String? price;
   DateTime? createdAt;
   DateTime? updatedAt;
-  num? booking;
+  String? booking;
 
   Extras.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -367,7 +367,7 @@ class DispatchId {
   String? shiftStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
-  num? booking;
+  String? booking;
 
   DispatchId.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -564,7 +564,7 @@ class Schedule {
   DateTime? createdAt;
   DateTime? updatedAt;
   num? user;
-  num? booking;
+  String? booking;
 
   Schedule.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -831,7 +831,7 @@ class BodContactInfo {
   DateTime? createdAt;
   DateTime? updatedAt;
   bool? parkingSpot;
-  bool? havePets;
+  String? havePets;
   String? howHearAboutUs;
 
   BodContactInfo.fromJson(Map<String, dynamic> json) {
@@ -967,7 +967,7 @@ class Dispatch {
   String? shiftStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
-  num? booking;
+  String? booking;
 
   Dispatch.fromJson(Map<String, dynamic> json) {
     id = json['id'];
