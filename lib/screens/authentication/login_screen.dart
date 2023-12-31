@@ -57,10 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         if (mounted) Navigator.pushNamed(context, AppRoutes.loading);
 
-        // MaterialPageRoute(
-        //   builder: (context) => const Navbar(),
-        // );
-        // Navigator.of(context).pushReplacementNamed(AppRoutes.navbar);
+
 
       } else {
         if (mounted)
@@ -125,12 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
         loginBtn(context),
         getVerSpace(FetchPixels.getPixelHeight(30)),
         dontAcc(context),
-        // getVerSpace(FetchPixels.getPixelHeight(50)),
-        // getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
-        // getVerSpace(FetchPixels.getPixelHeight(50)),
-        // btnGoogle(context),
-        // getVerSpace(FetchPixels.getPixelHeight(20)),
-        // btnFacebook(context),
+
       ],
     );
   }

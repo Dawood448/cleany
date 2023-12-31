@@ -19,7 +19,7 @@ class FavoriteContacts extends StatelessWidget {
               children: <Widget>[
                  Text(
                   'Favorite Contacts'.tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,

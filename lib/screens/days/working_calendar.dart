@@ -364,13 +364,13 @@ class _CalendarState extends State<Calendar> {
                               children: [
                                 Row(
                                   children:  [
-                                    Icon(Icons.phone),
-                                    SizedBox(
+                                    const Icon(Icons.phone),
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       'Contact No:'.tr,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -382,13 +382,13 @@ class _CalendarState extends State<Calendar> {
                               children: [
                                 Row(
                                   children:  [
-                                    Icon(Icons.calendar_today_outlined),
-                                    SizedBox(
+                                    const Icon(Icons.calendar_today_outlined),
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       'Date:'.tr,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -403,13 +403,13 @@ class _CalendarState extends State<Calendar> {
                                 Expanded(
                                   child: Row(
                                     children:  [
-                                      Icon(Icons.location_city),
-                                      SizedBox(
+                                      const Icon(Icons.location_city),
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Text(
                                         'Address:'.tr,
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),

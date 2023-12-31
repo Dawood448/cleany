@@ -35,7 +35,7 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
                 const SizedBox(width: 5),
                  Text(
                   'Place'.tr,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -44,7 +44,7 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
               children: [
                  Text(
                   'Contact No:'.tr,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
                     widget.getBooking[widget.index].data![widget.index].bod!.bodContactInfo!.phone.toString())
@@ -55,7 +55,7 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
               children: [
                  Text(
                   'Address:'.tr,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(widget
                     .getBooking[widget.index].data![widget.index].bod!.bodServiceLocation!.streetAddress
@@ -67,7 +67,7 @@ class _ListViewCalendarState extends State<ListViewCalendar> {
               children: [
                  Text(
                   'Date:'.tr,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   DateFormat.yMMMEd().format(

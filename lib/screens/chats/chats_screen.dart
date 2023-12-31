@@ -1,19 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:cleany/apis/request_apis.dart';
-import 'package:cleany/constants/app_colors.dart';
-import 'package:cleany/constants/stat_variables.dart';
 import 'package:cleany/models/chat_room.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
-import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../auth/auth.dart';
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
@@ -43,11 +35,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
   List<ModelChat> chatLists = DataFile.chatList;
   List<ModelMessage> messageLists = DataFile.messageList;
 
-  // int index = 0;
-
-  // ChatRoom? chatMessage;
-
-  // List<String> contacts = [];
   ChatRoom? reversedList;
   Timer? timer;
   List chats = [];
@@ -83,7 +70,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       final message = json.encode(chat);
       try {
         channel.sink.add(message);
-        
+
         // channel.sink.close(status.goingAway);
         print('WebSocket message: $message');
       } catch (e) {
@@ -97,51 +84,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
     channel.sink.close();
     super.dispose();
   }
-  // @override
-  // void dispose() {
-  //   timer?.cancel();
-  //   // _scrollController.dispose();
-  //   // chatMessage!.data!.clear();
-  //   super.dispose();
-  // }
-
-  // @override
-  // void initState() {
-  //   chatAssign();
-
-  //   timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => recallChats());
-
-  //   super.initState();
-  // }
-
-  // Future<void> recallChats() async {
-  //   ChatRoom list = await ApiRequests().getChatsApi(widget.userId);
-  //   if (list.data!.length > reversedList!.data!.length) {
-  //     debugPrint('recall Chats lis is bigger than reversedlist');
-  //     setState(() {
-  //       reversedList = list;
-  //       debugPrint(list.data!.last.message.toString());
-  //       if (chatMessage!.data!.last.message !=
-  //           reversedList!.data!.last.message) {
-  //         chatMessage = reversedList;
-  //       }
-  //     });
-  //   }
-  // }
-
-  // void chatAssign() async {
-  //   ChatRoom list = await ApiRequests().getChatsApi(widget.userId);
-  //   debugPrint(list.data!.length.toString());
-  //   debugPrint('called');
-  //   reversedList = list;
-  //   setState(() {
-  //     for (int i = 0; i < reversedList!.data!.length; i++) {
-  //       debugPrint(reversedList!.data!.length.toString());
-  //       chatMessage = reversedList;
-  //     }
-  //     // reversedList!.data!.clear();
-  //   });
-  // }
 
   _scrollToBottom() {
     if (_scrollController.hasClients) {
@@ -282,12 +224,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
         scrollDirection: Axis.vertical,
         itemCount: chats.length,
         itemBuilder: (context, index) {
-
           // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
           DateTime dateTime = DateTime.parse(time);
           String formattedDateTime =
-          DateFormat('h:mma d MMM y').format(dateTime);
+              DateFormat('h:mma d MMM y').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
           return Column(
             crossAxisAlignment:
@@ -315,8 +256,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   getCustomFont(
-                     formattedDateTime
-                    ,
+                    formattedDateTime,
                     14,
                     textColor,
                     1,
@@ -337,44 +277,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
       ),
     );
   }
-
-  //
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('WebSocket Chat'),
-  //     ),
-  //     body: Padding(
-  //       padding: EdgeInsets.all(16.0),
-  //       child: Column(
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: <Widget>[
-  //           Expanded(
-  //             child: ListView.builder(
-  //               itemCount: chats.length,
-  //               itemBuilder: (context, index) {
-  //                 return Padding(
-  //                   padding: EdgeInsets.symmetric(vertical: 8.0),
-  //                   child: Text((chats[index] ?? '').toString()),
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //           TextFormField(
-  //             controller: _controller,
-  //             decoration: InputDecoration(labelText: 'Send a message'),
-  //           ),
-  //           SizedBox(height: 8.0),
-  //           ElevatedButton(
-  //             child: Text('Send'),
-  //             onPressed: _sendMessage,
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   _buildMessage(String message, bool isMe, String time) {
     final Container msg = Container(
@@ -436,16 +338,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
     return Row(
       children: <Widget>[
         msg,
-        // IconButton(
-        //   icon: message.isLiked
-        //       ? Icon(Icons.favorite)
-        //       : Icon(Icons.favorite_border),
-        //   iconSize: 30.0,
-        //   color: message.isLiked
-        //       ? Theme.of(context).primaryColor
-        //       : Colors.blueGrey,
-        //   onPressed: () {},
-        // )
       ],
     );
   }

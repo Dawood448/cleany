@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final cleanerProfile = cleanerProfileFromJson(jsonString);
 
 import 'dart:convert';
 

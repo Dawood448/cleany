@@ -136,13 +136,11 @@ class _TabChatState extends State<TabChat> {
 
   Widget _chats() {
     final getChat = Provider.of<ChattingListProvider>(context);
-    debugPrint('LLLLLLLLLLLLLLLLLLL');
 
-    debugPrint('LENGHTHTHTHTHTHTH   ${getChat.list.length} ');
     return SafeArea(
       child: Scaffold(
         key: _scaffold,
-        drawer: DrawerWidget(),
+        drawer: const DrawerWidget(),
         backgroundColor: AppColors.appThemeColor,
         body: Container(
           height: MediaQuery.of(context).size.height,
@@ -184,7 +182,7 @@ class _TabChatState extends State<TabChat> {
                                   ),
                                    Text(
                                     'CHATS'.tr,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                                   ),
                                 ],
@@ -223,13 +221,7 @@ class _TabChatState extends State<TabChat> {
                     child: ListView.builder(
                       itemCount: getChat.list.length,
                       itemBuilder: (BuildContext context, int index) {
-                        //  DateTime time =
-                        //   var time = DateTime( _getChat.list[index]
-                        // .data![index].createdAt!;
-                        //      +
-                        // ':' +
-                        // chatMessage!.data![index].createdAt!.minute
-                        //     .toString();
+
                         return Container(
                           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                           child: Row(

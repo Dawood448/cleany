@@ -45,19 +45,19 @@ class _PermissionScreenState extends State<PermissionScreen> {
                     children: [
                        Text(
                         'Cleaning On Demand'.tr,
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Column(
                         children:  [
                           Text(
                             'Book an apointment in'.tr,
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: const TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           Text('less then 60 seconds and get on'.tr,
-                              style: TextStyle(color: Colors.white, fontSize: 20)),
+                              style: const TextStyle(color: Colors.white, fontSize: 20)),
                           Text('the schedule as early as'.tr,
-                              style: TextStyle(color: Colors.white, fontSize: 20)),
-                          Text('tommorrow'.tr, style: TextStyle(color: Colors.white, fontSize: 20))
+                              style: const TextStyle(color: Colors.white, fontSize: 20)),
+                          Text('tommorrow'.tr, style: const TextStyle(color: Colors.white, fontSize: 20))
                         ],
                       ),
                       Container(
@@ -67,13 +67,13 @@ class _PermissionScreenState extends State<PermissionScreen> {
                           children: [
                              Text(
                               'Skip'.tr,
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [
                                  Text(
                                   'Next'.tr,
-                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   width: 10,

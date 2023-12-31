@@ -268,13 +268,7 @@ class _TabProfileState extends State<TabProfile> {
               suffixImage: 'arrow_right.svg'),
           getVerSpace(FetchPixels.getPixelHeight(40)),
 
-          // TextButton(
-          //     onPressed: () {
-          //       print("web");
-          //
-          //       Get.to(WebViewExample());
-          //     },
-          //     child: Text("web")),
+
         ],
       ),
     );

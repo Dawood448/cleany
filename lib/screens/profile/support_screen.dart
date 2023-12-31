@@ -61,7 +61,8 @@ class _SupportScreenState extends State<SupportScreen> {
         primary: true,
         children: [
           getMultilineCustomFont(
-              'If you have any questions or issues while using our application, please contact our support team at support@bookcleany.com.'.tr,
+              'If you have any questions or issues while using our application, please contact our support team at support@bookcleany.com.'
+                  .tr,
               16,
               Colors.black,
               fontWeight: FontWeight.w400,

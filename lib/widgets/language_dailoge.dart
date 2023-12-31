@@ -43,6 +43,5 @@ updateLanguage(Locale locale) {
   Get.updateLocale(locale);
   currentLocale.value = locale;
 
-  // Update the radio size based on the selected language.
 
 }

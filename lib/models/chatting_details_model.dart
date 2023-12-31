@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final chattingDetailsModel = chattingDetailsModelFromJson(jsonString);
 
 import 'dart:convert';
 

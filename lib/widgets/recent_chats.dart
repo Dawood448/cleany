@@ -42,11 +42,7 @@ class _RecentChatsState extends State<RecentChats> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => ChatsScreen(
-                        // userId: widget.chats[index].data![index].id,
-                        // chatName: const [
-                        //   // widget.chats[index].data![index].chat![index].user!
-                        //   // .userProfile!.firstName,
-                        // ]
+
                         ),
                   ),
                 ),
@@ -76,25 +72,7 @@ class _RecentChatsState extends State<RecentChats> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              // Text(
-                              //   widget.chats[index].data![index].chat![index]
-                              //           .user!.userProfile!.firstName
-                              //           .toString() +
-                              //       ', ' +
-                              //       widget
-                              //           .chats[index]
-                              //           .data![index + 1]
-                              //           .chat![index + 1]
-                              //           .user!
-                              //           .userProfile!
-                              //           .firstName
-                              //           .toString(),
-                              //   style: TextStyle(
-                              //     color: Colors.black,
-                              //     fontSize: 15.0,
-                              //     fontWeight: FontWeight.bold,
-                              //   ),
-                              // ),
+
                               const SizedBox(height: 5.0),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.45,
@@ -137,7 +115,7 @@ class _RecentChatsState extends State<RecentChats> {
                                   alignment: Alignment.center,
                                   child:  Text(
                                     'NEW'.tr,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold,

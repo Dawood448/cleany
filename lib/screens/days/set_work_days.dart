@@ -102,14 +102,7 @@ class _SetWorkDaysState extends State<SetWorkDays> {
         _time1 = '${_hour1!}:${_minute1!}';
         // _timeController.text = _time!;
         _timeController1.text = _time1!;
-        // final f = new DateFormat('hh:mm');
-        // _timeController1.text =
-        //     f.format(DateTime.fromMillisecondsSinceEpoch(selectedTime1.hour));
-        // _timeController.text =
-        //     f.format(DateTime.fromMillisecondsSinceEpoch(selectedTime.hour));
-        // formatDate(
-        //     DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-        //     [hh, ':', nn, ""]).toString();
+
       });
   }
 

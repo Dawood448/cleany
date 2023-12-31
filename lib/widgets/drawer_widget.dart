@@ -68,7 +68,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                      Text(
                       'Cleaner'.tr,
-                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),
+                      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),
                     ),
                   ],
                 ),

@@ -12,12 +12,7 @@ Widget notifications = ListView.builder(
     itemBuilder: (BuildContext context, int index) {
       return InkWell(
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) =>
-          //           BookingDetailsScreen()),
-          // );
+
         },
         child: Container(
           padding: const EdgeInsets.only(top: 15.0),
@@ -25,15 +20,15 @@ Widget notifications = ListView.builder(
             borderRadius: BorderRadius.circular(7),
             elevation: 3.0,
             child: ListTile(
-              leading: Column(
+              leading:const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.notifications_active_outlined),
                 ],
               ),
               title:  Text(
                 'New Task'.tr,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text('New Booking available'.tr),
               //isThreeLine: true,
@@ -65,10 +60,10 @@ Widget todayTask = ListView.builder(
             borderRadius: BorderRadius.circular(7),
             elevation: 3.0,
             child: ListTile(
-              leading: Column(
+              leading: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('2.00 PM -\n5.00 PM'),
                 ],
               ),
@@ -130,10 +125,10 @@ Widget pendingTask = MultiProvider(
               borderRadius: BorderRadius.circular(7),
               elevation: 3.0,
               child: ListTile(
-                leading: Column(
+                leading: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('2.00 PM -\n5.00 PM'),
                   ],
                 ),
@@ -187,10 +182,10 @@ Widget completedTask = ListView.builder(
             borderRadius: BorderRadius.circular(7),
             elevation: 3.0,
             child: ListTile(
-              leading: Column(
+              leading: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('2.00 PM -\n5.00 PM'),
                 ],
               ),

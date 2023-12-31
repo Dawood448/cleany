@@ -48,11 +48,7 @@ Page resource error:
     )
     ..addJavaScriptChannel(
       'Toaster',
-      onMessageReceived: (JavaScriptMessage message) {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(content: Text(message.message)),
-        // );
-      },
+      onMessageReceived: (JavaScriptMessage message) {},
     )
     ..loadRequest(
       Uri.parse('https://bookcleany.com/'),

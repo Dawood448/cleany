@@ -217,10 +217,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         borderRadius: BorderRadius.circular(7),
                         elevation: 3.0,
                         child: ListTile(
-                          leading: Column(
+                          leading: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [Icon(Icons.notifications_active_outlined)],
+                            children: [Icon(Icons.notifications_active_outlined)],
                           ),
                           title: Text(getNotification.list[index].data![index].title.toString(),
                               style: const TextStyle(fontWeight: FontWeight.bold)),
