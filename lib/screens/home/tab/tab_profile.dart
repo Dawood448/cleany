@@ -2,7 +2,6 @@ import 'package:cleany/screens/home/tab/tab_review.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,7 +10,6 @@ import '../../../auth/auth.dart';
 import '../../../base/resizer/fetch_pixels.dart';
 import '../../../base/widget_utils.dart';
 import '../../../providers/cleaner_details_provider.dart';
-import '../../../widgets/webView.dart';
 
 class TabProfile extends StatefulWidget {
   const TabProfile({Key? key}) : super(key: key);
@@ -21,8 +19,8 @@ class TabProfile extends StatefulWidget {
 }
 
 class _TabProfileState extends State<TabProfile> {
-  final Uri url = Uri.parse('https://bookcleany.com');
 
+  final Uri url = Uri.parse('https://bookcleany.com');
   Future<void> _launchInWebView(Uri url) async {
     if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {
       throw Exception('Could not launch $url');

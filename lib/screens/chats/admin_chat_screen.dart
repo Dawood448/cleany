@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
 import '../../auth/auth.dart';
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
@@ -15,7 +14,6 @@ import '../../base/data/data_file.dart';
 import '../../base/models/model_message.dart';
 import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
-import '../../models/message_model.dart';
 
 class AdminChatsScreen extends StatefulWidget {
   const AdminChatsScreen({
@@ -36,17 +34,21 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
   List chats = [];
   late IOWebSocketChannel channel;
   final TextEditingController _controller = TextEditingController();
+  bool isLoading = true; // Add a boolean to manage the loading state
+
   @override
   initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var token = await Authentication.token();
       channel = IOWebSocketChannel.connect(
-          'wss://api.bookcleany.com/ws/user_chat?',
+          'wss://dev.bookcleany.com/ws/user_chat?',
           headers: {'Authorization': token});
       chats.clear();
       channel.stream.listen((event) {
         chats.add(jsonDecode(event));
-        setState(() {});
+        setState(() {
+          isLoading = false;
+        });
       });
       channel.stream.handleError((error) {
         log('WebSocket error: $error');
@@ -81,21 +83,32 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
       child: Scaffold(
         backgroundColor: backGroundColor,
         body: SafeArea(
-            child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: FetchPixels.getDefaultHorSpace(context)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              getVerSpace(FetchPixels.getPixelHeight(13)),
-              buildHeader(context),
-              getVerSpace(FetchPixels.getPixelHeight(30)),
-              buildChatList(),
-              buildInputContainer(context)
-            ],
-          ),
-        )),
+            child: isLoading
+                ?  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Establishing Connection...    '.tr),
+                        const CircularProgressIndicator()
+                      ],
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: FetchPixels.getDefaultHorSpace(context)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getVerSpace(FetchPixels.getPixelHeight(13)),
+                        buildHeader(context),
+                        getVerSpace(FetchPixels.getPixelHeight(30)),
+                        buildChatList(),
+                        buildInputContainer(context)
+                      ],
+                    ),
+                  )),
       ),
       onWillPop: () async {
         Constant.backToPrev(context);
@@ -164,11 +177,11 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
               width: FetchPixels.getPixelHeight(24),
               height: FetchPixels.getPixelHeight(24)),
         ),
-        getHorSpace(FetchPixels.getPixelWidth(120)),
+        getHorSpace(FetchPixels.getPixelWidth(50)),
         Expanded(
           flex: 1,
           child: getCustomFont(
-            'Chat with Admin'.tr,
+            'Chat with Cleany Support'.tr,
             18,
             Colors.black,
             1,
@@ -197,6 +210,7 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
           String formattedDateTime =
               DateFormat('h:mma d MMM y').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
+          // print("${chats}");
 
           return Column(
             crossAxisAlignment:

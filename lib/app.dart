@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:cleany/widgets/language_dailoge.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
-
 import 'apis/request_apis.dart';
 import 'language/languages.dart';
 import 'providers/booking_list_provider.dart';
@@ -25,13 +25,6 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  @override
-  void initState() {
-    super.initState();
-
-    _checkInternetAccess();
-  }
-
   bool _hasInternetConnection = true;
 
   void _checkInternetAccess() async {
@@ -97,15 +90,20 @@ class _AppState extends State<App> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getLocation();
     _determinePosition();
+    _checkInternetAccess();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     // Timer.periodic(Duration(seconds: 30), (Timer t) => getLocation());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: LocaleString(),
-      locale: const Locale('en','US'),
+      locale: currentLocale.value,
       home: _hasInternetConnection
           ? MultiProvider(
               providers: [
@@ -117,8 +115,6 @@ class _AppState extends State<App> {
                     create: (_) => ChatRoomProvider()),
                 ChangeNotifierProvider<ChattingListProvider>(
                     create: (_) => ChattingListProvider()),
-                // ChangeNotifierProvider<GetBranchesProvider>(
-                //     create: (_) => GetBranchesProvider()),
                 ChangeNotifierProvider<LeaveListProvider>(
                     create: (_) => LeaveListProvider()),
                 ChangeNotifierProvider<NotificationListProvider>(

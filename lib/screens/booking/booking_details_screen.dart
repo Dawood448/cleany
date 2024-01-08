@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -43,8 +44,15 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   bool isShiftStarted = false;
 
   TextEditingController workCompleteTextController = TextEditingController();
-
   TextEditingController workMoodTextController = TextEditingController();
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
 
   @override
   void initState() {
@@ -101,7 +109,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         getVerSpace(FetchPixels.getPixelHeight(20)),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: FetchPixels.getDefaultHorSpace(context)),
+            horizontal: FetchPixels.getDefaultHorSpace(context),
+          ),
           child: gettoolbarMenu(
             context,
             'back.svg',
@@ -244,17 +253,24 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getCustomFont('Contact'.tr, 18, Colors.black, 1,
               fontWeight: FontWeight.w900),
           getVerSpace(FetchPixels.getPixelHeight(14)),
-          _infoItem(
-              'call.svg',
-              'Phone Number'.tr,
-              widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ??
-                  'N/A'),
-          getVerSpace(FetchPixels.getPixelHeight(8)),
-          _infoItem(
-              'message.svg',
-              'Email'.tr,
-              widget.booking!.data![widget.index].bod!.bodContactInfo!.email ??
-                  'N/A'),
+          GestureDetector(
+            onTap: () {
+              _makePhoneCall(widget
+                  .booking!.data![widget.index].bod!.bodContactInfo!.phone!);
+            },
+            child: _infoItem(
+                'call.svg',
+                'Phone Number'.tr,
+                widget.booking!.data![widget.index].bod!.bodContactInfo!
+                        .phone ??
+                    'N/A'),
+          ),
+          // getVerSpace(FetchPixels.getPixelHeight(8)),
+          // _infoItem(
+          //     'message.svg',
+          //     'Email'.tr,
+          //     widget.booking!.data![widget.index].bod!.bodContactInfo!.email ??
+          //         'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _infoItem(
               'user.svg',
@@ -324,12 +340,12 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItemWithOutSvg(
-            'Do you have pets'.tr,
-            (widget.booking!.data![widget.index].bod!.bodContactInfo!
-                        .havePets!)
-                // ? 'Yes'
-                // : 'No',
-          ),
+              'Do you have pets'.tr,
+              (widget
+                  .booking!.data![widget.index].bod!.bodContactInfo!.havePets!)
+              // ? 'Yes'
+              // : 'No',
+              ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
 
           getVerSpace(FetchPixels.getPixelHeight(22)),
@@ -355,9 +371,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           for (int i = 0; i < widget.servicesIndex; i++)
             Padding(
               padding: EdgeInsets.only(bottom: FetchPixels.getPixelHeight(8)),
-              child:
-
-                  Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -407,7 +421,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  getHorSpace(FetchPixels.getPixelWidth(24)),
+                  getHorSpace(FetchPixels.getPixelWidth(5)),
                   getSvgImage('unselected.svg',
                       color: blueColor, width: 14, height: 14),
                   getHorSpace(FetchPixels.getPixelWidth(8)),
@@ -419,10 +433,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                       Colors.black,
                       2,
                       fontWeight: FontWeight.w400),
-                  getHorSpace(FetchPixels.getPixelWidth(25)),
+                  getHorSpace(FetchPixels.getPixelWidth(10)),
                   getCustomFont(
-                      '${widget.booking!.data![widget.index].extras![i].extra!.timeHrs ?? 'N/A'} hrs',
-                      16,
+                      '(${widget.booking!.data![widget.index].extras![i].extra!.timeHrs ?? 'N/A'} hrs)',
+                      14,
                       Colors.black,
                       2,
                       fontWeight: FontWeight.w400),
@@ -472,8 +486,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         getCustomFont('$title: '.tr, 16, textColor, 1,
             fontWeight: FontWeight.w400),
         Expanded(
-            child: getCustomFont(value, 16, Colors.black, 2,
-                fontWeight: FontWeight.w700),
+          child: getCustomFont(value, 16, Colors.black, 2,
+              fontWeight: FontWeight.w700),
         ),
       ],
     );
@@ -495,13 +509,15 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               // TODO: launch google maps
               if (widget.booking!.data![widget.index].dispatchId!
                           .serviceProvider!.userProfile!.longitude ==
-                      null ||
+                      null &&
                   widget.booking!.data![widget.index].dispatchId!
                           .serviceProvider!.userProfile!.latitude ==
                       null) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Location Not Found'.tr),
-                ));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Location Not Found'.tr),
+                  ),
+                );
               } else {
                 await launchNativeMap();
               }
@@ -784,30 +800,21 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   }
 
   launchNativeMap() async {
-    debugPrint('Long');
+    print('Long');
     debugPrint(widget.booking!.data![widget.index].longitude.toString());
     debugPrint('Lat');
-    debugPrint(widget.booking!.data![widget.index].dispatchId!.serviceProvider!
-        .userProfile!.latitude
-        .toString());
-
-    debugPrint(widget.booking!.data![widget.index].dispatchId!.serviceProvider!
-        .userProfile!.firstName);
+    debugPrint(
+        "-------${widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude}${widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude}");
 
     MapsLauncher.launchCoordinates(
         double.tryParse(
-              widget.booking!.data![widget.index].dispatchId!.serviceProvider!
-                      .userProfile!.latitude ??
-                  '',
+              widget.booking!.data![widget.index].latitude ?? '',
             ) ??
             0.0,
         double.tryParse(
-              widget.booking!.data![widget.index].dispatchId!.serviceProvider!
-                      .userProfile!.longitude ??
-                  '',
+              widget.booking!.data![widget.index].longitude ?? '',
             ) ??
             0.0,
-        ' ${widget.booking!.data!.first.bod!.bodContactInfo!.firstName}\'s Place');
+        ' ${widget.booking!.data![widget.index].bod!.bodServiceLocation?.streetAddress}');
   }
 }
-

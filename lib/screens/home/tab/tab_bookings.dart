@@ -63,8 +63,6 @@ class _TabBookingsState extends State<TabBookings> {
   }
 
   void taskAssign(BookingListProvider bookingsList) {
-    debugPrint('Refreshed-----');
-
     allBookings.clear();
     todayBookings.clear();
     pendingBookings.clear();
@@ -114,7 +112,7 @@ class _TabBookingsState extends State<TabBookings> {
           title: getCustomFont(
             (() {
               if (cleanerProfile.details.isNotEmpty) {
-                print(cleanerProfile.details.first.profile.firstName);
+                // print(cleanerProfile.details.first.profile.firstName);
                 return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
               } else {
                 return '';
@@ -153,14 +151,15 @@ class _TabBookingsState extends State<TabBookings> {
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  buildLanguageDialog(context);
-                },
-                icon: const Icon(
-                  Icons.language,
-                  size: 25,
-                  color: Colors.black,
-                )),
+              onPressed: () {
+                buildLanguageDialog(context);
+              },
+              icon: const Icon(
+                Icons.language,
+                size: 25,
+                color: Colors.black,
+              ),
+            ),
             InkWell(
               customBorder: const CircleBorder(),
               onTap: () {
@@ -247,7 +246,8 @@ class _TabBookingsState extends State<TabBookings> {
             child: getCustomFont(
               (() {
                 if (cleanerProfile.details.isNotEmpty) {
-                  return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
+                  return '${cleanerProfile.details.first.profile.firstName} '
+                      '${cleanerProfile.details.first.profile.lastName}';
                 } else {
                   return '';
                 }
@@ -398,37 +398,34 @@ class _TabBookingsState extends State<TabBookings> {
         ),
         getVerSpace(FetchPixels.getPixelHeight(12)),
         Container(
-          margin: EdgeInsets.only(
-            bottom: FetchPixels.getPixelHeight(20),
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0.0, 4.0)),
-            ],
-            borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: FetchPixels.getPixelWidth(16),
-            vertical: FetchPixels.getPixelHeight(16),
-          ),
-          width: double.maxFinite,
-          child: details == null
-              ? Text(
-                  'Something went wrong',
-                  style: TextStyle(color: error, fontWeight: FontWeight.w700),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
+            margin: EdgeInsets.only(
+              bottom: FetchPixels.getPixelHeight(20),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 4.0)),
+              ],
+              borderRadius:
+                  BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: FetchPixels.getPixelWidth(16),
+              vertical: FetchPixels.getPixelHeight(16),
+            ),
+            width: double.maxFinite,
+            child: details == null
+                ? Text(
+                    'Something went wrong',
+                    style: TextStyle(color: error, fontWeight: FontWeight.w700),
+                  )
+                : Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
                           radius: FetchPixels.getPixelHeight(30),
                           backgroundColor: blueColor,
                           child: Hero(
@@ -440,201 +437,401 @@ class _TabBookingsState extends State<TabBookings> {
                             ),
                           ),
                         ),
-                        getHorSpace(FetchPixels.getPixelWidth(12)),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            getVerSpace(FetchPixels.getPixelHeight(5)),
-                            Text(
-                              'JOB ID# ${details.id ?? ''}',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                            getVerSpace(FetchPixels.getPixelHeight(5)),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Service: ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                                Text(
-                                  details.service!.name ?? "",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.black,
-                                      fontSize: 14),
-                                ),
-                              ],
-                            ),
-                            getVerSpace(FetchPixels.getPixelHeight(5)),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Start: ',
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                                Text(
-                                  _dateFormat.format(
-                                      details.schedule?.startTime ??
-                                          DateTime.now()),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.black,
-                                      fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            getVerSpace(FetchPixels.getPixelHeight(5)),
-                            Row(
-                              children: [
-                                const Text(
-                                  'From: ',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                                Text(
-                                  '${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            getVerSpace(FetchPixels.getPixelHeight(5)),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Total Hours: ',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                                Text(
-                                  '     ${details.totalHours.toString()}H' ??
-                                      "",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.black,
-                                      fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ],
+                        title: Text(
+                          '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900),
                         ),
-                        if (details.schedule?.shiftStatus?.isNotEmpty ??
-                            false) ...[
-                          const Spacer(),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: FetchPixels.getPixelWidth(12),
-                              vertical: FetchPixels.getPixelHeight(6),
-                            ),
-                            decoration: ShapeDecoration(
-                              shape: const StadiumBorder(),
-                              color: details.schedule?.shiftStatus == 'pending'
-                                  ? error.withOpacity(0.2)
-                                  : details.schedule?.shiftStatus == 'completed'
-                                      ? completed.withOpacity(0.2)
-                                      : success.withOpacity(0.2),
-                            ),
-                            child: Text(
-                              GetStringUtils(details.schedule?.shiftStatus)
-                                      ?.capitalize ??
-                                  '',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: details.schedule?.shiftStatus ==
-                                        'pending'.tr
-                                    ? error
-                                    : details.schedule?.shiftStatus ==
-                                            'completed'.tr
-                                        ? completed
-                                        : success,
-                              ),
-                            ),
+                        subtitle: Text(
+                          'JOB ID# ${details.id ?? ''}'.tr,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900),
+                        ),
+                        trailing: Container(
+                          padding: const EdgeInsets.all(7),
+                          decoration: ShapeDecoration(
+                            shape: const StadiumBorder(),
+                            color: details.schedule?.shiftStatus == 'pending'
+                                ? error.withOpacity(0.2)
+                                : details.schedule?.shiftStatus == 'completed'
+                                    ? completed.withOpacity(0.2)
+                                    : success.withOpacity(0.2),
                           ),
-                        ]
-                      ],
-                    ),
-                    getVerSpace(FetchPixels.getPixelHeight(12)),
-                    getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
-                    getVerSpace(FetchPixels.getPixelHeight(12)),
-                    Row(
-                      children: [
-                        getSvgImage('location.svg'),
-                        getHorSpace(FetchPixels.getPixelWidth(10)),
-                        Expanded(
                           child: Text(
-                            details.bod?.bodServiceLocation?.streetAddress ??
-                                'N/A',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12),
+                            GetStringUtils(details.schedule?.shiftStatus)
+                                    ?.capitalize ??
+                                '',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  details.schedule?.shiftStatus == 'pending'.tr
+                                      ? error
+                                      : details.schedule?.shiftStatus ==
+                                              'completed'.tr
+                                          ? completed
+                                          : success,
+                            ),
                           ),
                         ),
-                        if (details.schedule!.shiftStatus == 'pending' ||
-                            details.schedule!.shiftStatus == 'completed') ...[
-                          getHorSpace(FetchPixels.getPixelWidth(30)),
-                          InkWell(
-                            onTap: () {
-                              if (details.schedule!.shiftStatus == 'pending') {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatsScreen(
-                                      bookingId: details.id,
-                                    ),
-                                  ),
-                                );
-                              } else if (details.schedule!.shiftStatus ==
-                                  'completed') {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChatsScreen(
-                                      bookingId: details.id,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            customBorder: const CircleBorder(),
-                            child: const Icon(CupertinoIcons.chat_bubble),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Service: '.tr,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
-                        ]
-                      ],
-                    ),
-                  ],
-                ),
-        ),
+                          Text(
+                            details.service!.name ?? "",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w900,
+                              color: Colors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      getVerSpace(FetchPixels.getPixelHeight(5)),
+                      Row(
+                        children: [
+                           Text(
+                            'Start: '.tr,
+                            style: const TextStyle(
+                              color: Colors.green,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            _dateFormat.format(
+                                details.schedule?.startTime ?? DateTime.now()),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: Colors.black,
+                                fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      getVerSpace(FetchPixels.getPixelHeight(5)),
+                      Row(
+                        children: [
+                          Text(
+                            'From: '.tr,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            '${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
+                      ),
+                      getVerSpace(FetchPixels.getPixelHeight(5)),
+                      Row(
+                        children: [
+                          Text(
+                            'Total Hours: '.tr,
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          Text(
+                            ' ${details.totalHours.toString()}H' ?? "",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: Colors.black,
+                                fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      getVerSpace(FetchPixels.getPixelHeight(12)),
+                      getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
+                      getVerSpace(FetchPixels.getPixelHeight(12)),
+                      Row(
+                        children: [
+                          getSvgImage('location.svg'),
+                          getHorSpace(FetchPixels.getPixelWidth(10)),
+                          Expanded(
+                            child: Text(
+                              details.bod?.bodServiceLocation?.streetAddress ??
+                                  'N/A',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12),
+                            ),
+                          ),
+                          if (details.schedule!.shiftStatus == 'pending' ||
+                              details.schedule!.shiftStatus == 'completed') ...[
+                            getHorSpace(FetchPixels.getPixelWidth(30)),
+                            InkWell(
+                              onTap: () {
+                                if (details.schedule!.shiftStatus == 'pending') {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChatsScreen(
+                                        bookingId: details.id,
+                                      ),
+                                    ),
+                                  );
+                                } else if (details.schedule!.shiftStatus ==
+                                    'completed') {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ChatsScreen(
+                                        bookingId: details.id,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              customBorder: const CircleBorder(),
+                              child: const Icon(CupertinoIcons.chat_bubble),
+                            ),
+                          ]
+                        ],
+                      ),
+                    ],
+                  )
+            // Column(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Row(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               CircleAvatar(
+            //                 radius: FetchPixels.getPixelHeight(30),
+            //                 backgroundColor: blueColor,
+            //                 child: Hero(
+            //                   tag: details.id.toString(),
+            //                   child: getAssetImage(
+            //                     'default_avatar.png',
+            //                     FetchPixels.getPixelHeight(58),
+            //                     FetchPixels.getPixelHeight(58),
+            //                   ),
+            //                 ),
+            //               ),
+            //               getHorSpace(FetchPixels.getPixelWidth(12)),
+            //               Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: [
+            //                   Text(
+            //                     '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
+            //                     style: const TextStyle(
+            //                         color: Colors.black,
+            //                         fontSize: 16,
+            //                         fontWeight: FontWeight.w900),
+            //                   ),
+            //                   getVerSpace(FetchPixels.getPixelHeight(5)),
+            //                   Text(
+            //                     'JOB ID# ${details.id ?? ''}'.tr,
+            //                     style: const TextStyle(
+            //                         color: Colors.black,
+            //                         fontSize: 12,
+            //                         fontWeight: FontWeight.w900),
+            //                   ),
+            //                   getVerSpace(FetchPixels.getPixelHeight(5)),
+            //                   Row(
+            //                     children: [
+            //                       Text(
+            //                         'Service: '.tr,
+            //                         style: TextStyle(
+            //                           color: Colors.black,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w900,
+            //                         ),
+            //                       ),
+            //                       Text(
+            //                         details.service!.name ?? "",
+            //                         overflow: TextOverflow.ellipsis,
+            //                         maxLines: 3,
+            //                         style: const TextStyle(
+            //                           fontWeight: FontWeight.w900,
+            //                           color: Colors.black,
+            //                           fontSize: 14,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   getVerSpace(FetchPixels.getPixelHeight(5)),
+            //                   Row(
+            //                     children: [
+            //                       const Text(
+            //                         'Start: ',
+            //                         style: TextStyle(
+            //                           color: Colors.green,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w900,
+            //                         ),
+            //                       ),
+            //                       Text(
+            //                         _dateFormat.format(
+            //                             details.schedule?.startTime ??
+            //                                 DateTime.now()),
+            //                         style: const TextStyle(
+            //                             fontWeight: FontWeight.w900,
+            //                             color: Colors.black,
+            //                             fontSize: 12),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   getVerSpace(FetchPixels.getPixelHeight(5)),
+            //                   Row(
+            //                     children: [
+            //                       Text(
+            //                         'From: '.tr,
+            //                         style: TextStyle(
+            //                           color: Colors.grey,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w900,
+            //                         ),
+            //                       ),
+            //                       Text(
+            //                         '${_timeFormat.format(details.schedule?.startTime ?? DateTime.now())} to ${_timeFormat.format(details.schedule?.endTime ?? DateTime.now())}',
+            //                         style: const TextStyle(
+            //                           color: Colors.black,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w900,
+            //                         ),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                   getVerSpace(FetchPixels.getPixelHeight(5)),
+            //                   Row(
+            //                     children: [
+            //                       Text(
+            //                         'Total Hours: '.tr,
+            //                         style: TextStyle(
+            //                           color: Colors.red,
+            //                           fontSize: 12,
+            //                           fontWeight: FontWeight.w900,
+            //                         ),
+            //                       ),
+            //                       Text(
+            //                         '     ${details.totalHours.toString()}H' ??
+            //                             "",
+            //                         style: const TextStyle(
+            //                             fontWeight: FontWeight.w900,
+            //                             color: Colors.black,
+            //                             fontSize: 12),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ],
+            //               ),
+            //               if (details.schedule?.shiftStatus?.isNotEmpty ??
+            //                   false) ...[
+            //                 const Spacer(),
+            //                 Container(
+            //                   alignment: Alignment.centerRight,
+            //                   padding: EdgeInsets.symmetric(
+            //                     horizontal: FetchPixels.getPixelWidth(12),
+            //                     vertical: FetchPixels.getPixelHeight(6),
+            //                   ),
+            //                   decoration: ShapeDecoration(
+            //                     shape: const StadiumBorder(),
+            //                     color: details.schedule?.shiftStatus == 'pending'
+            //                         ? error.withOpacity(0.2)
+            //                         : details.schedule?.shiftStatus == 'completed'
+            //                             ? completed.withOpacity(0.2)
+            //                             : success.withOpacity(0.2),
+            //                   ),
+            //                   child: Text(
+            //                     GetStringUtils(details.schedule?.shiftStatus)
+            //                             ?.capitalize ??
+            //                         '',
+            //                     style: TextStyle(
+            //                       fontSize: 12,
+            //                       fontWeight: FontWeight.bold,
+            //                       color: details.schedule?.shiftStatus ==
+            //                               'pending'.tr
+            //                           ? error
+            //                           : details.schedule?.shiftStatus ==
+            //                                   'completed'.tr
+            //                               ? completed
+            //                               : success,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ]
+            //             ],
+            //           ),
+            //           getVerSpace(FetchPixels.getPixelHeight(12)),
+            //           getDivider(dividerColor, FetchPixels.getPixelHeight(1), 1),
+            //           getVerSpace(FetchPixels.getPixelHeight(12)),
+            //           Row(
+            //             children: [
+            //               getSvgImage('location.svg'),
+            //               getHorSpace(FetchPixels.getPixelWidth(10)),
+            //               Expanded(
+            //                 child: Text(
+            //                   details.bod?.bodServiceLocation?.streetAddress ??
+            //                       'N/A',
+            //                   maxLines: 2,
+            //                   overflow: TextOverflow.ellipsis,
+            //                   textAlign: TextAlign.start,
+            //                   style: const TextStyle(
+            //                       color: Colors.grey, fontSize: 12),
+            //                 ),
+            //               ),
+            //               if (details.schedule!.shiftStatus == 'pending' ||
+            //                   details.schedule!.shiftStatus == 'completed') ...[
+            //                 getHorSpace(FetchPixels.getPixelWidth(30)),
+            //                 InkWell(
+            //                   onTap: () {
+            //                     if (details.schedule!.shiftStatus == 'pending') {
+            //                       Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                           builder: (context) => ChatsScreen(
+            //                             bookingId: details.id,
+            //                           ),
+            //                         ),
+            //                       );
+            //                     } else if (details.schedule!.shiftStatus ==
+            //                         'completed') {
+            //                       Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                           builder: (context) => ChatsScreen(
+            //                             bookingId: details.id,
+            //                           ),
+            //                         ),
+            //                       );
+            //                     }
+            //                   },
+            //                   customBorder: const CircleBorder(),
+            //                   child: const Icon(CupertinoIcons.chat_bubble),
+            //                 ),
+            //               ]
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            ),
       ],
     );
   }

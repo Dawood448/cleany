@@ -32,6 +32,8 @@ class ChatsScreen extends StatefulWidget {
 ScrollController _scrollController = ScrollController();
 
 class _ChatsScreenState extends State<ChatsScreen> {
+  bool isLoading = true; // Add a boolean to manage the loading state
+
   List<ModelChat> chatLists = DataFile.chatList;
   List<ModelMessage> messageLists = DataFile.messageList;
 
@@ -40,20 +42,23 @@ class _ChatsScreenState extends State<ChatsScreen> {
   List chats = [];
   late IOWebSocketChannel channel;
   final TextEditingController _controller = TextEditingController();
+
   @override
   initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var token = await Authentication.token();
       channel = IOWebSocketChannel.connect(
           // 'wss://api.bookcleany.com/ws/chat/74',
-          'wss://api.bookcleany.com/ws/chat/${widget.bookingId}',
+          'wss://dev.bookcleany.com/ws/chat/${widget.bookingId}',
           headers: {'Authorization': token});
       print(token);
       chats.clear();
       channel.stream.listen((event) {
         chats.add(jsonDecode(event));
-        setState(() {});
-        print('WebSocket event: $event');
+        setState(() {
+          isLoading = false; // Add a boolean to manage the loading state
+        });
+        // print('WebSocket event: $event');
       });
       channel.stream.handleError((error) {
         print('WebSocket error: $error');
@@ -102,21 +107,32 @@ class _ChatsScreenState extends State<ChatsScreen> {
       child: Scaffold(
         backgroundColor: backGroundColor,
         body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: FetchPixels.getDefaultHorSpace(context)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getVerSpace(FetchPixels.getPixelHeight(13)),
-                buildHeader(context),
-                getVerSpace(FetchPixels.getPixelHeight(30)),
-                buildChatList(),
-                buildInputContainer(context)
-              ],
-            ),
-          ),
+          child: isLoading
+              ?  Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Establishing Connection...    '.tr),
+                      const CircularProgressIndicator()
+                    ],
+                  ),
+                )
+              : Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: FetchPixels.getDefaultHorSpace(context)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getVerSpace(FetchPixels.getPixelHeight(13)),
+                      buildHeader(context),
+                      getVerSpace(FetchPixels.getPixelHeight(30)),
+                      buildChatList(),
+                      buildInputContainer(context)
+                    ],
+                  ),
+                ),
         ),
       ),
       onWillPop: () async {
