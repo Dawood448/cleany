@@ -24,17 +24,13 @@ class AdminChatsScreen extends StatefulWidget {
   State<AdminChatsScreen> createState() => _AdminChatsScreenState();
 }
 
-ScrollController _scrollController = ScrollController();
-
 class _AdminChatsScreenState extends State<AdminChatsScreen> {
-  List<ModelMessage> messageLists = DataFile.messageList;
 
-  ChatRoom? reversedList;
   Timer? timer;
   List chats = [];
   late IOWebSocketChannel channel;
   final TextEditingController _controller = TextEditingController();
-  bool isLoading = true; // Add a boolean to manage the loading state
+  bool isLoading = true;
 
   @override
   initState() {
@@ -84,7 +80,7 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
         backgroundColor: backGroundColor,
         body: SafeArea(
             child: isLoading
-                ?  Center(
+                ? Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -204,13 +200,13 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
         scrollDirection: Axis.vertical,
         itemCount: chats.length,
         itemBuilder: (context, index) {
-          // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
           DateTime dateTime = DateTime.parse(time);
           String formattedDateTime =
               DateFormat('h:mma d MMM y').format(dateTime);
+          String formattedDateTimeMe =
+              DateFormat('d MMM y h:mma ').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
-          // print("${chats}");
 
           return Column(
             crossAxisAlignment:
@@ -223,33 +219,48 @@ class _AdminChatsScreenState extends State<AdminChatsScreen> {
                         horizontal: FetchPixels.getPixelWidth(16),
                         vertical: FetchPixels.getPixelHeight(13)),
                     decoration: BoxDecoration(
-                        color: isMe ? blueColor : receiverColor,
-                        borderRadius: BorderRadius.circular(
-                            FetchPixels.getPixelHeight(12))),
+                      color: isMe ? blueColor : receiverColor,
+                      borderRadius: BorderRadius.circular(
+                        FetchPixels.getPixelHeight(12),
+                      ),
+                    ),
                     child: getMultilineCustomFont(chats[index]['message'], 16,
                         isMe ? Colors.white : Colors.black,
                         fontWeight: FontWeight.w400, txtHeight: 1.3),
-                  )
+                  ),
                 ],
               ),
               getVerSpace(FetchPixels.getPixelHeight(10)),
-              Row(
-                mainAxisAlignment:
-                    isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+              Column(
+                crossAxisAlignment:
+                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: [
                   getCustomFont(
-                    formattedDateTime,
+                    chats[index]['email'],
                     14,
                     textColor,
                     1,
                     fontWeight: FontWeight.w400,
                   ),
-                  getHorSpace(FetchPixels.getPixelWidth(10)),
-                  isMe
-                      ? getSvgImage('seen.svg',
-                          height: FetchPixels.getPixelHeight(18),
-                          width: FetchPixels.getPixelHeight(18))
-                      : Container()
+                  Row(
+                    mainAxisAlignment:
+                        isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                    children: [
+                      getCustomFont(
+                        formattedDateTimeMe,
+                        14,
+                        textColor,
+                        1,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      getHorSpace(FetchPixels.getPixelWidth(10)),
+                      isMe
+                          ? getSvgImage('seen.svg',
+                              height: FetchPixels.getPixelHeight(18),
+                              width: FetchPixels.getPixelHeight(18))
+                          : Container()
+                    ],
+                  ),
                 ],
               ),
               getVerSpace(FetchPixels.getPixelHeight(20)),

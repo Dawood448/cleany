@@ -15,7 +15,6 @@ import '../../base/models/model_message.dart';
 import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
 
-// ignore: must_be_immutable
 class ChatsScreen extends StatefulWidget {
   var bookingId;
 
@@ -28,16 +27,9 @@ class ChatsScreen extends StatefulWidget {
   State<ChatsScreen> createState() => _ChatsScreenState();
 }
 
-// TextEditingController controllerMsg = TextEditingController();
-ScrollController _scrollController = ScrollController();
-
 class _ChatsScreenState extends State<ChatsScreen> {
-  bool isLoading = true; // Add a boolean to manage the loading state
 
-  List<ModelChat> chatLists = DataFile.chatList;
-  List<ModelMessage> messageLists = DataFile.messageList;
-
-  ChatRoom? reversedList;
+  bool isLoading = true;
   Timer? timer;
   List chats = [];
   late IOWebSocketChannel channel;
@@ -48,17 +40,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var token = await Authentication.token();
       channel = IOWebSocketChannel.connect(
-          // 'wss://api.bookcleany.com/ws/chat/74',
           'wss://dev.bookcleany.com/ws/chat/${widget.bookingId}',
           headers: {'Authorization': token});
-      print(token);
       chats.clear();
       channel.stream.listen((event) {
         chats.add(jsonDecode(event));
         setState(() {
-          isLoading = false; // Add a boolean to manage the loading state
+          isLoading = false;
         });
-        // print('WebSocket event: $event');
       });
       channel.stream.handleError((error) {
         print('WebSocket error: $error');
@@ -75,9 +64,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       final message = json.encode(chat);
       try {
         channel.sink.add(message);
-
-        // channel.sink.close(status.goingAway);
-        print('WebSocket message: $message');
+        // print('WebSocket message: $message');
       } catch (e) {
         print(e);
       }
@@ -90,16 +77,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
     super.dispose();
   }
 
-  _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      debugPrint('OKOKOKOKOKOKOKOKOKOK');
-    } else {
-      debugPrint('ASASASASASASASASASASAS');
-      debugPrint('LLLLLLLLLLLLLL');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     // ModelChat modelChat = chatLists[index];
@@ -108,7 +85,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         backgroundColor: backGroundColor,
         body: SafeArea(
           child: isLoading
-              ?  Center(
+              ? Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,10 +142,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
           getHorSpace(FetchPixels.getPixelWidth(9)),
           GestureDetector(
             onTap: () async {
-              // await ApiRequests().postMessage(
-              //     controllerMsg.text.toString(), widget.collection.toString());
-
-              // recallChats();
               _sendMessage();
               _controller.clear();
             },
@@ -217,7 +190,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         Expanded(
           flex: 1,
           child: getCustomFont(
-            'New Chat'.tr,
+            'Chat with ${widget.bookingId}'.tr,
             20,
             Colors.black,
             1,
@@ -240,11 +213,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
         scrollDirection: Axis.vertical,
         itemCount: chats.length,
         itemBuilder: (context, index) {
-          // final String message = chats[index]['message'];
           final String time = '${chats[index]['created_at']}';
           DateTime dateTime = DateTime.parse(time);
           String formattedDateTime =
-              DateFormat('h:mma d MMM y').format(dateTime);
+              DateFormat('d MMM y h:mma ').format(dateTime);
           final bool isMe = chats[index]['role'] == 'Cleaner';
           return Column(
             crossAxisAlignment:
@@ -291,70 +263,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
           );
         },
       ),
-    );
-  }
-
-  _buildMessage(String message, bool isMe, String time) {
-    final Container msg = Container(
-      // alignment: Alignment.bottomCenter,
-      margin: isMe
-          ? const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-              left: 100.0,
-            )
-          : const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-              // right: 100.0,
-            ),
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-      width: MediaQuery.of(context).size.width * 0.70,
-      decoration: BoxDecoration(
-        color: isMe ? Colors.blue.shade100 : const Color(0xFFFFEFEE),
-        borderRadius: isMe
-            ? const BorderRadius.only(
-                topLeft: Radius.circular(15.0),
-                bottomLeft: Radius.circular(15.0),
-              )
-            : const BorderRadius.only(
-                topRight: Radius.circular(15.0),
-                bottomRight: Radius.circular(15.0),
-              ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            message,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Container(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              'Sent: $time',
-              style: TextStyle(
-                color: Colors.black.withOpacity(0.8),
-                fontSize: 12.0,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-    if (isMe) {
-      return msg;
-    }
-    return Row(
-      children: <Widget>[
-        msg,
-      ],
     );
   }
 }
