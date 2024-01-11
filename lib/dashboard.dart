@@ -1,5 +1,7 @@
 import 'package:cleany/auth/auth.dart';
+import 'package:cleany/models/cleany_tips_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'apis/request_apis.dart';
 import 'base/widget_utils.dart';
@@ -13,6 +15,13 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardList = [];
+  List<TipsData> tipsList = [];
+  static userId() async {
+    const storage = FlutterSecureStorage();
+    var userid = await storage.read(key: 'userid');
+
+    return userid.toString();
+  }
   void fetchData() async {
     try {
       Map<String, dynamic> cleanerData = await ApiRequests().fetchCleanerData(4);
@@ -23,12 +32,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
       print('Error: $e');
     }
   }
+  getTips() async{
+    final id = await userId();
+    tipsList = await ApiRequests().getTipsList(id);
+    setState(() {
+
+    });
+
+  }
 
   @override
   void initState() {
    // final data = ApiRequests().fetchCleanerData(4);
    // dashBoardList.add(data);
     fetchData();
+    getTips();
     super.initState();
   }
   @override
@@ -37,11 +55,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        'Dashboard'.tr,
-        style: const TextStyle(
-            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-      )),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: SizedBox(),
+        centerTitle: true,
+        title: getCustomFont("Dashboard", 24, Colors.black, 1,fontWeight: FontWeight.w900),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

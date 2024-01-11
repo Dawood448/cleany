@@ -1,3 +1,4 @@
+import 'package:cleany/dashboard.dart';
 import 'package:cleany/screens/chats/admin_chat_screen.dart';
 import 'package:cleany/screens/home/tab/tab_bookings.dart';
 import 'package:cleany/screens/home/tab/tab_profile.dart';
@@ -21,6 +22,7 @@ class _NavbarState extends State<Navbar> {
   var index = 0;
 
   List<String> bottomBarList = [
+    "menu.svg", // "dashboard.svg
     'documnet.svg',
     'chat.svg',
     // 'review.svg',
@@ -28,6 +30,7 @@ class _NavbarState extends State<Navbar> {
   ];
 
   List<Widget> tabList = [
+    const DashboardScreen(),
     const TabBookings(),
     const TabChat(),
     // const TabReview(),

@@ -6,6 +6,7 @@ import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/models/chat_list_model.dart';
 import 'package:cleany/models/chat_room.dart';
 import 'package:cleany/models/cleaner_profile_model.dart';
+import 'package:cleany/models/cleany_tips_model.dart';
 import 'package:cleany/models/notification_list_model.dart';
 import 'package:cleany/models/response_get_leaves.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -67,7 +68,7 @@ class ApiRequests {
     }
   }
 
-  Future pushLocation(String latitude, String longitude) async {
+  Future pushLocation(String latitude , String longitude) async {
     var token = await Authentication.token();
     debugPrint('IN PUSH LOCATION');
     debugPrint(latitude);
@@ -195,6 +196,38 @@ class ApiRequests {
     }
     return bookings;
   }
+
+  Future<List<TipsData>> getTipsList(int id) async {
+    TipsModel tipsModel = TipsModel();
+    List<TipsData> tips = [];
+    var token = await Authentication.token();
+    try {
+      String url = 'https://dev.bookcleany.com/booking/list-charge-tips/?cleaner_id=$id';
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+          'X-CSRFToken': token,
+        },
+      );
+      if (response.statusCode == 200) {
+        // log('${response.body}');
+        tipsModel =
+            TipsModel.fromJson(jsonDecode(response.body));
+        print('-------response2-----${tipsModel.data!.length}');
+
+        for (int i = 0; i < tipsModel.data!.length; i++) {
+          tips.addAll(tipsModel.data!);
+        }
+        return tips;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return [];
+  }
+
   Future<BookingDetailsData> getBookingDetailApi(int id) async {
     BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
     var token = await Authentication.token();
