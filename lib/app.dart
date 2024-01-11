@@ -107,6 +107,25 @@ class _AppState extends State<App> {
       locale: currentLocale.value,
       home:
       DashboardScreen(),
+      // home: _hasInternetConnection
+      //     ? MultiProvider(
+      //         providers: [
+      //           ChangeNotifierProvider<CleanerDetailsProvider>(
+      //               create: (_) => CleanerDetailsProvider()),
+      //           ChangeNotifierProvider<BookingListProvider>(
+      //               create: (_) => BookingListProvider()),
+      //           ChangeNotifierProvider<ChatRoomProvider>(
+      //               create: (_) => ChatRoomProvider()),
+      //           ChangeNotifierProvider<ChattingListProvider>(
+      //               create: (_) => ChattingListProvider()),
+      //           ChangeNotifierProvider<LeaveListProvider>(
+      //               create: (_) => LeaveListProvider()),
+      //           ChangeNotifierProvider<NotificationListProvider>(
+      //               create: (_) => NotificationListProvider()),
+      //         ],
+      //         child: const Routes(),
+      //       )
+      //     : NoInternetInitial(checkInternetAccess: _checkInternetAccess),
     );
   }
 }
