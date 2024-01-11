@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'apis/request_apis.dart';
-import 'dashboard.dart';
 import 'language/languages.dart';
 import 'providers/booking_list_provider.dart';
 import 'providers/chatting_details_provider.dart';
@@ -105,27 +104,27 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       translations: LocaleString(),
       locale: currentLocale.value,
-      home:
-      DashboardScreen(),
-      // home: _hasInternetConnection
-      //     ? MultiProvider(
-      //         providers: [
-      //           ChangeNotifierProvider<CleanerDetailsProvider>(
-      //               create: (_) => CleanerDetailsProvider()),
-      //           ChangeNotifierProvider<BookingListProvider>(
-      //               create: (_) => BookingListProvider()),
-      //           ChangeNotifierProvider<ChatRoomProvider>(
-      //               create: (_) => ChatRoomProvider()),
-      //           ChangeNotifierProvider<ChattingListProvider>(
-      //               create: (_) => ChattingListProvider()),
-      //           ChangeNotifierProvider<LeaveListProvider>(
-      //               create: (_) => LeaveListProvider()),
-      //           ChangeNotifierProvider<NotificationListProvider>(
-      //               create: (_) => NotificationListProvider()),
-      //         ],
-      //         child: const Routes(),
-      //       )
-      //     : NoInternetInitial(checkInternetAccess: _checkInternetAccess),
+      // home:
+      // DashboardScreen(),
+      home: _hasInternetConnection
+          ? MultiProvider(
+              providers: [
+                ChangeNotifierProvider<CleanerDetailsProvider>(
+                    create: (_) => CleanerDetailsProvider()),
+                ChangeNotifierProvider<BookingListProvider>(
+                    create: (_) => BookingListProvider()),
+                ChangeNotifierProvider<ChatRoomProvider>(
+                    create: (_) => ChatRoomProvider()),
+                ChangeNotifierProvider<ChattingListProvider>(
+                    create: (_) => ChattingListProvider()),
+                ChangeNotifierProvider<LeaveListProvider>(
+                    create: (_) => LeaveListProvider()),
+                ChangeNotifierProvider<NotificationListProvider>(
+                    create: (_) => NotificationListProvider()),
+              ],
+              child: const Routes(),
+            )
+          : NoInternetInitial(checkInternetAccess: _checkInternetAccess),
     );
   }
 }

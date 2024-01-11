@@ -82,7 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "${snapsh.totalCompletedBookings}",
+                                  '${snapsh.totalCompletedBookings}',
                                   style: const TextStyle(
                                       color: Colors.blue,
                                       fontSize: 20,
