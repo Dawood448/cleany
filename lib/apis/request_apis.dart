@@ -496,4 +496,22 @@ class ApiRequests {
     return reviews;
     // request.headers.addAll(headers);
   }
+  Future<Map<String, dynamic>> fetchCleanerData(int cleanerId) async {
+    print("------------");
+    final String apiUrl = 'https://dev.bookcleany.com/service_provider/cleaner-analytics/?cleaner_id=4';
+
+    final response = await http.get(Uri.parse(apiUrl));
+    print(response);
+
+    if (response.statusCode == 200) {
+      // If server returns an OK response, parse the JSON
+      final Map<String, dynamic> data = json.decode(response.body);
+      print(data);
+      return data;
+    } else {
+      // If the server did not return a 200 OK response,
+      // throw an exception.
+      throw Exception('Failed to load data');
+    }
+  }
 }

@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Asia/Riyadh
+X-LIC-LOCATION:Asia/Riyadh
+BEGIN:STANDARD
+TZOFFSETFROM:+0300
+TZOFFSETTO:+0300
+TZNAME:+03
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=Asia/Riyadh:20231212T150000
+DTEND;TZID=Asia/Riyadh:20231212T160000
+DTSTAMP:20231207T111040Z
+ORGANIZER;CN=Tasnia Uddin:mailto:t.uddin@tweeq.sa
+UID:9v7ibgj6g0n5p3r90i0l332vhc@google.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+ TRUE;CN=Muhammed Dawood;X-NUM-GUESTS=0:mailto:dawood.zafar@geekybugs.com
+X-GOOGLE-CONFERENCE:https://meet.google.com/ffx-hwxk-nou
+X-MICROSOFT-CDO-OWNERAPPTID:1000247979
+CREATED:20231207T111038Z
+DESCRIPTION:-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~
+ :~:~:~:~:~:~:~:~::~:~::-\nJoin with Google Meet: https://meet.google.com/ff
+ x-hwxk-nou\nOr dial: (US) +1 304-945-3632 PIN: 715388279#\nMore phone numbe
+ rs: https://tel.meet/ffx-hwxk-nou?pin=7273140716851&hs=7\n\nLearn more abou
+ t Meet at: https://support.google.com/a/users/answer/9282720\n\nPlease do n
+ ot edit this section.\n-::~:~::~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:~:
+ ~:~:~:~:~:~:~:~:~:~:~:~:~:~::~:~::-
+LAST-MODIFIED:20231207T111038Z
+LOCATION:Online
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Flutter coding session with Tweeq
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:This is an event reminder
+TRIGGER:-P0DT0H10M0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR
