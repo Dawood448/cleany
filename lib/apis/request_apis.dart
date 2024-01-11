@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
 
+import '../models/analytics.dart';
 import '../models/review_model.dart';
 
 class ApiRequests {
@@ -195,6 +196,7 @@ class ApiRequests {
     }
     return bookings;
   }
+
   Future<BookingDetailsData> getBookingDetailApi(int id) async {
     BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
     var token = await Authentication.token();
@@ -372,13 +374,11 @@ class ApiRequests {
     debugPrint(getToken.toString());
     try {
       if (response.statusCode == 200) {
-
         const storage = FlutterSecureStorage();
 
         await storage.write(key: 'jwt', value: tokens.toString());
         await storage.write(key: 'userid', value: userId.toString());
         debugPrint(responseData);
-
 
         return response.statusCode;
       } else {
@@ -496,18 +496,26 @@ class ApiRequests {
     return reviews;
     // request.headers.addAll(headers);
   }
-  Future<Map<String, dynamic>> fetchCleanerData(int cleanerId) async {
-    print("------------");
-    final String apiUrl = 'https://dev.bookcleany.com/service_provider/cleaner-analytics/?cleaner_id=4';
 
-    final response = await http.get(Uri.parse(apiUrl));
-    print(response);
+  Future<AnalyticsModel> fetchCleanerData(int cleanerId) async {
+    var token = await Authentication.token();
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+    final String apiUrl =
+        'https://dev.bookcleany.com/service_provider/cleaner-analytics/?cleaner_id=$cleanerId';
+
+    final response = await http.get(
+      Uri.parse(apiUrl),
+      headers: headers,
+    );
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON
-      final Map<String, dynamic> data = json.decode(response.body);
-      print(data);
-      return data;
+      AnalyticsModel analyticsModel =
+          AnalyticsModel.fromJson(json.decode(response.body));
+      return analyticsModel;
     } else {
       // If the server did not return a 200 OK response,
       // throw an exception.
