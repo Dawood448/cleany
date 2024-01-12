@@ -6,7 +6,6 @@ import 'package:cleany/models/booking_details_model.dart';
 import 'package:cleany/models/chat_list_model.dart';
 import 'package:cleany/models/chat_room.dart';
 import 'package:cleany/models/cleaner_profile_model.dart';
-import 'package:cleany/models/cleany_tips_model.dart';
 import 'package:cleany/models/notification_list_model.dart';
 import 'package:cleany/models/response_get_leaves.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -18,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../models/analytics.dart';
+import '../models/cleany_tips_model.dart';
 import '../models/review_model.dart';
 
 class ApiRequests {
@@ -69,7 +69,7 @@ class ApiRequests {
     }
   }
 
-  Future pushLocation(String latitude , String longitude) async {
+  Future pushLocation(String latitude, String longitude) async {
     var token = await Authentication.token();
     debugPrint('IN PUSH LOCATION');
     debugPrint(latitude);
@@ -131,7 +131,7 @@ class ApiRequests {
           'accept': 'application/json',
           'Authorization': 'Bearer $token',
           'X-CSRFToken':
-              'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
+          'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
         },
       );
       if (response.statusCode == 200) {
@@ -198,7 +198,29 @@ class ApiRequests {
     return bookings;
   }
 
-
+  Future<BookingDetailsData> getBookingDetailApi(int id) async {
+    BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
+    var token = await Authentication.token();
+    try {
+      String url = 'https://dev.bookcleany.com/booking/booking_details/$id';
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+          'X-CSRFToken': token,
+        },
+      );
+      if (response.statusCode == 200) {
+        // log('${response.body}');
+        bookingDetailsModel =
+            BookingDetailsModel.fromJson(jsonDecode(response.body));
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return bookingDetailsModel.data!.first;
+  }
   Future<List<TipsData>> getTipsList(int id) async {
     TipsModel tipsModel = TipsModel();
     List<TipsData> tips = [];
@@ -228,30 +250,6 @@ class ApiRequests {
       log(e.toString());
     }
     return [];
-  }
-
-  Future<BookingDetailsData> getBookingDetailApi(int id) async {
-    BookingDetailsModel bookingDetailsModel = BookingDetailsModel();
-    var token = await Authentication.token();
-    try {
-      String url = 'https://dev.bookcleany.com/booking/booking_details/$id';
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'accept': 'application/json',
-          'Authorization': 'Bearer $token',
-          'X-CSRFToken': token,
-        },
-      );
-      if (response.statusCode == 200) {
-        // log('${response.body}');
-        bookingDetailsModel =
-            BookingDetailsModel.fromJson(jsonDecode(response.body));
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    return bookingDetailsModel.data!.first;
   }
 
   Future getChatListApi() async {
@@ -294,7 +292,7 @@ class ApiRequests {
       final headers = <String, String>{
         'accept': 'application/json',
         'X-CSRFToken':
-            '0qSRty1Z16aa8cPGpXJy8DvUIEtVcCFJ68eICrOCjNnn4MiQpNrWHPdwDPwX5YYp',
+        '0qSRty1Z16aa8cPGpXJy8DvUIEtVcCFJ68eICrOCjNnn4MiQpNrWHPdwDPwX5YYp',
         'Authorization': 'Bearer $token'
       };
       final response = await http.get(
@@ -324,7 +322,7 @@ class ApiRequests {
       final headers = <String, String>{
         'accept': 'application/json',
         'X-CSRFToken':
-            '0qSRty1Z16aa8cPGpXJy8DvUIEtVcCFJ68eICrOCjNnn4MiQpNrWHPdwDPwX5YYp',
+        '0qSRty1Z16aa8cPGpXJy8DvUIEtVcCFJ68eICrOCjNnn4MiQpNrWHPdwDPwX5YYp',
         'Authorization': 'Bearer $token'
       };
       final response = await http.get(
@@ -345,17 +343,17 @@ class ApiRequests {
   }
 
   Future patchProfileDetailsApi(
-    String email,
-    String firstName,
-    String lastName,
-    String phone,
-    String address,
-    String city,
-    String zip,
-    String ssn,
-    String state,
-    String status,
-  ) async {
+      String email,
+      String firstName,
+      String lastName,
+      String phone,
+      String address,
+      String city,
+      String zip,
+      String ssn,
+      String state,
+      String status,
+      ) async {
     var token = await Authentication.token();
 
     var responseStatus;
@@ -365,7 +363,7 @@ class ApiRequests {
       'accept': 'application/json',
       'Authorization': 'Token $token',
       'X-CSRFToken':
-          'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
+      'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
       //'accept': 'application/json',
     }, body: {
       'first_name': firstName,
@@ -431,7 +429,7 @@ class ApiRequests {
       'accept': 'application/json',
       'Content-Type': 'application/json',
       'X-CSRFToken':
-          'x3LA45wJiaBHySdMgSBPzJDt7PaAez3tbtD6JpxKTvCttuF4DrsbzjJl6aAELUf5',
+      'x3LA45wJiaBHySdMgSBPzJDt7PaAez3tbtD6JpxKTvCttuF4DrsbzjJl6aAELUf5',
       'Authorization': 'Bearer $token'
     };
     final body = jsonEncode(
@@ -440,7 +438,7 @@ class ApiRequests {
     debugPrint('Message Body: $body}');
 
     final response =
-        await http.post(Uri.parse(url), headers: headers, body: body);
+    await http.post(Uri.parse(url), headers: headers, body: body);
 
     debugPrint('Message Response: ${response.body}');
 
@@ -518,7 +516,7 @@ class ApiRequests {
 
     var response = await http.get(
       Uri.parse(
-          'https://dev.bookcleany.com/user_module/customer_reviews_list?review_type=Service'),
+          'https://dev.bookcleany.com/user_module/cleaner_reviews_list?review_type=Cleaner'),
       headers: headers,
     );
 
@@ -547,7 +545,7 @@ class ApiRequests {
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON
       AnalyticsModel analyticsModel =
-          AnalyticsModel.fromJson(json.decode(response.body));
+      AnalyticsModel.fromJson(json.decode(response.body));
       return analyticsModel;
     } else {
       // If the server did not return a 200 OK response,
