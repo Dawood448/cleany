@@ -1,4 +1,5 @@
 import 'package:cleany/apis/request_apis.dart';
+import 'package:cleany/widgets/rating_star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -129,27 +130,28 @@ class _TabReviewState extends State<TabReview> {
                                           FetchPixels.getPixelHeight(4)),
                                       Row(
                                         children: [
-                                          RatingBarIndicator(
-                                            rating: 5,
-                                            itemBuilder: (context, index) =>
-                                                getSvgImage('star.svg'),
-                                            itemCount: modelReview.rating ?? 0,
-                                            itemSize:
-                                                FetchPixels.getPixelHeight(16),
-                                            direction: Axis.horizontal,
-                                            itemPadding: EdgeInsets.only(
-                                                right:
-                                                    FetchPixels.getPixelWidth(
-                                                        6)),
-                                          ),
-                                          getHorSpace(
-                                              FetchPixels.getPixelWidth(8)),
-                                          getCustomFont(
-                                              modelReview.rating.toString(),
-                                              14,
-                                              Colors.black,
-                                              1,
-                                              fontWeight: FontWeight.w400)
+                                          // RatingBarIndicator(
+                                          //   rating: 5,
+                                          //   itemBuilder: (context, index) =>
+                                          //       getSvgImage('star.svg'),
+                                          //   itemCount: modelReview.rating ?? 0,
+                                          //   itemSize:
+                                          //       FetchPixels.getPixelHeight(16),
+                                          //   direction: Axis.horizontal,
+                                          //   itemPadding: EdgeInsets.only(
+                                          //       right:
+                                          //           FetchPixels.getPixelWidth(
+                                          //               6)),
+                                          // ),
+                                          StarRating(rating: modelReview.rating ?? 0),
+                                          // getHorSpace(
+                                          //     FetchPixels.getPixelWidth(8)),
+                                          // getCustomFont(
+                                          //     modelReview.rating.toString(),
+                                          //     14,
+                                          //     Colors.black,
+                                          //     1,
+                                          //     fontWeight: FontWeight.w400)
                                         ],
                                       )
                                     ],
@@ -169,33 +171,33 @@ class _TabReviewState extends State<TabReview> {
                                 modelReview.review.toString(), 16, Colors.black,
                                 fontWeight: FontWeight.w400, txtHeight: 1.3),
                             getVerSpace(FetchPixels.getPixelHeight(10)),
-                            Row(
-                              children: [
-                                getSvgImage('heart.svg',
-                                    width: FetchPixels.getPixelHeight(20),
-                                    height: FetchPixels.getPixelHeight(20)),
-                                getHorSpace(FetchPixels.getPixelWidth(6)),
-                                getCustomFont(
-                                  '25',
-                                  14,
-                                  textColor,
-                                  1,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                getHorSpace(FetchPixels.getPixelWidth(22)),
-                                getSvgImage('reply.svg',
-                                    width: FetchPixels.getPixelHeight(20),
-                                    height: FetchPixels.getPixelHeight(20)),
-                                getHorSpace(FetchPixels.getPixelWidth(6)),
-                                getCustomFont(
-                                  'Reply'.tr,
-                                  14,
-                                  textColor,
-                                  1,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     getSvgImage('heart.svg',
+                            //         width: FetchPixels.getPixelHeight(20),
+                            //         height: FetchPixels.getPixelHeight(20)),
+                            //     getHorSpace(FetchPixels.getPixelWidth(6)),
+                            //     getCustomFont(
+                            //       '25',
+                            //       14,
+                            //       textColor,
+                            //       1,
+                            //       fontWeight: FontWeight.w400,
+                            //     ),
+                            //     getHorSpace(FetchPixels.getPixelWidth(22)),
+                            //     getSvgImage('reply.svg',
+                            //         width: FetchPixels.getPixelHeight(20),
+                            //         height: FetchPixels.getPixelHeight(20)),
+                            //     getHorSpace(FetchPixels.getPixelWidth(6)),
+                            //     getCustomFont(
+                            //       'Reply'.tr,
+                            //       14,
+                            //       textColor,
+                            //       1,
+                            //       fontWeight: FontWeight.w400,
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       )

@@ -1,7 +1,10 @@
 import 'package:cleany/models/analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'apis/request_apis.dart';
+import 'models/cleany_tips_model.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -24,9 +27,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
+  List<TipsData> tipsList = [];
+  static userId() async {
+    const storage = FlutterSecureStorage();
+    var userid = await storage.read(key: 'userid');
+
+    return userid.toString();
+  }
+  getTips() async{
+    final id = await userId();
+    tipsList = await ApiRequests().getTipsList(int.parse(id));
+    setState(() {
+
+    });
+
+  }
   @override
   void initState() {
     analyticsModelFuture = fetchData();
+    getTips();
     super.initState();
   }
 
@@ -40,6 +59,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: const TextStyle(
               color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: SizedBox(),
       ),
       body: FutureBuilder(
           future: analyticsModelFuture,
@@ -60,6 +83,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Card(
                       color: Colors.white,
                       elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Container(
                         width: size.width,
                         height: 200,
@@ -102,6 +128,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Card(
                             color: Colors.white,
                             elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               height: 150,
@@ -141,6 +170,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Card(
                             color: Colors.white,
                             elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               height: 150,
@@ -181,6 +213,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Card(
                       color: Colors.white,
                       elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Container(
                         width: size.width,
                         height: 200,
@@ -222,6 +257,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Card(
                       elevation: 10,
                       color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Container(
                         width: size.width,
                         height: 90,
@@ -259,6 +297,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ],
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text("List of Tips", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, ),),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: tipsList.length,
+                      itemBuilder: (context, index) {
+                        var tips = tipsList[index];
+                        return Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: ListTile(
+                            title: Text("Tip Amount: " + tips.tipAmount.toString()),
+                            subtitle: Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(tips.createdAt.toString()))),
+                            trailing: Text(DateFormat('hh mm a').format(DateTime.parse(tips.createdAt.toString()))),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            tileColor: Colors.white,
+                            visualDensity: VisualDensity.comfortable,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
