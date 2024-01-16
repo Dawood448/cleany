@@ -15,10 +15,11 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   late Future<AnalyticsModel> analyticsModelFuture;
-
+  bool isEnable = false;
   Future<AnalyticsModel> fetchData() async {
     try {
-      return await ApiRequests().fetchCleanerData(4);
+      final id = await userId();
+      return await ApiRequests().fetchCleanerData(int.parse(id));
     } catch (e) {
       // Handle errors
       print('Error: $e');
@@ -31,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   static userId() async {
     const storage = FlutterSecureStorage();
     var userid = await storage.read(key: 'userid');
-
+    print( "user id  $userid" );
     return userid.toString();
   }
   getTips() async{
@@ -73,7 +74,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
             } else if (snapshot.hasError) {
               return Center(
-                child: Text('Error: ${snapshot.error}'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Network error. Please try again.'),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          analyticsModelFuture = fetchData();
+                        });
+                      },
+                      child: const Text('Try Again'),
+                    ),
+                  ],
+                ),
               );
             } else {
               final snapsh = snapshot.data as AnalyticsModel;
@@ -301,10 +318,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text("List of Tips", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, ),),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("List of Tips", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, ),),
+                          // Text("${tipsList.length}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, ),),
+                          GestureDetector(
+                              onTap: () {
+                                isEnable = !isEnable;
+                                setState(() {});
+                              },
+                              child: Text("View all"))
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
+
+                    !isEnable?
+                    Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 20,
+                          child: Image.asset("assets/images/icons8-dollar.gif", ),
+                        ),
+                        title: Text("Tip Amount : ${tipsList[0].tipAmount}"),
+                        subtitle: Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(tipsList[0].createdAt.toString()))),
+                        trailing: Text(DateFormat('hh mm a').format(DateTime.parse(tipsList[0].createdAt.toString()))),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        tileColor: Colors.white,
+                        visualDensity: VisualDensity.comfortable,
+                      ),
+                    ):
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -317,6 +371,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           child: ListTile(
+                            leading: CircleAvatar(
+                              radius: 20,
+                              child: Image.asset("assets/images/icons8-dollar.gif", ),
+                            ),
                             title: Text("Tip Amount: " + tips.tipAmount.toString()),
                             subtitle: Text(DateFormat('yyyy-MM-dd').format(DateTime.parse(tips.createdAt.toString()))),
                             trailing: Text(DateFormat('hh mm a').format(DateTime.parse(tips.createdAt.toString()))),
@@ -328,7 +386,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                         );
                       },
-                    ),
+                    )
                   ],
                 ),
               );

@@ -1,7 +1,7 @@
 class AnalyticsModel {
   int? totalCompletedBookings;
-  double? totalHoursInCompletedBookings;
-  double? averageHoursPerBooking;
+  String? totalHoursInCompletedBookings;
+  String? averageHoursPerBooking;
   int? bookingsCompletedLast15Days;
   int? assignedBookings;
   int? totalCustomersServed;
@@ -16,8 +16,8 @@ class AnalyticsModel {
 
   AnalyticsModel.fromJson(Map<String, dynamic> json) {
     totalCompletedBookings = json['total_completed_bookings'];
-    totalHoursInCompletedBookings = json['total_hours_in_completed_bookings'];
-    averageHoursPerBooking = json['average_hours_per_booking'];
+    totalHoursInCompletedBookings = json['total_hours_in_completed_bookings'].toString();
+    averageHoursPerBooking = json['average_hours_per_booking'].toString();
     bookingsCompletedLast15Days = json['bookings_completed_last_15_days'];
     assignedBookings = json['assigned_bookings'];
     totalCustomersServed = json['total_customers_served'];
