@@ -110,45 +110,14 @@ class _TabBookingsState extends State<TabBookings> {
           backgroundColor: Colors.white,
           elevation: 0,
           title: getCustomFont(
-            (() {
-              if (cleanerProfile.details.isNotEmpty) {
-                // print(cleanerProfile.details.first.profile.firstName);
-                return '${cleanerProfile.details.first.profile.firstName} ${cleanerProfile.details.first.profile.lastName}';
-              } else {
-                return '';
-              }
-            })(),
-            16,
+            'Bookings'.tr,
+            18,
             Colors.black,
             1,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w900,
           ),
           // centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: FetchPixels.getPixelHeight(46),
-                  width: FetchPixels.getPixelHeight(46),
-                  decoration: BoxDecoration(
-                    image: getDecorationAssetImage(
-                      context,
-                      cleanerProfile.details.isNotEmpty
-                          ? cleanerProfile.details.first.profile.gender
-                                      .toLowerCase() ==
-                                  'male'
-                              ? 'male.png'
-                              : 'female.png'
-                          : 'profile_image.png',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          leading: SizedBox(),
           actions: [
             IconButton(
               onPressed: () {
