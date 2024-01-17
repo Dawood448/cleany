@@ -129,6 +129,12 @@ We reserve the right to update this Privacy Policy at any time. We will notify y
       'reports': 'If you witness or experience any illegal or inappropriate activity while using our application, please report it to us immediately at report@bookcleany.com. We take all reports seriously and will investigate each case thoroughly.',
     },
     'es_ES': {
+      'View less': 'Ver Menos',
+      'View all': 'Ver Todo',
+      'List of Tips': 'Lista de Consejos',
+      'Booking ID:': 'ID de Reserva:',
+      'Tip Amount:': 'Cantidad de propina:',
+      'Enable Location:': 'Habilitar Ubicación:',
       'Dashboard': 'Tablero',
       'Completed Bookings': 'Reservas Completadas',
       'Pending Bookings': 'Reservas Pendientes',

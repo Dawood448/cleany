@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -29,6 +28,7 @@ class _EditScreenState extends State<EditScreen> {
   TextEditingController stateEditingController = TextEditingController();
   TextEditingController phoneEditingController = TextEditingController();
 
+  bool isLocationEnabled = true;
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -43,7 +43,8 @@ class _EditScreenState extends State<EditScreen> {
   // ignore: unused_field
   static String? dropdownValue;
   navigate() {
-    CleanerDetailsProvider cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
+    CleanerDetailsProvider cleanerProfile =
+        Provider.of<CleanerDetailsProvider>(context, listen: false);
     cleanerProfile.getDetails(context);
     // LoadingScreen().createState().callProviders(),
 
@@ -69,7 +70,16 @@ class _EditScreenState extends State<EditScreen> {
       final status = dropDownValue.toString();
 
       var responseVal = await ApiRequests().patchProfileDetailsApi(
-          email, firstName, lastName, phone, address, city, zipcode, ssn, state, status);
+          email,
+          firstName,
+          lastName,
+          phone,
+          address,
+          city,
+          zipcode,
+          ssn,
+          state,
+          status);
       debugPrint(responseVal.toString());
       responseVal == '200' ? navigate() : debugPrint('NO');
       //ApiRequests().getProfileDetails();
@@ -85,14 +95,22 @@ class _EditScreenState extends State<EditScreen> {
   setInitalData(CleanerDetailsProvider cleanerProfile) {
     for (int i = 0; i < cleanerProfile.details.length; i++) {
       emailEditingController.text = cleanerProfile.details[i].email.toString();
-      firstEditingController.text = cleanerProfile.details[i].profile.firstName.toString();
-      lastEditingController.text = cleanerProfile.details[i].profile.lastName.toString();
-      contactEditingController.text = cleanerProfile.details[i].profile.country.toString();
-      addressEditingController.text = cleanerProfile.details[i].profile.address.toString();
-      cityEditingController.text = cleanerProfile.details[i].profile.city.toString();
-      zipEditingController.text = cleanerProfile.details[i].profile.zipCode.toString();
-      stateEditingController.text = cleanerProfile.details[i].profile.state.toString();
-      phoneEditingController.text = cleanerProfile.details[i].profile.phoneNumber.toString();
+      firstEditingController.text =
+          cleanerProfile.details[i].profile.firstName.toString();
+      lastEditingController.text =
+          cleanerProfile.details[i].profile.lastName.toString();
+      contactEditingController.text =
+          cleanerProfile.details[i].profile.country.toString();
+      addressEditingController.text =
+          cleanerProfile.details[i].profile.address.toString();
+      cityEditingController.text =
+          cleanerProfile.details[i].profile.city.toString();
+      zipEditingController.text =
+          cleanerProfile.details[i].profile.zipCode.toString();
+      stateEditingController.text =
+          cleanerProfile.details[i].profile.state.toString();
+      phoneEditingController.text =
+          cleanerProfile.details[i].profile.phoneNumber.toString();
       dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
     }
   }
@@ -117,13 +135,17 @@ class _EditScreenState extends State<EditScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               defVerSpaceSet,
+
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+                padding: EdgeInsets.symmetric(
+                    horizontal: FetchPixels.getPixelWidth(20)),
                 child: buildHeader(context),
               ),
               getVerSpace(FetchPixels.getPixelHeight(10)),
+
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+                padding: EdgeInsets.symmetric(
+                    horizontal: FetchPixels.getPixelWidth(20)),
                 child: profilePicture(context),
               ),
               buildExpandList(context, defVerSpaceSet),
@@ -141,19 +163,26 @@ class _EditScreenState extends State<EditScreen> {
   Widget buildHeader(BuildContext context) {
     return gettoolbarMenu(context, 'back.svg', () {
       Constant.backToPrev(context);
-    }, istext: true, title: 'Edit Profile'.tr, weight: FontWeight.w900, fontsize: 24, textColor: Colors.black);
+    },
+        istext: true,
+        title: 'Edit Profile'.tr,
+        weight: FontWeight.w900,
+        fontsize: 24,
+        textColor: Colors.black);
   }
 
   Expanded buildExpandList(BuildContext context, Widget defVerSpaceSet) {
     return Expanded(
       flex: 1,
       child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+        padding:
+            EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
         primary: true,
         shrinkWrap: true,
         children: [
           getVerSpace(FetchPixels.getPixelHeight(20)),
-          getDefaultTextFiledWithLabel(context, 'First Name', firstEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'First Name', firstEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -162,7 +191,8 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'Last Name', lastEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'Last Name', lastEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -171,16 +201,18 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'Email', emailEditingController, Colors.grey,
-              function: () {},
-              height: FetchPixels.getPixelHeight(60),
-              isEnable: false,
-              withprefix: true,
-              image: 'message.svg',
-              imageWidth: FetchPixels.getPixelHeight(24),
-              imageHeight: FetchPixels.getPixelHeight(24)),
-          defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'Phone', phoneEditingController, Colors.grey,
+          // getDefaultTextFiledWithLabel(
+          //     context, 'Email', emailEditingController, Colors.grey,
+          //     function: () {},
+          //     height: FetchPixels.getPixelHeight(60),
+          //     isEnable: false,
+          //     withprefix: true,
+          //     image: 'message.svg',
+          //     imageWidth: FetchPixels.getPixelHeight(24),
+          //     imageHeight: FetchPixels.getPixelHeight(24)),
+          // defVerSpaceSet,
+          getDefaultTextFiledWithLabel(
+              context, 'Phone', phoneEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -189,7 +221,8 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'Address', addressEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'Address', addressEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -198,7 +231,8 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'State', stateEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'State', stateEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -207,7 +241,8 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'City', cityEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'City', cityEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -216,7 +251,8 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
-          getDefaultTextFiledWithLabel(context, 'Zip Code', zipEditingController, Colors.grey,
+          getDefaultTextFiledWithLabel(
+              context, 'Zip Code', zipEditingController, Colors.grey,
               function: () {},
               height: FetchPixels.getPixelHeight(60),
               isEnable: false,
@@ -225,6 +261,23 @@ class _EditScreenState extends State<EditScreen> {
               imageWidth: FetchPixels.getPixelHeight(24),
               imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'Enable Location:'.tr,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Switch(
+                value: isLocationEnabled,
+                onChanged: (value) {
+                  setState(() {
+                    isLocationEnabled = value;
+                  });
+                },
+              ),
+            ],
+          ),
           defVerSpaceSet,
         ],
       ),
@@ -239,7 +292,6 @@ class _EditScreenState extends State<EditScreen> {
           right: FetchPixels.getPixelWidth(20),
           bottom: FetchPixels.getPixelHeight(30)),
       child: getButton(context, blueColor, 'Save'.tr, Colors.white, () {
-        // TODO: implement save functionality
       }, 18,
           weight: FontWeight.w600,
           buttonHeight: FetchPixels.getPixelHeight(60),
@@ -251,14 +303,14 @@ class _EditScreenState extends State<EditScreen> {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
       alignment: Alignment.topCenter,
-      child:     SizedBox(
+      child: SizedBox(
         height: FetchPixels.getPixelHeight(200),
         width: FetchPixels.getPixelHeight(200),
         child: cleanerProfile.details.isNotEmpty
             ? cleanerProfile.details.first.profile.gender.toLowerCase() ==
-            'male'
-            ? Lottie.asset('assets/images/male.json')
-            : Lottie.asset('assets/images/female.json')
+                    'male'
+                ? Lottie.asset('assets/images/male.json')
+                : Lottie.asset('assets/images/female.json')
             : Image.asset('assets/images/profile_image.png'),
       ),
     );
@@ -315,7 +367,8 @@ class _EditScreenState extends State<EditScreen> {
             Color.fromARGB(255, 177, 190, 238),
           ],
         )),
-        padding: const EdgeInsets.only(left: 20, top: 20, right: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 20, top: 20, right: 10, bottom: 10),
         child: Form(
           key: formKey,
           child: ListView.builder(
@@ -351,15 +404,20 @@ class _EditScreenState extends State<EditScreen> {
                                         child: Text(
                                       'Not AvailAble',
                                       style: TextStyle(
-                                          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
                                     )))
                                 : Container(
                                     color: Colors.black,
                                     child: Image.network(
                                         'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
-                                        fit: BoxFit.fill, errorBuilder: (context, object, stacktrace) {
-                                      debugPrint('object : ${object.toString()}');
-                                      debugPrint('stacktrace : ${stacktrace.toString()}');
+                                        fit: BoxFit.fill, errorBuilder:
+                                            (context, object, stacktrace) {
+                                      debugPrint(
+                                          'object : ${object.toString()}');
+                                      debugPrint(
+                                          'stacktrace : ${stacktrace.toString()}');
                                       return const Text('Error');
                                     }),
                                   ),
@@ -377,13 +435,15 @@ class _EditScreenState extends State<EditScreen> {
                         child: const Center(
                             child: Text(
                           'First Name',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         ))),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 0.0, top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          left: 0.0, top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -399,7 +459,8 @@ class _EditScreenState extends State<EditScreen> {
                         ),
                         child: TextFormField(
                           initialValue: firstEditingController.text,
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             firstEditingController.text = val;
                           },
@@ -415,12 +476,14 @@ class _EditScreenState extends State<EditScreen> {
                         child: const Center(
                             child: Text(
                           'Last Name',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         ))),
 
                     ///LastName
                     Padding(
-                      padding: const EdgeInsets.only(left: 0.0, top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          left: 0.0, top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -438,7 +501,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: lastEditingController.text,
                           //initialValue: _cleanerProfile.details.lastName.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             lastEditingController.text = val;
                           },
@@ -454,13 +518,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'Status',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: DropdownButton(
@@ -501,13 +567,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'Email',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -525,7 +593,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: emailEditingController.text,
                           //initialValue: _cleanerProfile.details.email.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             emailEditingController.text = val;
                           },
@@ -542,13 +611,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'SSN',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -566,7 +637,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: phoneEditingController.text,
                           //initialValue: _cleanerProfile.details.phone.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             phoneEditingController.text = val;
                           },
@@ -583,13 +655,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'Address',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -605,7 +679,8 @@ class _EditScreenState extends State<EditScreen> {
                         ),
                         child: TextFormField(
                           initialValue: addressEditingController.text,
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             addressEditingController.text = val;
                           },
@@ -623,13 +698,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'State',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -647,7 +724,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: stateEditingController.text,
                           //initialValue: _cleanerProfile.details.address.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             stateEditingController.text = val;
                           },
@@ -665,13 +743,15 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'Status',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -689,7 +769,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: cityEditingController.text,
                           //initialValue:_cleanerProfile.details.city.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             cityEditingController.text = val;
                           },
@@ -707,14 +788,16 @@ class _EditScreenState extends State<EditScreen> {
                         width: MediaQuery.of(context).size.width / 4,
                         child: const Text(
                           'Zip Code',
-                          style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                          style:
+                              TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                         )),
                     const SizedBox(
                       height: 10.0,
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                      padding: const EdgeInsets.only(
+                          top: 0.0, bottom: 0.0, right: 10.0),
                       child: Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         decoration: BoxDecoration(
@@ -732,7 +815,8 @@ class _EditScreenState extends State<EditScreen> {
                         child: TextFormField(
                           initialValue: zipEditingController.text,
                           //initialValue: _cleanerProfile.details.zipCode.toString(),
-                          decoration: const InputDecoration(border: InputBorder.none),
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
                           onChanged: (val) {
                             zipEditingController.text = val;
                           },

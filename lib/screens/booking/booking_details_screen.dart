@@ -284,6 +284,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   }
 
   Widget details() {
+    DateTime appointmentDate =
+        widget.booking!.data![widget.index].appointmentDateTime!;
+    String formattedDate = _dateFormat.format(appointmentDate);
+    String dayOfWeek = DateFormat.E().format(appointmentDate);
     return Container(
       margin: EdgeInsets.only(
         bottom: FetchPixels.getPixelHeight(20),
@@ -318,8 +322,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           getVerSpace(FetchPixels.getPixelHeight(8)),
           _detailsItemWithOutSvg(
             'Appointment Date'.tr,
-            _dateFormat.format(
-                widget.booking!.data![widget.index].appointmentDateTime!),
+            '$formattedDate ($dayOfWeek)',
           ),
           getVerSpace(FetchPixels.getPixelHeight(8)),
 
@@ -483,7 +486,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         getHorSpace(FetchPixels.getPixelWidth(8)),
-        getCustomFont('$title: '.tr, 16, textColor, 1,
+        getCustomFont('$title: '.tr, 14, textColor, 1,
             fontWeight: FontWeight.w400),
         Expanded(
           child: getCustomFont(value, 16, Colors.black, 2,
