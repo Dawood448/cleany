@@ -32,7 +32,7 @@ class _EditScreenState extends State<EditScreen> {
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
-  String? dropDownValue;
+  // String? dropDownValue;
 
   // List of items in our dropdown menu
   var items = [
@@ -42,6 +42,7 @@ class _EditScreenState extends State<EditScreen> {
 
   // ignore: unused_field
   static String? dropdownValue;
+
   navigate() {
     CleanerDetailsProvider cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
     cleanerProfile.getDetails(context);
@@ -52,24 +53,25 @@ class _EditScreenState extends State<EditScreen> {
 
   updateProfile() async {
     //final profileUpdate  = Provider.of<CleanerDetailsUpdateProvider>(context);
-    if (formKey.currentState!.validate()) {
-      //final scaffold = Scaffold.of(context);
-      final email = emailEditingController.text;
-      final firstName = firstEditingController.text;
-      final lastName = lastEditingController.text;
-      final address = addressEditingController.text;
-      final city = cityEditingController.text;
-      final zipcode = zipEditingController.text;
-      final phone = contactEditingController.text;
-      final state = stateEditingController.text;
-      final ssn = phoneEditingController.text;
-      final status = dropDownValue.toString();
+    // if (formKey.currentState!.validate()) {
+    //final scaffold = Scaffold.of(context);
+    final email = emailEditingController.text;
+    final firstName = firstEditingController.text;
+    final lastName = lastEditingController.text;
+    final address = addressEditingController.text;
+    final city = cityEditingController.text;
+    final zipcode = zipEditingController.text;
+    final phone = contactEditingController.text;
+    final state = stateEditingController.text;
+    final ssn = phoneEditingController.text;
+    // final status = dropDownValue.toString();
+    print("---------------------object ${email}, ${firstName}, ${lastName}, ${phone}, ${address}, ${city}, ${zipcode}, ${ssn}, ${state}");
 
-      var responseVal = await ApiRequests().patchProfileDetailsApi(email, firstName, lastName, phone, address, city, zipcode, ssn, state, status);
-      debugPrint(responseVal.toString());
-      responseVal == '200' ? navigate() : debugPrint('NO');
-      //ApiRequests().getProfileDetails();
-    }
+    var responseVal = await ApiRequests().patchProfileDetailsApi(email, firstName, lastName, phone, address, city, zipcode, ssn, state, ssn);
+    debugPrint(responseVal.toString());
+    responseVal == '200' ? navigate() : debugPrint('NO');
+    //ApiRequests().getProfileDetails();
+    // }
   }
 
   @override
@@ -89,14 +91,21 @@ class _EditScreenState extends State<EditScreen> {
       zipEditingController.text = cleanerProfile.details[i].profile.zipCode.toString();
       stateEditingController.text = cleanerProfile.details[i].profile.state.toString();
       phoneEditingController.text = cleanerProfile.details[i].profile.phoneNumber.toString();
-      dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
+      // dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
     }
   }
+
+  String? selectedGender;
+
+  List<String> genderOptions = ['Male', 'Female', 'Other'];
+  String? selectedLang;
+
+  List<String> languageOptions = ['Spanish', 'English'];
 
   @override
   Widget build(BuildContext context) {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
-    setInitalData(cleanerProfile);
+    // setInitalData(cleanerProfile);
 
     FetchPixels(context);
     Widget defVerSpaceSet = getVerSpace(FetchPixels.getPixelHeight(20));
@@ -167,6 +176,70 @@ class _EditScreenState extends State<EditScreen> {
           defVerSpaceSet,
           getDefaultTextFiledWithLabel(context, 'Zip Code', zipEditingController, Colors.grey, function: () {}, height: FetchPixels.getPixelHeight(60), isEnable: false, withprefix: true, image: 'location.svg', imageWidth: FetchPixels.getPixelHeight(24), imageHeight: FetchPixels.getPixelHeight(24)),
           defVerSpaceSet,
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Card(
+                elevation: 2,
+                surfaceTintColor: Colors.white,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: DropdownButton<String>(
+                    underline: SizedBox(),
+                    borderRadius: BorderRadius.circular(5),
+                    elevation: 15,
+                    isExpanded: true,
+                    value: selectedGender,
+                    dropdownColor: Colors.white,
+                    hint: const Text('Select Gender'),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedGender = newValue;
+                      });
+                    },
+                    items: genderOptions.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              defVerSpaceSet,
+              Card(
+                elevation: 2,
+                surfaceTintColor: Colors.white,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: DropdownButton<String>(
+                    underline: SizedBox(),
+                    elevation: 15,
+                    dropdownColor: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                    isExpanded: true,
+                    value: selectedLang,
+                    hint: const Text('Select Language'),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedLang = newValue;
+                      });
+                    },
+                    items: languageOptions.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              defVerSpaceSet,
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -194,7 +267,9 @@ class _EditScreenState extends State<EditScreen> {
     return Container(
       color: backGroundColor,
       padding: EdgeInsets.only(left: FetchPixels.getPixelWidth(20), right: FetchPixels.getPixelWidth(20), bottom: FetchPixels.getPixelHeight(30)),
-      child: getButton(context, blueColor, 'Save'.tr, Colors.white, () {}, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
+      child: getButton(context, blueColor, 'Save'.tr, Colors.white, () async {
+        await updateProfile();
+      }, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
     );
   }
 
@@ -406,34 +481,34 @@ class _EditScreenState extends State<EditScreen> {
                     const SizedBox(
                       height: 10.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: DropdownButton(
-                          // Initial Value
-                          value: dropDownValue,
-
-                          // Down Arrow Icon
-                          icon: const Icon(Icons.keyboard_arrow_down),
-
-                          // Array list of items
-                          items: items.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(items),
-                            );
-                          }).toList(),
-                          // After selecting the desired option,it will
-                          // change button value to selected value
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropDownValue = newValue;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 0.0, bottom: 0.0, right: 10.0),
+                    //   child: SizedBox(
+                    //     width: MediaQuery.of(context).size.width,
+                    //     child: DropdownButton(
+                    //       // Initial Value
+                    //       value: dropDownValue,
+                    //
+                    //       // Down Arrow Icon
+                    //       icon: const Icon(Icons.keyboard_arrow_down),
+                    //
+                    //       // Array list of items
+                    //       items: items.map((String items) {
+                    //         return DropdownMenuItem(
+                    //           value: items,
+                    //           child: Text(items),
+                    //         );
+                    //       }).toList(),
+                    //       // After selecting the desired option,it will
+                    //       // change button value to selected value
+                    //       onChanged: (String? newValue) {
+                    //         setState(() {
+                    //           dropDownValue = newValue;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 15.0,
                     ),

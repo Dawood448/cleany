@@ -30,6 +30,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<AnalyticsModel> fetchData() async {
     try {
       final id = await userId();
+      print(id);
       return await ApiRequests().fetchCleanerData(int.parse(id));
     } catch (e) {
       if (kDebugMode) {
@@ -488,7 +489,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: tipsList.length,
                             itemBuilder: (context, index) {
+                              print('Building item $index ${tipsList.length}');
                               var tips = tipsList[index];
+                              print('Tips data: $tips');
                               return Card(
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
@@ -507,7 +510,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: '${tips.customerName}',
+                                          text: '${tipsList[index].customerName}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -516,7 +519,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                         const TextSpan(text: "   "),
                                         TextSpan(
-                                          text: '(${tips.booking})',
+                                          text: '(${tipsList[index].booking})',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -534,7 +537,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '${tips.tipAmount}',
+                                              text: '${tipsList[index].tipAmount}',
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
@@ -548,7 +551,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   trailing: Text(
                                     DateFormat('hh:mm a').format(
                                       DateTime.parse(
-                                        tips.createdAt.toString(),
+                                        tipsList[index].createdAt.toString(),
                                       ),
                                     ),
                                   ),
