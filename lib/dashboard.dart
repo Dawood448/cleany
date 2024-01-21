@@ -6,14 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'apis/request_apis.dart';
 import 'base/resizer/fetch_pixels.dart';
 import 'base/widget_utils.dart';
 import 'models/cleany_tips_model.dart';
-import 'package:http/http.dart' as http;
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -25,12 +26,12 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   late Future<AnalyticsModel> analyticsModelFuture;
   bool isEnable = false;
+
   Future<AnalyticsModel> fetchData() async {
     try {
       final id = await userId();
       return await ApiRequests().fetchCleanerData(int.parse(id));
     } catch (e) {
-      // Handle errors
       if (kDebugMode) {
         print('Error: $e');
       }
@@ -42,9 +43,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   RxString name = ''.obs;
   RxString last = ''.obs;
   RxString gender = ''.obs;
+
   Future<Map<String, dynamic>> fetchWeatherData() async {
-    final cleanerProfile =
-        Provider.of<CleanerDetailsProvider>(context, listen: false);
+    final cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
     cleanerProfile.getDetails(context);
 
     final city = cleanerProfile.details[0].profile.city;
@@ -54,8 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     gender.value = cleanerProfile.details[0].profile.gender;
     const key = "0508cd206769e314e7eafb6b14500187";
     final response = await http.get(
-      Uri.parse(
-          'https://api.openweathermap.org/data/2.5/forecast?q=$city,$area&units=metric&appid=$key'),
+      Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=$city,$area&units=metric&appid=$key'),
     );
 
     if (response.statusCode == 200) {
@@ -66,6 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   List<TipsData> tipsList = [];
+
   static userId() async {
     const storage = FlutterSecureStorage();
     var userid = await storage.read(key: 'userid');
@@ -115,11 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 height: FetchPixels.getPixelHeight(46),
                 width: FetchPixels.getPixelHeight(46),
                 decoration: BoxDecoration(
-                  image: getDecorationAssetImage(
-                      context,
-                      gender.value.toLowerCase() == 'male'
-                          ? 'male.png'
-                          : 'female.png'
+                  image: getDecorationAssetImage(context, gender.value.toLowerCase() == 'male' ? 'male.png' : 'female.png'
                       // : 'profile_image.png',
                       ),
                 ),
@@ -134,16 +131,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Lottie.asset(
-                      'assets/images/Animation - 1705496270356.json'),
+                  child: Lottie.asset('assets/images/Animation - 1705496270356.json'),
                 );
               } else if (snapshot.hasError) {
                 return const Text('');
               } else {
                 final temperature = snapshot.data!['list'][0]['main']['temp'];
                 final temperatureFahrenheit = (temperature * 9 / 5) + 32;
-                final description =
-                    snapshot.data!['list'][0]['weather'][0]['description'];
+                final description = snapshot.data!['list'][0]['weather'][0]['description'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -172,8 +167,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
-                child: Lottie.asset(
-                    'assets/images/Animation - 1705496978206.json'),
+                child: Lottie.asset('assets/images/Animation - 1705496978206.json'),
               );
             } else if (snapshot.hasError) {
               return Center(
@@ -222,22 +216,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               children: [
                                 Text(
                                   'Completed Bookings'.tr,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '${snapsh.totalCompletedBookings}',
-                                  style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            Image.asset(
-                                'assets/images/icons8-web-analytics-64.png'),
+                            Image.asset('assets/images/icons8-web-analytics-64.png'),
                           ],
                         ),
                       ),
@@ -269,17 +256,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   ),
                                   Text(
                                     'Total Hours'.tr,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     '${snapsh.totalHoursInCompletedBookings}',
-                                    style: const TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.blue, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -311,17 +292,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   ),
                                   Text(
                                     'Average Hours perBooking'.tr,
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     '${snapsh.averageHoursPerBooking}',
-                                    style: const TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: Colors.blue, fontSize: 14, fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -352,17 +327,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               children: [
                                 Text(
                                   'Total Customer Served'.tr,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '${snapsh.totalCustomersServed}',
-                                  style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -396,17 +365,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               children: [
                                 Text(
                                   'Assigned Bookings'.tr,
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   '${snapsh.assignedBookings}',
-                                  style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -440,9 +403,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             },
                             child: Text(
                               !isEnable ? 'View all'.tr : 'View less'.tr,
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -464,14 +425,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   'assets/images/icons8-dollar.gif',
                                 ),
                               ),
-                              title: Text(
-                                'Booking ID: ${tipsList[0].booking}'.tr,
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              title: RichText(
+                                text: TextSpan(
+                                  text: 'From:'.tr,
+                                  style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '${tipsList[0].customerName}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    const TextSpan(text: "   "),
+                                    TextSpan(
+                                      text: '(${tipsList[0].booking})',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              subtitle: Text(
-                                'Tip Amount : ${tipsList[0].tipAmount}'.tr,
-                                style: const TextStyle(fontSize: 14),
+                              subtitle: Row(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'Tip Amount : '.tr,
+                                      style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: '${tipsList[0].tipAmount}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                               trailing: Text(
                                 DateFormat('hh:mm a').format(
@@ -505,15 +501,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       'assets/images/icons8-dollar.gif',
                                     ),
                                   ),
-                                  title: Text(
-                                    'Booking ID: ${tips.booking}'.tr,
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                  title: RichText(
+                                    text: TextSpan(
+                                      text: 'From:'.tr,
+                                      style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: '${tips.customerName}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        const TextSpan(text: "   "),
+                                        TextSpan(
+                                          text: '(${tips.booking})',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  subtitle: Text(
-                                    'Tip Amount: ${tips.tipAmount}'.tr,
-                                    style: const TextStyle(fontSize: 14),
+                                  subtitle: Row(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Tip Amount : '.tr,
+                                          style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '${tips.tipAmount}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   trailing: Text(
                                     DateFormat('hh:mm a').format(

@@ -9,14 +9,14 @@ class TipsModel {
     if (json['data'] != null) {
       data = <TipsData>[];
       json['data'].forEach((v) {
-        data!.add(new TipsData.fromJson(v));
+        data!.add(TipsData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -32,15 +32,10 @@ class TipsData {
   String? booking;
   int? cleaner;
   int? customer;
+  String? cleanerName;
+  String? customerName;
 
-  TipsData(
-      {this.id,
-        this.tipAmount,
-        this.chargeId,
-        this.createdAt,
-        this.booking,
-        this.cleaner,
-        this.customer});
+  TipsData({this.id, this.tipAmount, this.chargeId, this.createdAt, this.booking, this.cleaner, this.customer, this.cleanerName, this.customerName});
 
   TipsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,17 +45,21 @@ class TipsData {
     booking = json['booking'];
     cleaner = json['cleaner'];
     customer = json['customer'];
+    cleanerName = json['cleaner_name'];
+    customerName = json['customer_name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['tip_amount'] = this.tipAmount;
-    data['charge_id'] = this.chargeId;
-    data['created_at'] = this.createdAt;
-    data['booking'] = this.booking;
-    data['cleaner'] = this.cleaner;
-    data['customer'] = this.customer;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['tip_amount'] = tipAmount;
+    data['charge_id'] = chargeId;
+    data['created_at'] = createdAt;
+    data['booking'] = booking;
+    data['cleaner'] = cleaner;
+    data['customer'] = customer;
+    data['cleaner_name'] = cleanerName;
+    data['customer_name'] = customerName;
     return data;
   }
 }

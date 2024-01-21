@@ -77,10 +77,7 @@ class _NavbarState extends State<Navbar> {
                   child: Container(
                     width: size,
                     height: size,
-                    decoration: BoxDecoration(
-                      color: index == index1 ? blueColor : Colors.transparent,
-                      shape: BoxShape.circle,
-                    ),
+                    decoration: BoxDecoration(color: index == index1 ? blueColor : Colors.transparent, shape: BoxShape.circle),
                     child: Center(
                       child: getSvgImage(
                         bottomBarList[index1],

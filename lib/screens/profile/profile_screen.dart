@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:cleany/constants/app_colors.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
@@ -26,29 +24,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     FetchPixels(context);
     Widget defVerSpaceSet = getVerSpace(FetchPixels.getPixelHeight(20));
     Widget defDividerSet = getDivider(dividerColor, 0, 1);
-    return WillPopScope(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backGroundColor,
-        bottomNavigationBar: editProfileButton(context),
-        body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: FetchPixels.getDefaultHorSpace(context)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                getVerSpace(FetchPixels.getPixelHeight(20)),
-                buildHeader(context),
-                buildExpandList(context, defVerSpaceSet, defDividerSet)
-              ],
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: backGroundColor,
+      bottomNavigationBar: editProfileButton(context),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: FetchPixels.getDefaultHorSpace(context)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [getVerSpace(FetchPixels.getPixelHeight(20)), buildHeader(context), buildExpandList(context, defVerSpaceSet, defDividerSet)],
           ),
         ),
       ),
-      onWillPop: () async {
-        Constant.backToPrev(context);
-        return false;
-      },
     );
   }
 
@@ -185,14 +173,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
       alignment: Alignment.topCenter,
-      child:           SizedBox(
+      child: SizedBox(
         height: FetchPixels.getPixelHeight(200),
         width: FetchPixels.getPixelHeight(200),
         child: cleanerProfile.details.isNotEmpty
-            ? cleanerProfile.details.first.profile.gender.toLowerCase() ==
-            'male'
-            ? Lottie.asset('assets/images/male.json')
-            : Lottie.asset('assets/images/female.json')
+            ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
+                ? Lottie.asset('assets/images/male.json')
+                : Lottie.asset('assets/images/female.json')
             : Image.network('assets/images/profile_image.png'),
       ),
     );
@@ -201,16 +188,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Container editProfileButton(BuildContext context) {
     return Container(
       color: backGroundColor,
-      padding: EdgeInsets.only(
-          left: FetchPixels.getPixelWidth(20),
-          right: FetchPixels.getPixelWidth(20),
-          bottom: FetchPixels.getPixelHeight(30)),
+      padding: EdgeInsets.only(left: FetchPixels.getPixelWidth(20), right: FetchPixels.getPixelWidth(20), bottom: FetchPixels.getPixelHeight(30)),
       child: getButton(context, blueColor, 'Edit Profile'.tr, Colors.white, () {
         Navigator.of(context).pushNamed(AppRoutes.edit);
-      }, 18,
-          weight: FontWeight.w600,
-          buttonHeight: FetchPixels.getPixelHeight(60),
-          borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
+      }, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
     );
   }
 
@@ -253,8 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               const Text(
                                 'Profile',
-                                style:
-                                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                             ],
                           ),
@@ -279,8 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: const Center(
                                   child: Text(
                                     'Not AvailAble',
-                                    style: TextStyle(
-                                        color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                                   ),
                                 ),
                               )
@@ -316,10 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))),
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: ListView(
@@ -329,8 +305,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(12)),
                           child: Column(
                             children: [
                               Row(
@@ -345,10 +320,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   Text(
                                     cleanerProfile.details[0].profile.status,
-                                    style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.greenAccent),
+                                    style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.greenAccent),
                                   )
                                 ],
                               ),
@@ -360,8 +332,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
@@ -391,8 +362,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
@@ -422,8 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
@@ -453,8 +422,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
@@ -484,8 +452,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
@@ -515,8 +482,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Container(
                           padding: const EdgeInsets.all(12),
-                          decoration:
-                              BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: Colors.grey[200], borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             children: [
                               Row(
