@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:timezone_dropdown/timezone_dropdown.dart';
 import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
@@ -39,6 +40,7 @@ class _EditScreenState extends State<EditScreen> {
     'Active',
     'Inactive',
   ];
+  bool showShadow = true;
 
   // ignore: unused_field
   static String? dropdownValue;
@@ -180,20 +182,30 @@ class _EditScreenState extends State<EditScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Card(
-                elevation: 2,
-                surfaceTintColor: Colors.white,
-                color: Colors.white,
+              Container(
+                decoration: BoxDecoration(
+                  color: showShadow ? Colors.white : backGroundColor,
+                  boxShadow: showShadow
+                      ? const [
+                          BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                        ]
+                      : null,
+                  borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+                  border: !showShadow ? Border.all(color: textColor) : null,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: DropdownButton<String>(
-                    underline: SizedBox(),
+                    underline: const SizedBox(),
                     borderRadius: BorderRadius.circular(5),
                     elevation: 15,
                     isExpanded: true,
                     value: selectedGender,
                     dropdownColor: Colors.white,
-                    hint: const Text('Select Gender'),
+                    hint: Text(
+                      'Select Gender',
+                      style: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
+                    ),
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedGender = newValue;
@@ -209,20 +221,30 @@ class _EditScreenState extends State<EditScreen> {
                 ),
               ),
               defVerSpaceSet,
-              Card(
-                elevation: 2,
-                surfaceTintColor: Colors.white,
-                color: Colors.white,
+              Container(
+                decoration: BoxDecoration(
+                  color: showShadow ? Colors.white : backGroundColor,
+                  boxShadow: showShadow
+                      ? const [
+                          BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                        ]
+                      : null,
+                  borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+                  border: !showShadow ? Border.all(color: textColor) : null,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: DropdownButton<String>(
-                    underline: SizedBox(),
+                    underline: const SizedBox(),
                     elevation: 15,
                     dropdownColor: Colors.white,
                     borderRadius: BorderRadius.circular(5),
                     isExpanded: true,
                     value: selectedLang,
-                    hint: const Text('Select Language'),
+                    hint: Text(
+                      'Select Language',
+                      style: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
+                    ),
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedLang = newValue;
@@ -240,12 +262,32 @@ class _EditScreenState extends State<EditScreen> {
               defVerSpaceSet,
             ],
           ),
+          Container(
+            decoration: BoxDecoration(
+              color: showShadow ? Colors.white : backGroundColor,
+              boxShadow: showShadow
+                  ? const [
+                      BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
+                    ]
+                  : null,
+              borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
+              border: !showShadow ? Border.all(color: textColor) : null,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: TimezoneDropdown(
+                hintText: 'Select Timezone',
+                onTimezoneSelected: (timeZone) => print(timeZone),
+              ),
+            ),
+          ),
+          defVerSpaceSet,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 'Enable Location:'.tr,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
               ),
               Switch(
                 value: isLocationEnabled,

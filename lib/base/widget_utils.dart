@@ -12,8 +12,7 @@ Widget getVerSpace(double verSpace) {
   );
 }
 
-Widget getSvgImageWithSize(BuildContext context, String image, double width, double height,
-    {Color? color, BoxFit fit = BoxFit.fill}) {
+Widget getSvgImageWithSize(BuildContext context, String image, double width, double height, {Color? color, BoxFit fit = BoxFit.fill}) {
   return SvgPicture.asset(
     Constant.assetImagePath + image,
     color: color,
@@ -23,9 +22,7 @@ Widget getSvgImageWithSize(BuildContext context, String image, double width, dou
   );
 }
 
-Widget getSearchWidget(BuildContext context, TextEditingController searchController, Function filterClick,
-    ValueChanged<String> onChanged,
-    {bool withPrefix = true, ValueChanged<String>? onSubmit}) {
+Widget getSearchWidget(BuildContext context, TextEditingController searchController, Function filterClick, ValueChanged<String> onChanged, {bool withPrefix = true, ValueChanged<String>? onSubmit}) {
   double height = FetchPixels.getPixelHeight(60);
 
   final mqData = MediaQuery.of(context);
@@ -59,20 +56,8 @@ Widget getSearchWidget(BuildContext context, TextEditingController searchControl
                   },
                   controller: searchController,
                   onChanged: onChanged,
-                  decoration: InputDecoration(
-                      isDense: true,
-                      hintText: 'Search...',
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(
-                          fontFamily: Constant.fontsFamily,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: textColor)),
-                  style: const TextStyle(
-                      fontFamily: Constant.fontsFamily,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black),
+                  decoration: InputDecoration(isDense: true, hintText: 'Search...', border: InputBorder.none, hintStyle: TextStyle(fontFamily: Constant.fontsFamily, fontSize: 16, fontWeight: FontWeight.w400, color: textColor)),
+                  style: const TextStyle(fontFamily: Constant.fontsFamily, fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black),
                   textAlign: TextAlign.start,
                   maxLines: 1,
                 ),
@@ -84,8 +69,7 @@ Widget getSearchWidget(BuildContext context, TextEditingController searchControl
   );
 }
 
-Widget getAssetImage(String image, double width, double height,
-    {Color? color, BoxFit boxFit = BoxFit.contain}) {
+Widget getAssetImage(String image, double width, double height, {Color? color, BoxFit boxFit = BoxFit.contain}) {
   return Image.asset(
     Constant.assetImagePath + image,
     color: color,
@@ -96,8 +80,7 @@ Widget getAssetImage(String image, double width, double height,
   );
 }
 
-Widget getSvgImage(String image,
-    {double? width, double? height, Color? color, BoxFit boxFit = BoxFit.contain}) {
+Widget getSvgImage(String image, {double? width, double? height, Color? color, BoxFit boxFit = BoxFit.contain}) {
   return SvgPicture.asset(
     Constant.assetImagePath + image,
     color: color,
@@ -114,36 +97,19 @@ Widget getPaddingWidget(EdgeInsets edgeInsets, Widget widget) {
   );
 }
 
-DecorationImage getDecorationAssetImage(BuildContext buildContext, String image,
-    {BoxFit fit = BoxFit.contain}) {
-  return DecorationImage(
-      image: AssetImage((Constant.assetImagePath) + image), fit: fit, scale: FetchPixels.getScale());
+DecorationImage getDecorationAssetImage(BuildContext buildContext, String image, {BoxFit fit = BoxFit.contain}) {
+  return DecorationImage(image: AssetImage((Constant.assetImagePath) + image), fit: fit, scale: FetchPixels.getScale());
 }
 
-DecorationImage getDecorationNetworkImage(BuildContext buildContext, String image,
-    {BoxFit fit = BoxFit.contain}) {
-  return DecorationImage(
-      image: AssetImage((Constant.assetImagePath) + image), fit: fit, scale: FetchPixels.getScale());
+DecorationImage getDecorationNetworkImage(BuildContext buildContext, String image, {BoxFit fit = BoxFit.contain}) {
+  return DecorationImage(image: AssetImage((Constant.assetImagePath) + image), fit: fit, scale: FetchPixels.getScale());
 }
 
-Widget getCustomFont(String text, double fontSize, Color fontColor, int maxLine,
-    {String fontFamily = Constant.fontsFamily,
-    TextOverflow overflow = TextOverflow.ellipsis,
-    TextDecoration decoration = TextDecoration.none,
-    FontWeight fontWeight = FontWeight.normal,
-    TextAlign textAlign = TextAlign.start,
-    txtHeight}) {
+Widget getCustomFont(String text, double fontSize, Color fontColor, int maxLine, {String fontFamily = Constant.fontsFamily, TextOverflow overflow = TextOverflow.ellipsis, TextDecoration decoration = TextDecoration.none, FontWeight fontWeight = FontWeight.normal, TextAlign textAlign = TextAlign.start, txtHeight}) {
   return Text(
     text,
     overflow: overflow,
-    style: TextStyle(
-        decoration: decoration,
-        fontSize: fontSize,
-        fontStyle: FontStyle.normal,
-        color: fontColor,
-        fontFamily: fontFamily,
-        height: txtHeight,
-        fontWeight: fontWeight),
+    style: TextStyle(decoration: decoration, fontSize: fontSize, fontStyle: FontStyle.normal, color: fontColor, fontFamily: fontFamily, height: txtHeight, fontWeight: fontWeight),
     maxLines: maxLine,
     softWrap: true,
     textAlign: textAlign,
@@ -151,52 +117,21 @@ Widget getCustomFont(String text, double fontSize, Color fontColor, int maxLine,
   );
 }
 
-Widget getMultilineCustomFont(String text, double fontSize, Color fontColor,
-    {String fontFamily = Constant.fontsFamily,
-    TextOverflow overflow = TextOverflow.ellipsis,
-    TextDecoration decoration = TextDecoration.none,
-    FontWeight fontWeight = FontWeight.normal,
-    TextAlign textAlign = TextAlign.start,
-    txtHeight = 1.0}) {
+Widget getMultilineCustomFont(String text, double fontSize, Color fontColor, {String fontFamily = Constant.fontsFamily, TextOverflow overflow = TextOverflow.ellipsis, TextDecoration decoration = TextDecoration.none, FontWeight fontWeight = FontWeight.normal, TextAlign textAlign = TextAlign.start, txtHeight = 1.0}) {
   return Text(
     text,
-    style: TextStyle(
-        decoration: decoration,
-        fontSize: fontSize,
-        fontStyle: FontStyle.normal,
-        color: fontColor,
-        fontFamily: fontFamily,
-        height: txtHeight,
-        fontWeight: fontWeight),
+    style: TextStyle(decoration: decoration, fontSize: fontSize, fontStyle: FontStyle.normal, color: fontColor, fontFamily: fontFamily, height: txtHeight, fontWeight: fontWeight),
     textAlign: textAlign,
     textScaleFactor: FetchPixels.getTextScale(),
   );
 }
 
-BoxDecoration getButtonDecoration(Color bgColor,
-    {BorderRadius? borderRadius, Border? border, List<BoxShadow> shadow = const [], DecorationImage? image}) {
-  return BoxDecoration(
-      color: bgColor, borderRadius: borderRadius, border: border, boxShadow: shadow, image: image);
+BoxDecoration getButtonDecoration(Color bgColor, {BorderRadius? borderRadius, Border? border, List<BoxShadow> shadow = const [], DecorationImage? image}) {
+  return BoxDecoration(color: bgColor, borderRadius: borderRadius, border: border, boxShadow: shadow, image: image);
 }
 
-Widget getButton(
-    BuildContext context, Color bgColor, String text, Color textColor, Function function, double fontsize,
-    {bool isBorder = false,
-    EdgeInsetsGeometry? insetsGeometry,
-    borderColor = Colors.transparent,
-    FontWeight weight = FontWeight.bold,
-    bool isIcon = false,
-    String? image,
-    Color? imageColor,
-    double? imageWidth,
-    double? imageHeight,
-    bool smallFont = false,
-    double? buttonHeight,
-    double? buttonWidth,
-    List<BoxShadow> boxShadow = const [],
-    EdgeInsetsGeometry? insetsGeometrypadding,
-    BorderRadius? borderRadius,
-    double? borderWidth}) {
+Widget getButton(BuildContext context, Color bgColor, String text, Color textColor, Function function, double fontsize,
+    {bool isBorder = false, EdgeInsetsGeometry? insetsGeometry, borderColor = Colors.transparent, FontWeight weight = FontWeight.bold, bool isIcon = false, String? image, Color? imageColor, double? imageWidth, double? imageHeight, bool smallFont = false, double? buttonHeight, double? buttonWidth, List<BoxShadow> boxShadow = const [], EdgeInsetsGeometry? insetsGeometrypadding, BorderRadius? borderRadius, double? borderWidth}) {
   return InkWell(
     onTap: () {
       function();
@@ -233,8 +168,7 @@ Widget getButton(
   );
 }
 
-Widget getButtonWithIcon(
-    BuildContext context, Color bgColor, String text, Color textColor, Function function, double fontsize,
+Widget getButtonWithIcon(BuildContext context, Color bgColor, String text, Color textColor, Function function, double fontsize,
     {bool isBorder = false,
     EdgeInsetsGeometry? insetsGeometry,
     borderColor = Colors.transparent,
@@ -273,13 +207,7 @@ Widget getButtonWithIcon(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            children: [
-              getHorSpace(FetchPixels.getPixelWidth(18)),
-              (prefixIcon) ? getSvgImage(prefixImage!) : getHorSpace(0),
-              (prefixIcon) ? getHorSpace(FetchPixels.getPixelWidth(12)) : getHorSpace(0),
-              getCustomFont(text, fontsize, textColor, 1,
-                  textAlign: TextAlign.center, fontWeight: weight, fontFamily: fontFamily)
-            ],
+            children: [getHorSpace(FetchPixels.getPixelWidth(18)), (prefixIcon) ? getSvgImage(prefixImage!) : getHorSpace(0), (prefixIcon) ? getHorSpace(FetchPixels.getPixelWidth(12)) : getHorSpace(0), getCustomFont(text, fontsize, textColor, 1, textAlign: TextAlign.center, fontWeight: weight, fontFamily: fontFamily)],
           ),
           Row(
             children: [
@@ -361,8 +289,7 @@ Widget getDefaultTextFiledWithLabel(
                             right: FetchPixels.getPixelWidth(12),
                             left: FetchPixels.getPixelWidth(18),
                           ),
-                          child: getSvgImage(image!,
-                              height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)),
+                          child: getSvgImage(image!, height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)),
                         ),
                   Expanded(
                     child: TextFormField(
@@ -381,11 +308,7 @@ Widget getDefaultTextFiledWithLabel(
                         fontWeight: FontWeight.w400,
                         fontSize: 16,
                       ),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: s,
-                          hintStyle: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
-                          isDense: true),
+                      decoration: InputDecoration(border: InputBorder.none, hintText: s, hintStyle: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16), isDense: true),
                     ),
                   ),
                   (!withSufix)
@@ -523,21 +446,7 @@ class CardNumberFormatter extends TextInputFormatter {
   }
 }
 
-Widget getCardEditText(
-    BuildContext context, String s, TextEditingController textEditingController, Color fontColor,
-    {bool withprefix = false,
-    bool withSufix = false,
-    bool minLines = false,
-    EdgeInsetsGeometry margin = EdgeInsets.zero,
-    bool isPass = false,
-    bool isEnable = true,
-    double? height,
-    double? imageHeight,
-    double? imageWidth,
-    String? image,
-    String? suffiximage,
-    required Function function,
-    Function? imagefunction}) {
+Widget getCardEditText(BuildContext context, String s, TextEditingController textEditingController, Color fontColor, {bool withprefix = false, bool withSufix = false, bool minLines = false, EdgeInsetsGeometry margin = EdgeInsets.zero, bool isPass = false, bool isEnable = true, double? height, double? imageHeight, double? imageWidth, String? image, String? suffiximage, required Function function, Function? imagefunction}) {
   FocusNode myFocusNode = FocusNode();
   return StatefulBuilder(
     builder: (context, setState) {
@@ -596,24 +505,18 @@ Widget getCardEditText(
                       counterText: '',
                       prefixIcon: (withprefix)
                           ? Padding(
-                              padding: EdgeInsets.only(
-                                  right: FetchPixels.getPixelWidth(12), left: FetchPixels.getPixelWidth(18)),
-                              child: getSvgImage(image!,
-                                  height: FetchPixels.getPixelHeight(24),
-                                  width: FetchPixels.getPixelHeight(24)),
+                              padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(12), left: FetchPixels.getPixelWidth(18)),
+                              child: getSvgImage(image!, height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)),
                             )
                           : null,
                       suffixIcon: (withSufix)
                           ? Padding(
-                              padding: EdgeInsets.only(
-                                  right: FetchPixels.getPixelWidth(18), left: FetchPixels.getPixelWidth(12)),
+                              padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(18), left: FetchPixels.getPixelWidth(12)),
                               child: InkWell(
                                 onTap: () {
                                   imagefunction!();
                                 },
-                                child: getSvgImage(suffiximage!,
-                                    height: FetchPixels.getPixelHeight(24),
-                                    width: FetchPixels.getPixelHeight(24)),
+                                child: getSvgImage(suffiximage!, height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)),
                               ),
                             )
                           : null,
@@ -632,18 +535,7 @@ Widget getCardEditText(
   );
 }
 
-Widget getCountryTextField(
-    BuildContext context, String s, TextEditingController textEditingController, Color fontColor, String code,
-    {bool withprefix = false,
-    bool withSufix = false,
-    bool minLines = false,
-    EdgeInsetsGeometry margin = EdgeInsets.zero,
-    bool isPass = false,
-    bool isEnable = true,
-    double? height,
-    String? image,
-    required Function function,
-    Function? imagefunction}) {
+Widget getCountryTextField(BuildContext context, String s, TextEditingController textEditingController, Color fontColor, String code, {bool withprefix = false, bool withSufix = false, bool minLines = false, EdgeInsetsGeometry margin = EdgeInsets.zero, bool isPass = false, bool isEnable = true, double? height, String? image, required Function function, Function? imagefunction}) {
   FocusNode myFocusNode = FocusNode();
   return StatefulBuilder(
     builder: (context, setState) {
@@ -791,16 +683,7 @@ Widget getCountryTextField(
 //   );
 // }
 
-Widget gettoolbarMenu(BuildContext context, String image, Function function,
-    {bool istext = false,
-    double? fontsize,
-    String? title,
-    Color? textColor,
-    FontWeight? weight,
-    String fontFamily = Constant.fontsFamily,
-    bool isrightimage = false,
-    IconData? rightimage,
-    Function? rightFunction}) {
+Widget gettoolbarMenu(BuildContext context, String image, Function function, {bool istext = false, double? fontsize, String? title, Color? textColor, FontWeight? weight, String fontFamily = Constant.fontsFamily, bool isrightimage = false, IconData? rightimage, Function? rightFunction}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -808,14 +691,11 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
           onTap: () {
             function();
           },
-          child: getSvgImage(image,
-              height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24))),
+          child: getSvgImage(image, height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24))),
       Expanded(
         child: Container(
           alignment: Alignment.center,
-          child: (istext)
-              ? getCustomFont(title!, fontsize!, textColor!, 1, fontWeight: weight!, fontFamily: fontFamily)
-              : null,
+          child: (istext) ? getCustomFont(title!, fontsize!, textColor!, 1, fontWeight: weight!, fontFamily: fontFamily) : null,
         ),
       ),
       (isrightimage)
@@ -823,32 +703,20 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
               onTap: () {
                 rightFunction!();
               },
-              child:Icon(rightimage)
-  )
+              child: Icon(rightimage))
           : Container(),
     ],
   );
 }
 
-Widget withoutleftIconToolbar(BuildContext context,
-    {bool istext = false,
-    double? fontsize,
-    String? title,
-    Color? textColor,
-    FontWeight? weight,
-    String fontFamily = Constant.fontsFamily,
-    bool isrightimage = false,
-    String? rightimage,
-    Function? rightFunction}) {
+Widget withoutleftIconToolbar(BuildContext context, {bool istext = false, double? fontsize, String? title, Color? textColor, FontWeight? weight, String fontFamily = Constant.fontsFamily, bool isrightimage = false, String? rightimage, Function? rightFunction}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Expanded(
         child: Container(
           alignment: Alignment.center,
-          child: (istext)
-              ? getCustomFont(title!, fontsize!, textColor!, 1, fontWeight: weight!, fontFamily: fontFamily)
-              : null,
+          child: (istext) ? getCustomFont(title!, fontsize!, textColor!, 1, fontWeight: weight!, fontFamily: fontFamily) : null,
         ),
       ),
       (isrightimage)
@@ -856,8 +724,7 @@ Widget withoutleftIconToolbar(BuildContext context,
               onTap: () {
                 rightFunction!();
               },
-              child: getSvgImage(rightimage!,
-                  height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)))
+              child: getSvgImage(rightimage!, height: FetchPixels.getPixelHeight(24), width: FetchPixels.getPixelHeight(24)))
           : Container(),
     ],
   );
