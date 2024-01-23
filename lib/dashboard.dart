@@ -69,11 +69,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   getTips() async {
     tipsList.clear();
-    setState(() {
-    });
+    setState(() {});
     final id = await userId();
     tipsList = await ApiRequests().getTipsList(int.parse(id));
-    setState(() {});
+    // setState(() {});
   }
 
   @override
@@ -437,87 +436,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ],
                             ),
                           )
-                        :
-                    !isEnable
-                        ? Card(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                radius: 20,
-                                child: Image.asset(
-                                  'assets/images/icons8-dollar.gif',
-                                ),
-                              ),
-                              title: RichText(
-                                text: TextSpan(
-                                  text: 'From:'.tr,
-                                  style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: '${tipsList[0].customerName}',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    const TextSpan(text: "   "),
-                                    TextSpan(
-                                      text: '(${tipsList[0].booking})',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              subtitle: Row(
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      text: 'Tip Amount : '.tr,
-                                      style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: '${tipsList[0].tipAmount}',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              trailing: Text(
-                                DateFormat('hh:mm a').format(
-                                  DateTime.parse(
-                                    tipsList[0].createdAt.toString(),
-                                  ),
-                                ),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              tileColor: Colors.white,
-                              visualDensity: VisualDensity.comfortable,
-                            ),
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: tipsList.length,
-                            itemBuilder: (context, index) {
-                              print('Building item $index ${tipsList.length}');
-                              var tips = tipsList[index];
-                              print('Tips data: $tips');
-                              return Card(
+                        : !isEnable
+                            ? Card(
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
@@ -535,7 +455,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
                                       children: <TextSpan>[
                                         TextSpan(
-                                          text: '${tipsList[index].customerName}',
+                                          text: '${tipsList[0].customerName}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -544,7 +464,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         ),
                                         const TextSpan(text: "   "),
                                         TextSpan(
-                                          text: '(${tipsList[index].booking})',
+                                          text: '(${tipsList[0].booking})',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -562,7 +482,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: '${tipsList[index].tipAmount}',
+                                              text: '${tipsList[0].tipAmount}',
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
@@ -576,7 +496,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   trailing: Text(
                                     DateFormat('hh:mm a').format(
                                       DateTime.parse(
-                                        tipsList[index].createdAt.toString(),
+                                        tipsList[0].createdAt.toString(),
                                       ),
                                     ),
                                   ),
@@ -586,9 +506,87 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   tileColor: Colors.white,
                                   visualDensity: VisualDensity.comfortable,
                                 ),
-                              );
-                            },
-                          )
+                              )
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: tipsList.length,
+                                itemBuilder: (context, index) {
+                                  print('Building item $index ${tipsList.length}');
+                                  var tips = tipsList[index];
+                                  print('Tips data: $tips');
+                                  return Card(
+                                    elevation: 10,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                        radius: 20,
+                                        child: Image.asset(
+                                          'assets/images/icons8-dollar.gif',
+                                        ),
+                                      ),
+                                      title: RichText(
+                                        text: TextSpan(
+                                          text: 'From:'.tr,
+                                          style: DefaultTextStyle.of(context).style.copyWith(fontSize: 14),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: '${tipsList[index].customerName}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                            const TextSpan(text: "   "),
+                                            TextSpan(
+                                              text: '(${tipsList[index].booking})',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      subtitle: Row(
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              text: 'Tip Amount : '.tr,
+                                              style: DefaultTextStyle.of(context).style.copyWith(fontSize: 12),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: '${tipsList[index].tipAmount}',
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                        DateFormat('hh:mm a').format(
+                                          DateTime.parse(
+                                            tipsList[index].createdAt.toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                      ),
+                                      tileColor: Colors.white,
+                                      visualDensity: VisualDensity.comfortable,
+                                    ),
+                                  );
+                                },
+                              )
                   ],
                 ),
               );
