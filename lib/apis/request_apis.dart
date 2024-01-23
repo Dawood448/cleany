@@ -320,18 +320,24 @@ class ApiRequests {
     return notification;
   }
 
-  Future patchProfileDetailsApi(
-    String email,
-    String firstName,
-    String lastName,
-    String phone,
-    String address,
-    String city,
-    String zip,
-    String ssn,
-    String state,
-    String status,
-  ) async {
+  Future patchProfileDetailsApi({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String address,
+    required String city,
+    required String zip,
+    required String ssn,
+    required String state,
+     String? status,
+    required String gender,
+    required String language,
+    required String timezone,
+    required String location,
+    required String country,
+    required String profile,
+  }) async {
     var token = await Authentication.token();
 
     var responseStatus;
@@ -340,19 +346,24 @@ class ApiRequests {
     final response = await http.patch(Uri.parse(url), headers: {
       'accept': 'application/json',
       'Authorization': 'Token $token',
-      'X-CSRFToken': 'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
+      // 'X-CSRFToken': 'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
       //'accept': 'application/json',
     }, body: {
-      'first_name': firstName,
-      'last_name': lastName,
-      'email': email,
-      'ssn': ssn,
-      'address': address,
-      'city': city,
-      'zip_code': zip,
-      'state': state,
-      'phone': phone,
-      'status': status,
+      "gender": gender,
+      "language": language,
+      "first_name": firstName,
+      "last_name": lastName,
+      "time_zone": timezone,
+      "email": email,
+      "phone_number": ssn,
+      "address": address,
+      "city": city,
+      "state": state,
+      "zip_code": zip,
+      "country": country,
+      "profile_picture": profile,
+      "location":location,
+
     });
 
     if (response.statusCode == 200) {

@@ -44,16 +44,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   RxString name = ''.obs;
   RxString last = ''.obs;
   RxString gender = ''.obs;
-
+  final city = ''.obs;
+  final area = ''.obs;
   Future<Map<String, dynamic>> fetchWeatherData() async {
-    final cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
-    cleanerProfile.getDetails(context);
-
-    final city = cleanerProfile.details[0].profile.city;
-    final area = cleanerProfile.details[0].profile.address;
-    name.value = cleanerProfile.details[0].profile.firstName;
-    last.value = cleanerProfile.details[0].profile.lastName;
-    gender.value = cleanerProfile.details[0].profile.gender;
     const key = "0508cd206769e314e7eafb6b14500187";
     final response = await http.get(
       Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=$city,$area&units=metric&appid=$key'),
@@ -75,6 +68,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   getTips() async {
+    tipsList.clear();
+    setState(() {
+    });
     final id = await userId();
     tipsList = await ApiRequests().getTipsList(int.parse(id));
     setState(() {});
@@ -82,8 +78,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void initState() {
-    analyticsModelFuture = fetchData();
-    getTips();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
+      await cleanerProfile.getDetails(context);
+      city.value = cleanerProfile.details[0].profile.city;
+      area.value = cleanerProfile.details[0].profile.address;
+      name.value = cleanerProfile.details[0].profile.firstName;
+      last.value = cleanerProfile.details[0].profile.lastName;
+      gender.value = cleanerProfile.details[0].profile.gender;
+      getTips();
+    });
     super.initState();
   }
 
@@ -164,7 +168,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       body: FutureBuilder(
-          future: analyticsModelFuture,
+          future: fetchData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -413,6 +417,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(
                       height: 20,
                     ),
+                    tipsList.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('No tips yet.'),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      getTips();
+                                    });
+                                  },
+                                  child: const Text('Try Again'),
+                                ),
+                              ],
+                            ),
+                          )
+                        :
                     !isEnable
                         ? Card(
                             elevation: 10,

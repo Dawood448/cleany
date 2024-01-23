@@ -28,6 +28,11 @@ class _EditScreenState extends State<EditScreen> {
   TextEditingController zipEditingController = TextEditingController();
   TextEditingController stateEditingController = TextEditingController();
   TextEditingController phoneEditingController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController profileController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
 
   bool isLocationEnabled = true;
   final formKey = GlobalKey<FormState>();
@@ -66,10 +71,34 @@ class _EditScreenState extends State<EditScreen> {
     final phone = contactEditingController.text;
     final state = stateEditingController.text;
     final ssn = phoneEditingController.text;
+    final gender = selectedGender;
+    final language = selectedLang;
+    final timezone = locationController.text;
+    final country = countryController.text;
+    final profile = profileController.text;
+    final status = statusController.text;
     // final status = dropDownValue.toString();
     print("---------------------object ${email}, ${firstName}, ${lastName}, ${phone}, ${address}, ${city}, ${zipcode}, ${ssn}, ${state}");
 
-    var responseVal = await ApiRequests().patchProfileDetailsApi(email, firstName, lastName, phone, address, city, zipcode, ssn, state, ssn);
+    var responseVal = await ApiRequests().patchProfileDetailsApi(
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        address: address,
+        city: city,
+        zip: zipcode,
+        ssn: ssn,
+        state: state,
+        gender: gender!,
+        language: language!,
+        timezone: timezone,
+        location: isLocationEnabled.toString(),
+      country: country,
+      status: status,
+      profile: profile
+
+    );
     debugPrint(responseVal.toString());
     responseVal == '200' ? navigate() : debugPrint('NO');
     //ApiRequests().getProfileDetails();
@@ -79,6 +108,9 @@ class _EditScreenState extends State<EditScreen> {
   @override
   void initState() {
     //setInitalData();
+    CleanerDetailsProvider cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
+    cleanerProfile.getDetails(context);
+    setInitalData(cleanerProfile);
     super.initState();
   }
 
@@ -93,6 +125,11 @@ class _EditScreenState extends State<EditScreen> {
       zipEditingController.text = cleanerProfile.details[i].profile.zipCode.toString();
       stateEditingController.text = cleanerProfile.details[i].profile.state.toString();
       phoneEditingController.text = cleanerProfile.details[i].profile.phoneNumber.toString();
+      countryController.text = cleanerProfile.details[i].profile.country;
+      profileController.text = cleanerProfile.details[i].profile.profilePicture;
+      statusController.text = cleanerProfile.details[i].profile.status;
+      setState(() {
+      });
       // dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
     }
   }
