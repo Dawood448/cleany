@@ -5,6 +5,7 @@ import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -47,9 +48,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final city = ''.obs;
   final area = ''.obs;
   Future<Map<String, dynamic>> fetchWeatherData() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     const key = "0508cd206769e314e7eafb6b14500187";
     final response = await http.get(
-      Uri.parse('https://api.openweathermap.org/data/2.5/forecast?q=$city,$area&units=metric&appid=$key'),
+      Uri.parse('https://api.openweathermap.org/data/2.5/weather?lon=${position.longitude}&lat=${position.latitude}&appid=0508cd206769e314e7eafb6b14500187&lang=en&units=standard'),
     );
 
     if (response.statusCode == 200) {
@@ -141,9 +144,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               } else if (snapshot.hasError) {
                 return const Text('');
               } else {
-                final temperature = snapshot.data!['list'][0]['main']['temp'];
+                final temperature = snapshot.data!['main']['temp'];
                 final temperatureFahrenheit = (temperature * 9 / 5) + 32;
-                final description = snapshot.data!['list'][0]['weather'][0]['description'];
+                final description = snapshot.data!['weather'][0]['description'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
