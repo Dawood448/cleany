@@ -25,6 +25,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   intl: ^0.18.0
   web_socket_channel: ^2.4.0
+  permission_handler: ^11.2.0
   
 
   # core

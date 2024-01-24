@@ -4,9 +4,11 @@ import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone_dropdown/timezone_dropdown.dart';
 import '../../base/color_data.dart';
@@ -36,11 +38,11 @@ class _EditScreenState extends State<EditScreen> {
   TextEditingController countryController = TextEditingController();
   TextEditingController profileController = TextEditingController();
   TextEditingController statusController = TextEditingController();
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLocationEnabled = true;
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
-
+String baseUrl = "https://dev.bookcleany.com";
   // String? dropDownValue;
 
   // List of items in our dropdown menu
@@ -147,6 +149,7 @@ class _EditScreenState extends State<EditScreen> {
     // return _profile();
 
     return Scaffold(
+      key: scaffoldKey,
       resizeToAvoidBottomInset: true,
       backgroundColor: backGroundColor,
       bottomNavigationBar: saveButton(context),
@@ -354,77 +357,78 @@ class _EditScreenState extends State<EditScreen> {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          CircleAvatar(
-            radius: 70,
-            backgroundColor: Colors.grey[300],
-            child: _imageFile == null
-                ? const SizedBox()
-                : ClipOval(
-                    child: Image.file(
-                      File(_imageFile!.path),
-                      width: 140,
-                      height: 140,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-          ),
-          Positioned(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 5,
-                        blurRadius: 25,
-                        offset: Offset(0, 3),
+          InkWell(
+            onTap: () async {
+              Map<Permission, PermissionStatus> statuses =
+              await [
+                Permission.camera,
+              ].request();
+
+              if (statuses[Permission.camera]!
+                  .isGranted) {
+                SchedulerBinding.instance.addPostFrameCallback((_) {
+                });
+                showDialog(context: context, builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Center(child: Text('Select Image')),
+                    content: SingleChildScrollView(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          GestureDetector(
+                            child: Icon(Icons.image, color: Colors.blue,size: 40.0,),
+                            onTap: () {
+                              _pickImage(ImageSource.gallery);
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                          ),
+                          GestureDetector(
+                            child: Icon(Icons.camera_alt, color: Colors.blue,size: 40.0,),
+                            onTap: () {
+                              _pickImage(ImageSource.camera);
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
                       ),
-                    ],
-                  ),
-                  child: IconButton(
-                    onPressed: () => _pickImage(ImageSource.camera),
-                    icon: const Icon(
-                      Icons.camera_alt_outlined,
-                      color: Colors.blue,
                     ),
-                  ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: 5,
-                        blurRadius: 25,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    onPressed: () => _pickImage(ImageSource.gallery),
-                    icon: const Icon(
-                      Icons.photo,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ],
+                  );
+
+                }
+                );}
+              else {
+                print('No permission provided');
+                if (statuses[Permission.camera]!
+                    .isDenied ||
+                    statuses[Permission.camera]!
+                        .isPermanentlyDenied) {
+                  // Handle camera permission denied or permanently denied
+                  print('Camera permission denied');
+                }
+              }
+            },
+            child: cleanerProfile.details.isNotEmpty &&
+                cleanerProfile.details.first.profile.profilePicture != ''&&
+                _imageFile == null?
+            CircleAvatar(
+                radius: 60,
+                backgroundImage: NetworkImage(baseUrl + cleanerProfile.details.first.profile.profilePicture),
+            ): _imageFile != null ?
+            CircleAvatar(backgroundImage: FileImage(File(_imageFile!.path)),):
+            SizedBox(
+              height: FetchPixels.getPixelHeight(200),
+              width: FetchPixels.getPixelHeight(200),
+              child: Lottie.asset('assets/images/male.json')
             ),
           ),
-        ],
-      ),
-      // SizedBox(
-      //   height: FetchPixels.getPixelHeight(200),
-      //   width: FetchPixels.getPixelHeight(200),
-      //   child: cleanerProfile.details.isNotEmpty
-      //       ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
-      //           ? Lottie.asset('assets/images/male.json')
-      //           : Lottie.asset('assets/images/female.json')
-      //       : Image.asset('assets/images/profile_image.png'),
-      // ),
-    );
+              // : const AssetImage(ImageAssets.lady),
+            ]
+      )
+          );
   }
 
   Widget _profile() {

@@ -378,7 +378,7 @@ class ApiRequests {
 
   Future updateProfilePicture(profilePicture) async {
     print(profilePicture);
-    final Uri uri = Uri.parse('https://dev.bookcleany.com/user_module/update_profile_picture');
+    final Uri uri = Uri.parse('https://dev.bookcleany.com/user_module/update_profile');
 
     try {
       var request = http.MultipartRequest('PUT', uri);
