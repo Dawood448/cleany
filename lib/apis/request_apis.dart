@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cleany/auth/auth.dart';
 import 'package:cleany/models/booking_details_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -330,7 +332,7 @@ class ApiRequests {
     required String zip,
     required String ssn,
     required String state,
-     String? status,
+    String? status,
     required String gender,
     required String language,
     required String timezone,
@@ -349,21 +351,20 @@ class ApiRequests {
       // 'X-CSRFToken': 'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
       //'accept': 'application/json',
     }, body: {
-      "gender": gender,
-      "language": language,
-      "first_name": firstName,
-      "last_name": lastName,
-      "time_zone": timezone,
-      "email": email,
-      "phone_number": ssn,
-      "address": address,
-      "city": city,
-      "state": state,
-      "zip_code": zip,
-      "country": country,
-      "profile_picture": profile,
-      "location":location,
-
+      'gender': gender,
+      'language': language,
+      'first_name': firstName,
+      'last_name': lastName,
+      'time_zone': timezone,
+      'email': email,
+      'phone_number': ssn,
+      'address': address,
+      'city': city,
+      'state': state,
+      'zip_code': zip,
+      'country': country,
+      'profile_picture': profile,
+      'location': location,
     });
 
     if (response.statusCode == 200) {
@@ -373,6 +374,26 @@ class ApiRequests {
     }
 
     return responseStatus;
+  }
+
+  Future updateProfilePicture(profilePicture) async {
+    print(profilePicture);
+    final Uri uri = Uri.parse('https://dev.bookcleany.com/user_module/update_profile_picture');
+
+    try {
+      var request = http.MultipartRequest('PUT', uri);
+      request.fields['profile_picture'] = '$profilePicture';
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Profile picture updated successfully');
+      } else {
+        print('Failed to update profile picture. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error updating profile picture: $error');
+    }
   }
 
   Future<int> getToken(String email, String password, String deviceToken) async {

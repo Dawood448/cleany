@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone_dropdown/timezone_dropdown.dart';
@@ -80,27 +83,11 @@ class _EditScreenState extends State<EditScreen> {
     // final status = dropDownValue.toString();
     print("---------------------object ${email}, ${firstName}, ${lastName}, ${phone}, ${address}, ${city}, ${zipcode}, ${ssn}, ${state}");
 
-    var responseVal = await ApiRequests().patchProfileDetailsApi(
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        address: address,
-        city: city,
-        zip: zipcode,
-        ssn: ssn,
-        state: state,
-        gender: gender!,
-        language: language!,
-        timezone: timezone,
-        location: isLocationEnabled.toString(),
-      country: country,
-      status: status,
-      profile: profile
+    // var responseVal = await ApiRequests().patchProfileDetailsApi(email: email, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zip: zipcode, ssn: ssn, state: state, gender: gender!, language: language!, timezone: timezone, location: isLocationEnabled.toString(), country: country, status: status, profile: profile);
+    var responseVal2 = await ApiRequests().updateProfilePicture(_imageFile);
 
-    );
-    debugPrint(responseVal.toString());
-    responseVal == '200' ? navigate() : debugPrint('NO');
+    debugPrint(responseVal2.toString());
+    // responseVal == '200' ? navigate() : debugPrint('NO');
     //ApiRequests().getProfileDetails();
     // }
   }
@@ -128,8 +115,7 @@ class _EditScreenState extends State<EditScreen> {
       countryController.text = cleanerProfile.details[i].profile.country;
       profileController.text = cleanerProfile.details[i].profile.profilePicture;
       statusController.text = cleanerProfile.details[i].profile.status;
-      setState(() {
-      });
+      setState(() {});
       // dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
     }
   }
@@ -140,6 +126,15 @@ class _EditScreenState extends State<EditScreen> {
   String? selectedLang;
 
   List<String> languageOptions = ['Spanish', 'English'];
+  XFile? _imageFile;
+
+  Future<void> _pickImage(ImageSource source) async {
+    XFile? selectedImage = await ImagePicker().pickImage(source: source);
+
+    setState(() {
+      _imageFile = selectedImage;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -356,15 +351,79 @@ class _EditScreenState extends State<EditScreen> {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
       alignment: Alignment.topCenter,
-      child: SizedBox(
-        height: FetchPixels.getPixelHeight(200),
-        width: FetchPixels.getPixelHeight(200),
-        child: cleanerProfile.details.isNotEmpty
-            ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
-                ? Lottie.asset('assets/images/male.json')
-                : Lottie.asset('assets/images/female.json')
-            : Image.asset('assets/images/profile_image.png'),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          CircleAvatar(
+            radius: 70,
+            backgroundColor: Colors.grey[300],
+            child: _imageFile == null
+                ? const SizedBox()
+                : ClipOval(
+                    child: Image.file(
+                      File(_imageFile!.path),
+                      width: 140,
+                      height: 140,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+          ),
+          Positioned(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        spreadRadius: 5,
+                        blurRadius: 25,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    onPressed: () => _pickImage(ImageSource.camera),
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        spreadRadius: 5,
+                        blurRadius: 25,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: IconButton(
+                    onPressed: () => _pickImage(ImageSource.gallery),
+                    icon: const Icon(
+                      Icons.photo,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+      // SizedBox(
+      //   height: FetchPixels.getPixelHeight(200),
+      //   width: FetchPixels.getPixelHeight(200),
+      //   child: cleanerProfile.details.isNotEmpty
+      //       ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
+      //           ? Lottie.asset('assets/images/male.json')
+      //           : Lottie.asset('assets/images/female.json')
+      //       : Image.asset('assets/images/profile_image.png'),
+      // ),
     );
   }
 
