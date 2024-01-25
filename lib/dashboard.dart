@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import 'apis/request_apis.dart';
 import 'base/resizer/fetch_pixels.dart';
 import 'base/widget_utils.dart';
@@ -27,7 +26,13 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   late Future<AnalyticsModel> analyticsModelFuture;
   bool isEnable = false;
+  double celsiusToFahrenheit(double celsius) {
+    return celsius * 9 / 5 + 32;
+  }
 
+  double kelvinToCelsius(double kelvin) {
+    return kelvin - 273.15;
+    }
   Future<AnalyticsModel> fetchData() async {
     try {
       final id = await userId();
@@ -75,7 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() {});
     final id = await userId();
     tipsList = await ApiRequests().getTipsList(int.parse(id));
-    // setState(() {});
+    setState(() {});
   }
 
   @override
@@ -144,14 +149,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return const Text('');
               } else {
                 final temperature = snapshot.data!['main']['temp'];
-                final temperatureFahrenheit = (temperature * 9 / 5) + 32;
+                double tempCelsius = kelvinToCelsius(temperature);
+                double tempFahrenheit = celsiusToFahrenheit(tempCelsius);
                 final description = snapshot.data!['weather'][0]['description'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Text(
-                        '${temperatureFahrenheit.toStringAsFixed(2)}°F',
+                        '${tempFahrenheit.toStringAsFixed(2)}°F',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

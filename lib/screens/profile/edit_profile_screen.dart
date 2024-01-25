@@ -59,7 +59,7 @@ String baseUrl = "https://dev.bookcleany.com";
     CleanerDetailsProvider cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
     cleanerProfile.getDetails(context);
     // LoadingScreen().createState().callProviders(),
-    Navigator.pushNamed(context, AppRoutes.profile);
+    Navigator.pop(context);
     debugPrint('YES');
   }
 
@@ -85,13 +85,12 @@ String baseUrl = "https://dev.bookcleany.com";
     // final status = dropDownValue.toString();
     print("---------------------object ${email}, ${firstName}, ${lastName}, ${phone}, ${address}, ${city}, ${zipcode}, ${ssn}, ${state}");
 
-    // var responseVal = await ApiRequests().patchProfileDetailsApi(email: email, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zip: zipcode, ssn: ssn, state: state, gender: gender!, language: language!, timezone: timezone, location: isLocationEnabled.toString(), country: country, status: status, profile: profile);
-    var responseVal2 = await ApiRequests().updateProfilePicture(_imageFile);
+    var responseVal = await ApiRequests().patchProfileDetailsApi(email: email, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zip: zipcode, ssn: ssn, state: state, gender: gender!, language: language!, timezone: timezone, location: isLocationEnabled.toString(), country: country, status: status, profile: profile);
+    // var responseVal2 = await ApiRequests().updateProfilePicture(_imageFile);
 
-    debugPrint(responseVal2.toString());
-    // responseVal == '200' ? navigate() : debugPrint('NO');
-    //ApiRequests().getProfileDetails();
-    // }
+    debugPrint(responseVal.toString());
+    responseVal == '200' ? navigate() : debugPrint('NO');
+    ApiRequests().getProfileDetailsApi();
   }
 
   @override

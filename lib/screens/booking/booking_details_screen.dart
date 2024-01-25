@@ -51,8 +51,10 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    isShiftStarted = widget.booking!.data![widget.index].dispatchId!.shiftStarted ?? false;
-    isShiftEnded = widget.booking!.data![widget.index].dispatchId!.shiftEnded ?? false;
+    isShiftStarted = (widget.booking!.data![widget.index].dispatchId == null ? false :
+        widget.booking!.data![widget.index].dispatchId!.shiftStarted)! ;
+    isShiftEnded = widget.booking!.data![widget.index].dispatchId == null ? false :
+        widget.booking!.data![widget.index].dispatchId!.shiftEnded!;
   }
 
   bool isAndroid = true;
@@ -405,13 +407,23 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           Expanded(
             child: getButton(context, backGroundColor, 'Directions'.tr, blueColor, () async {
               // TODO: launch google maps
-              if (widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude == null && widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude == null) {
+
+              if ( widget.booking!.data![widget.index].dispatchId == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Location Not Found'.tr),
                   ),
                 );
-              } else {
+              }
+              else if (widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude == null && widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Location Not Found'.tr),
+                  ),
+                );
+              }
+
+              else {
                 await launchNativeMap();
               }
             }, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14)), borderColor: blueColor, isBorder: true, borderWidth: 1.5, isIcon: true, image: 'location.svg'),

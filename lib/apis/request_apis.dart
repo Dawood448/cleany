@@ -58,6 +58,7 @@ class ApiRequests {
         'work_mood': workMood
       });
       debugPrint(response.statusCode.toString());
+      debugPrint(jsonDecode(response.body).toString());
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
         // print(responseData.toString());
@@ -109,6 +110,8 @@ class ApiRequests {
         'tasks_complete': taskscomplete,
         'comments': comments,
       });
+      debugPrint(response.statusCode.toString());
+      debugPrint(jsonDecode(response.body).toString());
       if (response.statusCode == 200) {
         var responseData = json.decode(response.body);
         // print(responseData.toString());
@@ -344,10 +347,10 @@ class ApiRequests {
 
     var responseStatus;
     // try {
-    String url = 'https://dev.bookcleany.com/mobile_side/cleaner/profile/';
-    final response = await http.patch(Uri.parse(url), headers: {
+    String url = 'https://dev.bookcleany.com/user_module/update_profile';
+    final response = await http.put(Uri.parse(url), headers: {
       'accept': 'application/json',
-      'Authorization': 'Token $token',
+      'Authorization': 'Bearer $token',
       // 'X-CSRFToken': 'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
       //'accept': 'application/json',
     }, body: {
@@ -363,7 +366,7 @@ class ApiRequests {
       'state': state,
       'zip_code': zip,
       'country': country,
-      'profile_picture': profile,
+      // 'profile_picture': profile,
       'location': location,
     });
 
@@ -372,7 +375,7 @@ class ApiRequests {
 
       responseStatus = response.statusCode.toString();
     }
-
+    print(jsonDecode(response.body));
     return responseStatus;
   }
 
