@@ -32,7 +32,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   double kelvinToCelsius(double kelvin) {
     return kelvin - 273.15;
-    }
+  }
+
   Future<AnalyticsModel> fetchData() async {
     try {
       final id = await userId();
@@ -65,14 +66,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       throw Exception('Failed to load weather data');
     }
-  }
-
-  double celsiusToFahrenheit(double celsius) {
-    return celsius * 9 / 5 + 32;
-  }
-
-  double kelvinToCelsius(double kelvin) {
-    return kelvin - 273.15;
   }
 
   List<TipsData> tipsList = [];
