@@ -37,11 +37,8 @@ class _TabBookingsState extends State<TabBookings> {
   @override
   void initState() {
     setState(() {
-      final bookingsList =
-          Provider.of<BookingListProvider>(context, listen: false);
-      bookingsList
-          .getDetails(context)
-          .then((value) => taskAssign(bookingsList));
+      final bookingsList = Provider.of<BookingListProvider>(context, listen: false);
+      bookingsList.getDetails(context).then((value) => taskAssign(bookingsList));
     });
 
     // 1. This method call when app in terminated state and you get a notification
@@ -56,10 +53,7 @@ class _TabBookingsState extends State<TabBookings> {
     pendingBookings.clear();
     completedBookings.clear();
     for (int i = 0; i < bookingsList.list.length; i++) {
-      if (bookingsList.list[i].data![i].schedule!.createdAt!.day == valDay &&
-          bookingsList.list[i].data![i].schedule!.createdAt!.month ==
-              valMonth &&
-          bookingsList.list[i].data![i].schedule!.createdAt!.year == valYear) {
+      if (bookingsList.list[i].data![i].schedule!.createdAt!.day == valDay && bookingsList.list[i].data![i].schedule!.createdAt!.month == valMonth && bookingsList.list[i].data![i].schedule!.createdAt!.year == valYear) {
         setState(() {
           todayBookings.add(bookingsList.list[i]);
         });
@@ -137,11 +131,8 @@ class _TabBookingsState extends State<TabBookings> {
               flex: 1,
               child: RefreshIndicator(
                 onRefresh: () async {
-                  final bookingsList =
-                      Provider.of<BookingListProvider>(context, listen: false);
-                  bookingsList
-                      .getDetails(context)
-                      .then((value) => taskAssign(bookingsList));
+                  final bookingsList = Provider.of<BookingListProvider>(context, listen: false);
+                  bookingsList.getDetails(context).then((value) => taskAssign(bookingsList));
                   setState(() {});
                 },
                 child: Stack(
@@ -173,9 +164,7 @@ class _TabBookingsState extends State<TabBookings> {
               image: getDecorationAssetImage(
                 context,
                 cleanerProfile.details.isNotEmpty
-                    ? cleanerProfile.details.first.profile.gender
-                                .toLowerCase() ==
-                            'male'
+                    ? cleanerProfile.details.first.profile.gender.toLowerCase() == 'male'
                         ? 'male.png'
                         : 'female.png'
                     : 'profile_image.png',
@@ -230,12 +219,11 @@ class _TabBookingsState extends State<TabBookings> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        getSvgImage('booking_null.svg',
-            height: FetchPixels.getPixelHeight(124),
-            width: FetchPixels.getPixelHeight(84.77)),
+        getSvgImage('booking_null.svg', height: FetchPixels.getPixelHeight(124), width: FetchPixels.getPixelHeight(84.77)),
         getVerSpace(FetchPixels.getPixelHeight(30)),
-        getCustomFont('No Bookings Yet!'.tr, 20, Colors.black, 1,
-            fontWeight: FontWeight.w900, textAlign: TextAlign.center)
+        Center(
+          child: getCustomFont('No Bookings Yet!'.tr, 20, Colors.black, 1, fontWeight: FontWeight.w900, textAlign: TextAlign.center),
+        )
       ],
     );
   }
@@ -281,12 +269,8 @@ class _TabBookingsState extends State<TabBookings> {
                           ),
                         ),
                       ).then((value) {
-                        final bookingsList = Provider.of<BookingListProvider>(
-                            context,
-                            listen: false);
-                        bookingsList
-                            .getDetails(context)
-                            .then((value) => taskAssign(bookingsList));
+                        final bookingsList = Provider.of<BookingListProvider>(context, listen: false);
+                        bookingsList.getDetails(context).then((value) => taskAssign(bookingsList));
                         setState(() {});
                       });
                     } else {
@@ -300,12 +284,8 @@ class _TabBookingsState extends State<TabBookings> {
                           ),
                         ),
                       ).then((value) {
-                        final bookingsList = Provider.of<BookingListProvider>(
-                            context,
-                            listen: false);
-                        bookingsList
-                            .getDetails(context)
-                            .then((value) => taskAssign(bookingsList));
+                        final bookingsList = Provider.of<BookingListProvider>(context, listen: false);
+                        bookingsList.getDetails(context).then((value) => taskAssign(bookingsList));
                         setState(() {});
                       });
                     }
@@ -346,10 +326,7 @@ class _TabBookingsState extends State<TabBookings> {
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: const [
-              BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0.0, 4.0)),
+              BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0.0, 4.0)),
             ],
             borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(12)),
           ),
@@ -380,17 +357,11 @@ class _TabBookingsState extends State<TabBookings> {
                       ),
                       title: Text(
                         '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900),
+                        style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w900),
                       ),
                       subtitle: Text(
                         'JOB ID# ${details.id ?? ''}'.tr,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w900),
+                        style: const TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w900),
                       ),
                       trailing: Container(
                         padding: const EdgeInsets.all(7),
@@ -403,16 +374,13 @@ class _TabBookingsState extends State<TabBookings> {
                                   : success.withOpacity(0.2),
                         ),
                         child: Text(
-                          GetStringUtils(details.schedule?.shiftStatus)
-                                  ?.capitalize ??
-                              '',
+                          GetStringUtils(details.schedule?.shiftStatus)?.capitalize ?? '',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: details.schedule?.shiftStatus == 'pending'.tr
                                 ? error
-                                : details.schedule?.shiftStatus ==
-                                        'completed'.tr
+                                : details.schedule?.shiftStatus == 'completed'.tr
                                     ? completed
                                     : success,
                           ),
@@ -453,12 +421,8 @@ class _TabBookingsState extends State<TabBookings> {
                           ),
                         ),
                         Text(
-                          _dateFormat.format(
-                              details.schedule?.startTime ?? DateTime.now()),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                              fontSize: 12),
+                          _dateFormat.format(details.schedule?.startTime ?? DateTime.now()),
+                          style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.black, fontSize: 12),
                         ),
                       ],
                     ),
@@ -496,10 +460,7 @@ class _TabBookingsState extends State<TabBookings> {
                         ),
                         Text(
                           ' ${details.totalHours.toString()}H',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                              fontSize: 12),
+                          style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.black, fontSize: 12),
                         ),
                       ],
                     ),
@@ -512,17 +473,14 @@ class _TabBookingsState extends State<TabBookings> {
                         getHorSpace(FetchPixels.getPixelWidth(10)),
                         Expanded(
                           child: Text(
-                            details.bod?.bodServiceLocation?.streetAddress ??
-                                'N/A',
+                            details.bod?.bodServiceLocation?.streetAddress ?? 'N/A',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12),
+                            style: const TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ),
-                        if (details.schedule!.shiftStatus == 'pending' ||
-                            details.schedule!.shiftStatus == 'completed') ...[
+                        if (details.schedule!.shiftStatus == 'pending' || details.schedule!.shiftStatus == 'completed') ...[
                           getHorSpace(FetchPixels.getPixelWidth(30)),
                           InkWell(
                             onTap: () {
@@ -535,8 +493,7 @@ class _TabBookingsState extends State<TabBookings> {
                                     ),
                                   ),
                                 );
-                              } else if (details.schedule!.shiftStatus ==
-                                  'completed') {
+                              } else if (details.schedule!.shiftStatus == 'completed') {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

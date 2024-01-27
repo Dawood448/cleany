@@ -322,58 +322,58 @@ class ApiRequests {
     return notification;
   }
 
-  Future patchProfileDetailsApi({
-    required String email,
+  Future<String> patchProfileDetailsApi({
     required String firstName,
     required String lastName,
     required String phone,
     required String address,
     required String city,
     required String zip,
-    required String ssn,
     required String state,
-    String? status,
     required String gender,
     required String language,
     required String timezone,
     required String location,
     required String country,
-    required String profile,
   }) async {
     var token = await Authentication.token();
 
-    var responseStatus;
-    // try {
-    String url = 'https://dev.bookcleany.com/mobile_side/cleaner/profile/';
-    final response = await http.patch(Uri.parse(url), headers: {
-      'accept': 'application/json',
-      'Authorization': 'Token $token',
-      // 'X-CSRFToken': 'LgZ9UELbb4wg8dQJkJeCSHXBEU30Id6ctfeV1ko4qzBhhsyxWD77znCeIX1ucXY0',
-      //'accept': 'application/json',
-    }, body: {
-      'gender': gender,
-      'language': language,
-      'first_name': firstName,
-      'last_name': lastName,
-      'time_zone': timezone,
-      'email': email,
-      'phone_number': ssn,
-      'address': address,
-      'city': city,
-      'state': state,
-      'zip_code': zip,
-      'country': country,
-      'profile_picture': profile,
-      'location': location,
-    });
+    try {
+      String url = 'https://dev.bookcleany.com/user_module/update_profile';
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          'gender': gender,
+          'language': language,
+          'first_name': firstName,
+          'last_name': lastName,
+          'time_zone': timezone,
+          'phone_number': phone,
+          'address': address,
+          'city': city,
+          'state': state,
+          'zip_code': zip,
+          'country': country,
+          'location': location,
+        },
+      );
 
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-
-      responseStatus = response.statusCode.toString();
+      if (response.statusCode == 200) {
+        final responseData = json.decode(response.body);
+        // Process responseData if needed
+        return response.statusCode.toString();
+      } else {
+        // Handle non-200 response status
+        return 'Error: ${response.statusCode}';
+      }
+    } catch (e) {
+      // Handle other errors (network issues, timeouts, etc.)
+      return 'Error: $e';
     }
-
-    return responseStatus;
   }
 
   Future updateProfilePicture(profilePicture) async {

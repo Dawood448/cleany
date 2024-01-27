@@ -47,9 +47,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   RxString gender = ''.obs;
   final city = ''.obs;
   final area = ''.obs;
+
   Future<Map<String, dynamic>> fetchWeatherData() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     const key = "0508cd206769e314e7eafb6b14500187";
     final response = await http.get(
       Uri.parse('https://api.openweathermap.org/data/2.5/weather?lon=${position.longitude}&lat=${position.latitude}&appid=0508cd206769e314e7eafb6b14500187&lang=en&units=standard'),
@@ -60,6 +60,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       throw Exception('Failed to load weather data');
     }
+  }
+
+  double celsiusToFahrenheit(double celsius) {
+    return celsius * 9 / 5 + 32;
+  }
+
+  double kelvinToCelsius(double kelvin) {
+    return kelvin - 273.15;
   }
 
   List<TipsData> tipsList = [];
@@ -144,14 +152,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return const Text('');
               } else {
                 final temperature = snapshot.data!['main']['temp'];
-                final temperatureFahrenheit = (temperature * 9 / 5) + 32;
+                double tempCelsius = kelvinToCelsius(temperature);
+                double tempFahrenheit = celsiusToFahrenheit(tempCelsius);
                 final description = snapshot.data!['weather'][0]['description'];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Text(
-                        '${temperatureFahrenheit.toStringAsFixed(2)}°F',
+                        '${tempFahrenheit.toStringAsFixed(2)}°F',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

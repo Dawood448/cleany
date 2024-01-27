@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/providers/cleaner_details_provider.dart';
 import 'package:cleany/variables/app_routes.dart';
@@ -42,17 +41,13 @@ class _EditScreenState extends State<EditScreen> {
   bool isLocationEnabled = true;
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
-String baseUrl = "https://dev.bookcleany.com";
-  // String? dropDownValue;
+  String baseUrl = 'https://dev.bookcleany.com';
 
-  // List of items in our dropdown menu
   var items = [
     'Active',
     'Inactive',
   ];
   bool showShadow = true;
-
-  // ignore: unused_field
   static String? dropdownValue;
 
   navigate() {
@@ -64,9 +59,6 @@ String baseUrl = "https://dev.bookcleany.com";
   }
 
   updateProfile() async {
-    //final profileUpdate  = Provider.of<CleanerDetailsUpdateProvider>(context);
-    // if (formKey.currentState!.validate()) {
-    //final scaffold = Scaffold.of(context);
     final email = emailEditingController.text;
     final firstName = firstEditingController.text;
     final lastName = lastEditingController.text;
@@ -76,27 +68,88 @@ String baseUrl = "https://dev.bookcleany.com";
     final phone = contactEditingController.text;
     final state = stateEditingController.text;
     final ssn = phoneEditingController.text;
-    final gender = selectedGender;
-    final language = selectedLang;
+    final gender = genController.text;
+    final language = lanController.text;
     final timezone = locationController.text;
     final country = countryController.text;
     final profile = profileController.text;
     final status = statusController.text;
-    // final status = dropDownValue.toString();
-    print("---------------------object ${email}, ${firstName}, ${lastName}, ${phone}, ${address}, ${city}, ${zipcode}, ${ssn}, ${state}");
 
-    // var responseVal = await ApiRequests().patchProfileDetailsApi(email: email, firstName: firstName, lastName: lastName, phone: phone, address: address, city: city, zip: zipcode, ssn: ssn, state: state, gender: gender!, language: language!, timezone: timezone, location: isLocationEnabled.toString(), country: country, status: status, profile: profile);
-    var responseVal2 = await ApiRequests().updateProfilePicture(_imageFile);
+    try {
+      var responseVal = await ApiRequests().patchProfileDetailsApi(
+        firstName: firstName,
+        lastName: lastName,
+        phone: ssn,
+        address: address,
+        city: city,
+        zip: zipcode,
+        state: state,
+        gender: gender,
+        language: language,
+        timezone: timezone,
+        location: isLocationEnabled.toString(),
+        country: country,
+      );
 
-    debugPrint(responseVal2.toString());
-    // responseVal == '200' ? navigate() : debugPrint('NO');
-    //ApiRequests().getProfileDetails();
-    // }
+      var responseVal2 = await ApiRequests().updateProfilePicture(_imageFile);
+
+      if (responseVal == '200') {
+        setState(() {
+          isLoading = false;
+        });
+
+        navigate();
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        // Show error in alert
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: Text('Failed to update profile. Error: $responseVal'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the alert
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+      debugPrint(responseVal2.toString());
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      // Show error in alert
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text('An unexpected error occurred: $e'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the alert
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
   void initState() {
-    //setInitalData();
     CleanerDetailsProvider cleanerProfile = Provider.of<CleanerDetailsProvider>(context, listen: false);
     cleanerProfile.getDetails(context);
     setInitalData(cleanerProfile);
@@ -117,12 +170,17 @@ String baseUrl = "https://dev.bookcleany.com";
       countryController.text = cleanerProfile.details[i].profile.country;
       profileController.text = cleanerProfile.details[i].profile.profilePicture;
       statusController.text = cleanerProfile.details[i].profile.status;
+      genController.text = cleanerProfile.details[i].profile.gender;
+      lanController.text = cleanerProfile.details[i].profile.language;
+
       setState(() {});
       // dropDownValue ??= cleanerProfile.details[i].profile.status.toString();
     }
   }
 
   String? selectedGender;
+  TextEditingController lanController = TextEditingController();
+  TextEditingController genController = TextEditingController();
 
   List<String> genderOptions = ['Male', 'Female', 'Other'];
   String? selectedLang;
@@ -141,35 +199,32 @@ String baseUrl = "https://dev.bookcleany.com";
   @override
   Widget build(BuildContext context) {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
-    // setInitalData(cleanerProfile);
-
     FetchPixels(context);
     Widget defVerSpaceSet = getVerSpace(FetchPixels.getPixelHeight(20));
-
-    // return _profile();
-
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: true,
       backgroundColor: backGroundColor,
       bottomNavigationBar: saveButton(context),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            defVerSpaceSet,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
-              child: buildHeader(context),
-            ),
-            getVerSpace(FetchPixels.getPixelHeight(10)),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
-              child: profilePicture(context),
-            ),
-            buildExpandList(context, defVerSpaceSet),
-          ],
-        ),
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  defVerSpaceSet,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+                    child: buildHeader(context),
+                  ),
+                  getVerSpace(FetchPixels.getPixelHeight(10)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+                    child: profilePicture(context),
+                  ),
+                  buildExpandList(context, defVerSpaceSet),
+                ],
+              ),
       ),
     );
   }
@@ -235,7 +290,7 @@ String baseUrl = "https://dev.bookcleany.com";
                     borderRadius: BorderRadius.circular(5),
                     elevation: 15,
                     isExpanded: true,
-                    value: selectedGender,
+                    value: genController.text,
                     dropdownColor: Colors.white,
                     hint: Text(
                       'Select Gender',
@@ -243,7 +298,7 @@ String baseUrl = "https://dev.bookcleany.com";
                     ),
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedGender = newValue;
+                        genController.text = newValue!;
                       });
                     },
                     items: genderOptions.map<DropdownMenuItem<String>>((String value) {
@@ -275,14 +330,14 @@ String baseUrl = "https://dev.bookcleany.com";
                     dropdownColor: Colors.white,
                     borderRadius: BorderRadius.circular(5),
                     isExpanded: true,
-                    value: selectedLang,
+                    value: lanController.text,
                     hint: Text(
                       'Select Language',
                       style: TextStyle(color: textColor, fontWeight: FontWeight.w400, fontSize: 16),
                     ),
                     onChanged: (String? newValue) {
                       setState(() {
-                        selectedLang = newValue;
+                        lanController.text = newValue!;
                       });
                     },
                     items: languageOptions.map<DropdownMenuItem<String>>((String value) {
@@ -345,6 +400,9 @@ String baseUrl = "https://dev.bookcleany.com";
       color: backGroundColor,
       padding: EdgeInsets.only(left: FetchPixels.getPixelWidth(20), right: FetchPixels.getPixelWidth(20), bottom: FetchPixels.getPixelHeight(30)),
       child: getButton(context, blueColor, 'Save'.tr, Colors.white, () async {
+        setState(() {
+          isLoading = true;
+        });
         await updateProfile();
       }, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
     );
@@ -353,106 +411,98 @@ String baseUrl = "https://dev.bookcleany.com";
   Align profilePicture(BuildContext context) {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
     return Align(
-      alignment: Alignment.topCenter,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
+        alignment: Alignment.topCenter,
+        child: Stack(alignment: Alignment.center, children: <Widget>[
           InkWell(
             onTap: () async {
-              Map<Permission, PermissionStatus> statuses =
-              await [
+              Map<Permission, PermissionStatus> statuses = await [
                 Permission.camera,
               ].request();
 
-              if (statuses[Permission.camera]!
-                  .isGranted) {
-                SchedulerBinding.instance.addPostFrameCallback((_) {
-                });
-                showDialog(context: context, builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Center(child: Text('Select Image')),
-                    content: SingleChildScrollView(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          GestureDetector(
-                            child: Icon(Icons.image, color: Colors.blue,size: 40.0,),
-                            onTap: () {
-                              _pickImage(ImageSource.gallery);
-                              Navigator.of(context).pop();
-                            },
+              if (statuses[Permission.camera]!.isGranted) {
+                SchedulerBinding.instance.addPostFrameCallback((_) {});
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Center(child: Text('Select Image')),
+                        content: SingleChildScrollView(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: const Icon(
+                                  Icons.image,
+                                  color: Colors.blue,
+                                  size: 40.0,
+                                ),
+                                onTap: () {
+                                  _pickImage(ImageSource.gallery);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                              ),
+                              GestureDetector(
+                                child: const Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.blue,
+                                  size: 40.0,
+                                ),
+                                onTap: () {
+                                  _pickImage(ImageSource.camera);
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                          ),
-                          GestureDetector(
-                            child: Icon(Icons.camera_alt, color: Colors.blue,size: 40.0,),
-                            onTap: () {
-                              _pickImage(ImageSource.camera);
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-
-                }
-                );}
-              else {
+                        ),
+                      );
+                    });
+              } else {
                 print('No permission provided');
-                if (statuses[Permission.camera]!
-                    .isDenied ||
-                    statuses[Permission.camera]!
-                        .isPermanentlyDenied) {
+                if (statuses[Permission.camera]!.isDenied || statuses[Permission.camera]!.isPermanentlyDenied) {
                   // Handle camera permission denied or permanently denied
                   print('Camera permission denied');
                 }
               }
             },
-            child: cleanerProfile.details.isNotEmpty &&
-                cleanerProfile.details.first.profile.profilePicture != ''&&
-                _imageFile == null?
-            CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(baseUrl + cleanerProfile.details.first.profile.profilePicture),
-            ): _imageFile != null ?
-            CircleAvatar(backgroundImage: FileImage(File(_imageFile!.path)),):
-            SizedBox(
-              height: FetchPixels.getPixelHeight(200),
-              width: FetchPixels.getPixelHeight(200),
-              child: Lottie.asset('assets/images/male.json')
-            ),
+            child: cleanerProfile.details.isNotEmpty && cleanerProfile.details.first.profile.profilePicture != '' && _imageFile == null
+                ? CircleAvatar(
+                    radius: 60,
+                    backgroundImage: NetworkImage(baseUrl + cleanerProfile.details.first.profile.profilePicture),
+                  )
+                : _imageFile != null
+                    ? CircleAvatar(
+                        backgroundImage: FileImage(File(_imageFile!.path)),
+                      )
+                    : SizedBox(height: FetchPixels.getPixelHeight(200), width: FetchPixels.getPixelHeight(200), child: Lottie.asset('assets/images/male.json')),
           ),
-              // : const AssetImage(ImageAssets.lady),
-            ]
-      )
-          );
+          // : const AssetImage(ImageAssets.lady),
+        ]));
   }
 
   Widget _profile() {
     final cleanerProfile = Provider.of<CleanerDetailsProvider>(context);
-    //setInitialData(_cleanerProfile);
     return Scaffold(
-      // backgroundColor: Colors.transparent,
       appBar: AppBar(
-        // backgroundColor: AppColors.AppThemeColor,
         flexibleSpace: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.centerRight,
-          stops: [0.1, 0.4, 0.6, 0.9],
-          colors: [
-            Color.fromARGB(255, 68, 73, 221),
-            Color.fromARGB(255, 55, 152, 212),
-            Color.fromARGB(255, 75, 124, 197),
-            Color.fromARGB(255, 177, 190, 238),
-          ],
-        ))),
-
-        // foregroundColor: Colors.w,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.centerRight,
+              stops: [0.1, 0.4, 0.6, 0.9],
+              colors: [
+                Color.fromARGB(255, 68, 73, 221),
+                Color.fromARGB(255, 55, 152, 212),
+                Color.fromARGB(255, 75, 124, 197),
+                Color.fromARGB(255, 177, 190, 238),
+              ],
+            ),
+          ),
+        ),
         title: const Text('Edit Profile'),
         actions: [
           Container(
