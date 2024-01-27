@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import 'apis/request_apis.dart';
 import 'base/resizer/fetch_pixels.dart';
 import 'base/widget_utils.dart';
@@ -27,7 +26,13 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   late Future<AnalyticsModel> analyticsModelFuture;
   bool isEnable = false;
+  double celsiusToFahrenheit(double celsius) {
+    return celsius * 9 / 5 + 32;
+  }
 
+  double kelvinToCelsius(double kelvin) {
+    return kelvin - 273.15;
+    }
   Future<AnalyticsModel> fetchData() async {
     try {
       final id = await userId();
@@ -83,7 +88,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() {});
     final id = await userId();
     tipsList = await ApiRequests().getTipsList(int.parse(id));
-    // setState(() {});
+    setState(() {});
   }
 
   @override
