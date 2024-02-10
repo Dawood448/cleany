@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:cleany/apis/request_apis.dart';
 import 'package:cleany/constants/stat_variables.dart';
 import 'package:cleany/models/booking_details_model.dart';
@@ -12,7 +13,9 @@ import '../../base/color_data.dart';
 import '../../base/constant.dart';
 import '../../base/resizer/fetch_pixels.dart';
 import '../../base/widget_utils.dart';
+import '../../models/notes_model.dart';
 import '../chats/chats_screen.dart';
+import 'package:http/http.dart ' as http;
 
 class BookingDetailsScreen extends StatefulWidget {
   BookingDetailsScreen({Key? key, this.booking, this.servicesIndex, this.extraIndex, required this.index, required this.shiftStarted}) : super(key: key);
@@ -48,9 +51,16 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     await launchUrl(launchUri);
   }
 
+  // List<NotesModel>? notes;
+  //
+  // Future<void> Notes() async {
+  //   notes = await ApiRequests().fetchNotes(widget.booking!.data![widget.index].id);
+  // }
+
   @override
   void initState() {
     super.initState();
+    // Notes();
     isShiftStarted = (widget.booking!.data![widget.index].dispatchId == null ? false : widget.booking!.data![widget.index].dispatchId!.shiftStarted)!;
     isShiftEnded = widget.booking!.data![widget.index].dispatchId == null ? false : widget.booking!.data![widget.index].dispatchId!.shiftEnded!;
   }
@@ -77,20 +87,13 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     FetchPixels(context);
-    // return _bookingDetails();
-    return WillPopScope(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: backGroundColor,
-        bottomNavigationBar: buttons(),
-        body: SafeArea(
-          child: buildBookingDetail(),
-        ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: backGroundColor,
+      bottomNavigationBar: buttons(),
+      body: SafeArea(
+        child: buildBookingDetail(),
       ),
-      onWillPop: () async {
-        Constant.backToPrev(context);
-        return false;
-      },
     );
   }
 
@@ -164,7 +167,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               details(),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -214,7 +217,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             onTap: () {
               _makePhoneCall(widget.booking!.data![widget.index].bod!.bodContactInfo!.phone!);
             },
-            child: widget.booking!.data![widget.index].dispatch!.shiftStatus == 'pending' ? _infoItem('call.svg', 'Phone Number'.tr, widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ?? 'N/A') : SizedBox(),
+            child: widget.booking!.data![widget.index].dispatch!.shiftStatus == 'pending' ? _infoItem('call.svg', 'Phone Number'.tr, widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ?? 'N/A') : const SizedBox(),
           ),
           // getVerSpace(FetchPixels.getPixelHeight(8)),
           // _infoItem(
@@ -354,6 +357,47 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 ],
               ),
             ),
+          getHorSpace(FetchPixels.getPixelWidth(5)),
+          getCustomFont('Notes', 18, Colors.black, 1, fontWeight: FontWeight.w900),
+          FutureBuilder<List<NotesModel>>(
+            future: ApiRequests().fetchNotes(widget.booking!.data![widget.index].id),
+            builder: (BuildContext context, AsyncSnapshot<List<NotesModel>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                List<NotesModel> notes = snapshot.data!;
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: notes.length,
+                  itemBuilder: (context, index) {
+                    NotesModel note = notes[index];
+                    return ListTile(
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Booking Notes: ${note.bookingNotes}',
+                            style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'Recurrence Notes: ${note.recurrenceNotes}',
+                            style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            'Operations Notes: ${note.operationsNotes}',
+                            style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                          ),
+                          // Add more fields as needed
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+          )
         ],
       ),
     );
@@ -553,7 +597,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 () async {
                   if (canUpload) {
                     setState(() {
-                      debugPrint(widget.booking!.data![widget.index].schedule!.id.toString());
                       ApiRequests().startShift(widget.booking!.data![widget.index].schedule!.id.toString(), _isChecked[0].toString(), workMoodTextController.text);
                       stateShiftStarted();
                     });
@@ -679,7 +722,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   }
 
   launchNativeMap() async {
-    print('Long');
     debugPrint(widget.booking!.data![widget.index].longitude.toString());
     debugPrint('Lat');
     debugPrint("-------${widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude}${widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude}");

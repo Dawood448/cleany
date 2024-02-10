@@ -20,6 +20,7 @@ import 'package:web_socket_channel/io.dart';
 
 import '../models/analytics.dart';
 import '../models/cleany_tips_model.dart';
+import '../models/notes_model.dart';
 import '../models/review_model.dart';
 
 class ApiRequests {
@@ -541,6 +542,17 @@ class ApiRequests {
       // If the server did not return a 200 OK response,
       // throw an exception.
       throw Exception('Failed to load data');
+    }
+  }
+
+  Future<List<NotesModel>> fetchNotes(bookingId) async {
+    final response = await http.get(Uri.parse('https://dev.bookcleany.com/service_provider/notes/booking/$bookingId/'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> notesJson = jsonDecode(response.body);
+      return notesJson.map((json) => NotesModel.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load notes');
     }
   }
 }
