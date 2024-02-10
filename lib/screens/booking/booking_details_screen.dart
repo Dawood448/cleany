@@ -51,10 +51,8 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    isShiftStarted = (widget.booking!.data![widget.index].dispatchId == null ? false :
-        widget.booking!.data![widget.index].dispatchId!.shiftStarted)! ;
-    isShiftEnded = widget.booking!.data![widget.index].dispatchId == null ? false :
-        widget.booking!.data![widget.index].dispatchId!.shiftEnded!;
+    isShiftStarted = (widget.booking!.data![widget.index].dispatchId == null ? false : widget.booking!.data![widget.index].dispatchId!.shiftStarted)!;
+    isShiftEnded = widget.booking!.data![widget.index].dispatchId == null ? false : widget.booking!.data![widget.index].dispatchId!.shiftEnded!;
   }
 
   bool isAndroid = true;
@@ -216,7 +214,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             onTap: () {
               _makePhoneCall(widget.booking!.data![widget.index].bod!.bodContactInfo!.phone!);
             },
-            child: _infoItem('call.svg', 'Phone Number'.tr, widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ?? 'N/A'),
+            child: widget.booking!.data![widget.index].dispatch!.shiftStatus == 'pending' ? _infoItem('call.svg', 'Phone Number'.tr, widget.booking!.data![widget.index].bod!.bodContactInfo!.phone ?? 'N/A') : SizedBox(),
           ),
           // getVerSpace(FetchPixels.getPixelHeight(8)),
           // _infoItem(
@@ -225,7 +223,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           //     widget.booking!.data![widget.index].bod!.bodContactInfo!.email ??
           //         'N/A'),
           getVerSpace(FetchPixels.getPixelHeight(8)),
-          _infoItem('user.svg', 'User Name'.tr, widget.booking!.data![widget.index].bod!.bodContactInfo!.firstName ?? 'N/A'),
+          _infoItem('user.svg', 'User Name'.tr, (widget.booking!.data![widget.index].bod?.bodContactInfo?.firstName ?? '') + ("") + (widget.booking!.data![widget.index].bod?.bodContactInfo?.lastName ?? 'N/A')),
         ],
       ),
     );
@@ -408,22 +406,19 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             child: getButton(context, backGroundColor, 'Directions'.tr, blueColor, () async {
               // TODO: launch google maps
 
-              if ( widget.booking!.data![widget.index].dispatchId == null) {
+              if (widget.booking!.data![widget.index].dispatchId == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Location Not Found'.tr),
                   ),
                 );
-              }
-              else if (widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude == null && widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude == null) {
+              } else if (widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.longitude == null && widget.booking!.data![widget.index].dispatchId!.serviceProvider!.userProfile!.latitude == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Location Not Found'.tr),
                   ),
                 );
-              }
-
-              else {
+              } else {
                 await launchNativeMap();
               }
             }, 18, weight: FontWeight.w600, buttonHeight: FetchPixels.getPixelHeight(60), borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14)), borderColor: blueColor, isBorder: true, borderWidth: 1.5, isIcon: true, image: 'location.svg'),

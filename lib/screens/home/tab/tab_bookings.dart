@@ -303,6 +303,13 @@ class _TabBookingsState extends State<TabBookings> {
   }
 
   Widget buildBookingItem(BookingDetailsData? details) {
+    DateTime? appointmentDate = details!.appointmentDateTime;
+    String formattedDate = _dateFormat.format(appointmentDate!);
+    String dayOfWeek = DateFormat.E().format(appointmentDate);
+    DateTime startDate = details.schedule!.startTime!;
+    String formattedDateStart = _dateFormat.format(startDate);
+    String dayOfWeekStart = DateFormat.E().format(startDate);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -313,7 +320,7 @@ class _TabBookingsState extends State<TabBookings> {
           child: Padding(
             padding: const EdgeInsets.only(left: 8.0, top: 10.0),
             child: Text(
-              DateFormat('dd MMMM, yyyy').format(details!.appointmentDateTime!),
+              '$formattedDate ($dayOfWeek)',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
           ),
@@ -356,7 +363,7 @@ class _TabBookingsState extends State<TabBookings> {
                         ),
                       ),
                       title: Text(
-                        '${details.bod?.bodContactInfo?.firstName ?? ''}\'s Place',
+                        '${details.bod?.bodContactInfo?.firstName ?? ''} ${details.bod?.bodContactInfo?.lastName ?? ''}',
                         style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w900),
                       ),
                       subtitle: Text(
@@ -364,23 +371,23 @@ class _TabBookingsState extends State<TabBookings> {
                         style: const TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.w900),
                       ),
                       trailing: Container(
-                        padding: const EdgeInsets.all(7),
+                        padding: const EdgeInsets.all(5),
                         decoration: ShapeDecoration(
                           shape: const StadiumBorder(),
-                          color: details.schedule?.shiftStatus == 'pending'
+                          color: details.dispatch!.shiftStatus == 'pending'
                               ? error.withOpacity(0.2)
-                              : details.schedule?.shiftStatus == 'completed'
+                              : details.dispatch!.shiftStatus == 'completed'
                                   ? completed.withOpacity(0.2)
                                   : success.withOpacity(0.2),
                         ),
                         child: Text(
-                          GetStringUtils(details.schedule?.shiftStatus)?.capitalize ?? '',
+                          GetStringUtils(details.dispatch!.shiftStatus)?.capitalize ?? '',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: details.schedule?.shiftStatus == 'pending'.tr
+                            color: details.dispatch!.shiftStatus == 'pending'.tr
                                 ? error
-                                : details.schedule?.shiftStatus == 'completed'.tr
+                                : details.dispatch!.shiftStatus == 'completed'.tr
                                     ? completed
                                     : success,
                           ),
@@ -421,7 +428,7 @@ class _TabBookingsState extends State<TabBookings> {
                           ),
                         ),
                         Text(
-                          _dateFormat.format(details.schedule?.startTime ?? DateTime.now()),
+                          '$formattedDateStart ($dayOfWeekStart)',
                           style: const TextStyle(fontWeight: FontWeight.w900, color: Colors.black, fontSize: 12),
                         ),
                       ],
@@ -480,11 +487,11 @@ class _TabBookingsState extends State<TabBookings> {
                             style: const TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ),
-                        if (details.schedule!.shiftStatus == 'pending' || details.schedule!.shiftStatus == 'completed') ...[
+                        if (details.dispatch!.shiftStatus == 'pending' || details.dispatch!.shiftStatus == 'completed') ...[
                           getHorSpace(FetchPixels.getPixelWidth(30)),
                           InkWell(
                             onTap: () {
-                              if (details.schedule!.shiftStatus == 'pending') {
+                              if (details.dispatch!.shiftStatus == 'pending') {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -493,7 +500,7 @@ class _TabBookingsState extends State<TabBookings> {
                                     ),
                                   ),
                                 );
-                              } else if (details.schedule!.shiftStatus == 'completed') {
+                              } else if (details.dispatch!.shiftStatus == 'completed') {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
